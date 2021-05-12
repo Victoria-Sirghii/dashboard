@@ -1,9 +1,19 @@
-import Form from "components/LoginPage/Form"
-
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { LoginForm, RegisterForm } from "components";
+import "styles/index.scss";
 
 function App() {
   return (
-    <Form />
+    <Router>
+      <Switch>
+        <Route path="/register">
+          <RegisterForm />
+        </Route>
+        <Route path="/">
+          <LoginForm />
+        </Route>
+      </Switch>
+    </Router>
   );
 }
 
