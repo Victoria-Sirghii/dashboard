@@ -2,6 +2,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: "Fira Sans", sans-serif;
 }
 
 $white: #fff;
@@ -14,7 +15,7 @@ $blue: #109cf1;
 $radius: 8px;
 
 .container {
-  background-image: linear-gradient(to right, $green, $yellow);
+  background-image: linear-gradient(to top right, $green, $yellow);
   position: fixed;
   top: 0;
   left: 0;
@@ -39,7 +40,7 @@ $radius: 8px;
 
 .title {
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
   color: $dark-blue;
 }
 
@@ -49,18 +50,17 @@ $radius: 8px;
   font-size: 16px;
   border-radius: 8px;
   outline: 0;
-  border: 0px solid $gray;
+  border: 1px solid transparent;
   background-color: $light-gray;
 }
 
 .form__field:focus {
-  border: 1px solid $gray;
+  border-color: $gray;
   background-color: $white;
   box-shadow: 0 0 5pt 2pt #e9e9e9;
 }
 .form__field::placeholder {
   font-size: 14px;
-  padding: 10px;
   font-style: italic;
 }
 
@@ -89,4 +89,12 @@ $radius: 8px;
 
 .center {
   text-align: center;
+}
+
+input[type="radio"] {
+  margin: 10px 5px 10px 0px;
+}
+
+label {
+  color: $dark-blue;
 }
