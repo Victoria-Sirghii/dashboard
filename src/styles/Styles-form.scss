@@ -5,84 +5,88 @@
 }
 
 $white: #fff;
-$green: #50756a;
-$gray: rgb(239, 239, 239);
+$green: #2ed47a;
+$gray: rgb(180, 178, 178);
+$light-gray: rgb(243, 243, 243);
+$yellow: #ffb946;
+$dark-blue: #334d6e;
+$blue: #109cf1;
+$radius: 8px;
 
-body {
-  font-family: "Poppins", sans-serif;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  font-size: 1.5rem;
-  background-color: #a3b1b3;
-}
-
-.title {
-  text-align: center;
-  padding: 50px 0 10px 0;
-  color: $gray;
-}
-
-.form__group {
-  position: relative;
-  margin-top: 10px;
-  width: 100%;
-}
-
-.form__field {
-  font-family: inherit;
-  width: 100%;
-  border: 0;
-  border-bottom: 2px solid $green;
-  outline: 0;
-  font-size: 1.3rem;
-  color: $white;
-  padding: 7px 0;
-  background: transparent;
-  transition: border-color 0.2s;
-
-  &::placeholder {
-    color: transparent;
-  }
-
-  &:placeholder-shown ~ .form__label {
-    font-size: 1.3rem;
-    cursor: text;
-    top: 20px;
-  }
-}
-
-.form__label {
+.container {
+  background-image: linear-gradient(to right, $green, $yellow);
+  position: fixed;
   top: 0;
-  display: block;
-  transition: 0.2s;
-  font-size: 1rem;
-  color: $green;
-  margin-bottom: 10px;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  overflow: auto;
 }
 
-.btn {
-  border: none;
-  border-radius: 4px;
-  padding: 10px 40px;
-  text-align: center;
-  font-size: 16px;
-  cursor: pointer;
-  margin: 20px;
-  align-self: center;
+.box {
+  background-color: $white;
+  width: 400px;
+  padding: 30px;
+  border-radius: 13px;
   margin: auto;
-  display: block;
-  color: $green;
-}
-
-.btn:hover {
-  background-color: $green;
-  color: $white;
+  margin-top: 40px;
 }
 
 .flex {
   display: flex;
-  align-content: center;
-  justify-content: center;
+  flex-direction: column;
+}
+
+.title {
+  text-align: center;
+  margin-bottom: 20px;
+  color: $dark-blue;
+}
+
+.form__field {
+  margin: 10px 0;
+  padding: 8px;
+  font-size: 16px;
+  border-radius: 8px;
+  outline: 0;
+  border: 0px solid $gray;
+  background-color: $light-gray;
+}
+
+.form__field:focus {
+  border: 1px solid $gray;
+  background-color: $white;
+  box-shadow: 0 0 5pt 2pt #e9e9e9;
+}
+.form__field::placeholder {
+  font-size: 14px;
+  padding: 10px;
+  font-style: italic;
+}
+
+.btn {
+  padding: 10px;
+  margin: 35px 0;
+  border-radius: $radius;
+  border: 0;
+  background-color: $blue;
+  color: $white;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+}
+
+.btn:hover {
+  background-color: $dark-blue;
+}
+
+.link {
+  text-decoration: none;
+  color: $blue;
+}
+.link:hover {
+  color: $dark-blue;
+}
+
+.center {
+  text-align: center;
 }
