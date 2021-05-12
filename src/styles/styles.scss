@@ -12,7 +12,8 @@ $light-gray: rgb(243, 243, 243);
 $yellow: #ffb946;
 $dark-blue: #334d6e;
 $blue: #109cf1;
-$radius: 8px;
+$border-radius: 8px;
+$border-color: $gray;
 
 .container {
   background-image: linear-gradient(to top right, $green, $yellow);
@@ -33,12 +34,13 @@ $radius: 8px;
   margin-top: 40px;
 }
 
-.flex {
+.d-flex {
   display: flex;
+}
+.flex-column {
   flex-direction: column;
 }
-
-.title {
+.h2-title {
   text-align: center;
   margin-bottom: 30px;
   color: $dark-blue;
@@ -48,17 +50,18 @@ $radius: 8px;
   margin: 10px 0;
   padding: 8px;
   font-size: 16px;
-  border-radius: 8px;
+  border-radius: $border-radius;
   outline: 0;
   border: 1px solid transparent;
   background-color: $light-gray;
 }
 
 .form__field:focus {
-  border-color: $gray;
+  border-color: $border-color;
   background-color: $white;
-  box-shadow: 0 0 5pt 2pt #e9e9e9;
+  box-shadow: 0 0 5px 2px #e9e9e9;
 }
+
 .form__field::placeholder {
   font-size: 14px;
   font-style: italic;
@@ -67,16 +70,16 @@ $radius: 8px;
 .btn {
   padding: 10px;
   margin: 35px 0;
-  border-radius: $radius;
+  border-radius: $border-radius;
   border: 0;
   background-color: $blue;
   color: $white;
   text-transform: uppercase;
   letter-spacing: 3px;
-}
 
-.btn:hover {
-  background-color: $dark-blue;
+  &:hover {
+    background-color: $dark-blue;
+  }
 }
 
 .link {
@@ -87,7 +90,7 @@ $radius: 8px;
   color: $dark-blue;
 }
 
-.center {
+.text-center {
   text-align: center;
 }
 
@@ -95,6 +98,6 @@ input[type="radio"] {
   margin: 10px 5px 10px 0px;
 }
 
-label {
-  color: $dark-blue;
+.mb-10 {
+  margin-bottom: 10px;
 }

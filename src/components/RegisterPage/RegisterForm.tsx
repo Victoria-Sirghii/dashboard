@@ -1,27 +1,16 @@
-import "styles/styles-register.scss";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { User } from "utils/types";
-import useLocalStorage from "hooks/useLocalStorage";
+import { useLocalStorage } from "hooks";
 
-const defaultValues = {
-  firstName: "",
-  lastName: "",
-  gender: "",
-  birthday: "",
-  email: "",
-  password: "",
-  confirmation: "",
-};
-
-const RegisterForm: React.FC = () => {
-  const [values, setValues] = useState<User>(defaultValues);
-  const [storage, setStorage] = useLocalStorage();
+export const RegisterForm: React.FC = () => {
+  const [values, setValues] = useState<Partial<User>>({});
+  const [, setStorage] = useLocalStorage();
 
   const submitHandler = (e: React.SyntheticEvent) => {
     e.preventDefault();
     setStorage("values", values);
-    setValues(defaultValues);
+    setValues({});
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -30,9 +19,9 @@ const RegisterForm: React.FC = () => {
 
   return (
     <div className="container">
-      <div className="box flex">
-        <h2 className="title">Registration Form</h2>
-        <form className="form__group field flex" onSubmit={submitHandler}>
+      <div className="box d-flex flex-column">
+        <h2 className="h2-title">Registration Form</h2>
+        <form className="form d-flex flex-column" onSubmit={submitHandler}>
           <label htmlFor="firstName" className="label">
             First Name
           </label>
@@ -42,7 +31,7 @@ const RegisterForm: React.FC = () => {
             placeholder="John"
             name="firstName"
             id="firstName"
-            value={values.firstName}
+            value={values?.firstName}
             onChange={handleChange}
           />
           <label htmlFor="lastName" className="label">
@@ -54,7 +43,7 @@ const RegisterForm: React.FC = () => {
             placeholder="Jackson"
             name="lastName"
             id="lastName"
-            value={values.lastName}
+            value={values?.lastName}
             onChange={handleChange}
           />
           <label className="label">Gender</label>
@@ -78,7 +67,7 @@ const RegisterForm: React.FC = () => {
             />
             <label htmlFor="female">Female</label>
           </div>
-          <div className="margin--bottom">
+          <div className="mb-10">
             <input
               type="radio"
               id="other"
@@ -97,7 +86,7 @@ const RegisterForm: React.FC = () => {
             placeholder=""
             name="birthday"
             id="birthday"
-            value={values.birthday}
+            value={values?.birthday}
             onChange={handleChange}
           />
           <label htmlFor="email" className="label">
@@ -109,7 +98,7 @@ const RegisterForm: React.FC = () => {
             placeholder="john.jackson@gmail.com"
             name="email"
             id="email"
-            value={values.email}
+            value={values?.email}
             onChange={handleChange}
             required
           />
@@ -122,7 +111,7 @@ const RegisterForm: React.FC = () => {
             placeholder="Password"
             name="password"
             id="password"
-            value={values.password}
+            value={values?.password}
             onChange={handleChange}
             required
           />
@@ -135,14 +124,14 @@ const RegisterForm: React.FC = () => {
             placeholder="Password"
             name="confirmation"
             id="confirmation"
-            value={values.confirmation}
+            value={values?.confirmation}
             onChange={handleChange}
             required
           />
           <button type="submit" className="btn">
             Submit
           </button>
-          <p className="center">
+          <p className="text-center">
             Do you already have an account?
             <Link to="/" className="link">
               {" "}
@@ -154,5 +143,3 @@ const RegisterForm: React.FC = () => {
     </div>
   );
 };
-
-export default RegisterForm;

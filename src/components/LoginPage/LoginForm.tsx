@@ -1,22 +1,16 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import useLocalStorage from "hooks/useLocalStorage";
+import { useLocalStorage } from "hooks";
 import { Login } from "utils/types";
-import "styles/styles.scss";
 
-const defaultValues = {
-  email: "",
-  password: "",
-};
-
-const Form: React.FC = () => {
-  const [values, setValues] = useState<Login>(defaultValues);
-  const [storage, setStorage] = useLocalStorage();
+export const LoginForm: React.FC = () => {
+  const [values, setValues] = useState<Partial<Login>>({});
+  const [, setStorage] = useLocalStorage();
 
   const submitHandler = (e: React.SyntheticEvent) => {
     e.preventDefault();
     setStorage("user", values);
-    setValues(defaultValues);
+    setValues({});
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -25,9 +19,9 @@ const Form: React.FC = () => {
 
   return (
     <div className="container">
-      <div className="box flex">
-        <h2 className="title">Login Form</h2>
-        <form className="form__group field flex" onSubmit={submitHandler}>
+      <div className="box d-flex flex-column">
+        <h2 className="h2-title">Login Form</h2>
+        <form className="form d-flex flex-column" onSubmit={submitHandler}>
           <input
             type="email"
             className="form__field"
@@ -48,11 +42,11 @@ const Form: React.FC = () => {
             onChange={handleChange}
             required
           />
-          <a href="" className="link center">
+          <a href="/" className="link text-center">
             Forgot Password?
           </a>
           <button className="btn">Login</button>
-          <p className="center">
+          <p className="text-center">
             Not a member?
             <Link to="/register" className="link">
               {" "}
@@ -64,5 +58,3 @@ const Form: React.FC = () => {
     </div>
   );
 };
-
-export default Form;
