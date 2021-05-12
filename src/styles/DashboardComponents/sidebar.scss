@@ -1,0 +1,32 @@
+$blue: #109cf1;
+$gray: rgb(180, 178, 178);
+
+.sidebar {
+  width: 30%;
+  box-shadow: -5px 0px 10px 1px #292828;
+}
+
+.user-image {
+  border-radius: 50%;
+  width: 70px;
+}
+
+.h1-title {
+  color: $blue;
+  box-shadow: -3px 1px 6px 0px #c7c7c7;
+  padding: 20px;
+}
+
+.user-info {
+  padding: 40px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.user-name {
+  font-weight: 500;
+}
+
+.user-email {
+  color: $gray;
+}
