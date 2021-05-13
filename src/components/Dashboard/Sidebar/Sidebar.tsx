@@ -1,5 +1,4 @@
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import { Dashboard, Users, Posts } from "components";
+import { Link } from "react-router-dom";
 import DashboardIcon from "@material-ui/icons/Dashboard";
 import PeopleIcon from "@material-ui/icons/People";
 import PostAddIcon from "@material-ui/icons/PostAdd";
@@ -19,36 +18,22 @@ export const Sidebar: React.FC = () => {
           <p className="user-email">s.ferguson@gmail.com</p>
         </div>
       </div>
-      <Router>
-        <nav className="menu">
-          <ul>
-            <li>
-              <DashboardIcon />
-              <Link to="/dashContent">Dashboard</Link>
-            </li>
-            <li>
-              <PeopleIcon />
-              <Link to="/users">Users</Link>
-            </li>
-            <li>
-              <PostAddIcon />
-              <Link to="/posts">Posts</Link>
-            </li>
-          </ul>
-        </nav>
-
-        <Switch>
-          <Route path="/dashContent">
-            <Dashboard />
-          </Route>
-          <Route path="/users">
-            <Users />
-          </Route>
-          <Route path="/posts">
-            <Posts />
-          </Route>
-        </Switch>
-      </Router>
+      <nav className="nav">
+        <ul className="menu">
+          <li className="d-flex">
+            <DashboardIcon className="icon-color" />
+            <Link to="/dashboard">Dashboard</Link>
+          </li>
+          <li className="d-flex">
+            <PeopleIcon className="icon-color" />
+            <Link to="/dashboard/users">Users</Link>
+          </li>
+          <li className="d-flex">
+            <PostAddIcon className="icon-color" />
+            <Link to="/dashboard/posts">Posts</Link>
+          </li>
+        </ul>
+      </nav>
     </div>
   );
 };

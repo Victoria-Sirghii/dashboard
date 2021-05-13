@@ -1,9 +1,10 @@
 $blue: #109cf1;
 $gray: rgb(180, 178, 178);
+$light-gray: rgb(204, 204, 204);
 
 .sidebar {
-  width: 30%;
-  box-shadow: -5px 0px 10px 1px #292828;
+  width: 330px;
+  box-shadow: -6px 1px 10px 0px #292828;
 }
 
 .user-image {
@@ -13,14 +14,16 @@ $gray: rgb(180, 178, 178);
 
 .h1-title {
   color: $blue;
-  box-shadow: -3px 1px 6px 0px #c7c7c7;
-  padding: 20px;
+  box-shadow: -3px 1px 6px -3px #c7c7c7;
+  padding: 15px 0 15px 40px;
+  font-weight: 400;
 }
 
 .user-info {
   padding: 40px;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .user-name {
@@ -29,4 +32,21 @@ $gray: rgb(180, 178, 178);
 
 .user-email {
   color: $gray;
+}
+
+.menu {
+  list-style-type: none;
+  text-decoration: none;
+  li {
+    padding: 10px 40px;
+    text-decoration: none;
+    a {
+      text-decoration: none;
+      padding-left: 15px;
+      color: black;
+    }
+  }
+}
+.icon-color {
+  color: $light-gray;
 }

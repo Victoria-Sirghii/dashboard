@@ -12,3 +12,9 @@ export interface Login {
   email: string;
   password: string;
 }
+
+export interface newUser {
+  firstName: string;
+  lastName: string;
+  email: string;
+}

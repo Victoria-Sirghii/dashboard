@@ -1,29 +1,24 @@
 .header {
-  grid-area: header;
+  grid-area: 1 / 2 / 1 / 2;
 }
 .sidebar {
-  grid-area: sidebar;
-}
-.content {
-  grid-area: content;
-}
-.footer {
-  grid-area: footer;
-}
-
-.d-grid {
-  display: grid;
-  grid-template-areas:
-    "sidebar header"
-    "sidebar content"
-    "sidebar footer";
-}
-
-.layout {
+  grid-area: 1 / 1 / span 3 / 1;
   position: fixed;
   top: 0;
   left: 0;
   bottom: 0;
   right: 0;
   overflow: auto;
+}
+.content {
+  grid-area: 2 / 2 / 2 / 2;
+}
+.footer {
+  grid-area: 3 / 2 / 3 / 2;
+}
+
+.d-grid {
+  display: grid;
+  grid-template-columns: 330px 1fr;
+  grid-auto-rows: auto 1fr auto;
 }

@@ -1,11 +1,12 @@
 import { Sidebar, Header, Footer, Content } from "components";
+
 export const DashboardContent: React.FC = () => {
   return (
-    <main className="d-grid layout">
+    <main className="d-grid">
       <Sidebar />
       <Header />
-      <Footer />
       <Content />
+      <Footer />
     </main>
   );
 };
