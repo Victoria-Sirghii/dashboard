@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import { User } from "utils/types";
 import { useLocalStorage } from "hooks";
+import { User } from "types/types";
 
 export const RegisterForm: React.FC = () => {
   const [values, setValues] = useState<Partial<User>>({});

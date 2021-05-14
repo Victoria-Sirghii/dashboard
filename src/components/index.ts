@@ -18,3 +18,7 @@ export { Posts } from "./Dashboard/Content/Links/Posts";
 
 export { SingleUser } from "./Dashboard/Content/Links/SingleUser";
 export { SinglePost } from "./Dashboard/Content/Links/SinglePost";
+
+//add post page
+export { NewPostForm } from "./Dashboard/Content/Links/NewPostForm";
+export { EditPost } from "./Dashboard/Content/Links/EditPost";
