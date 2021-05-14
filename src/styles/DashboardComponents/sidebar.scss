@@ -50,3 +50,11 @@ $light-gray: rgb(204, 204, 204);
 .icon-color {
   color: $light-gray;
 }
+
+tab active {
+  background-color: red;
+}
+
+tab {
+  background-color: blue;
+}

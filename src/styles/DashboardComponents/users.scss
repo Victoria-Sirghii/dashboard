@@ -89,3 +89,12 @@ input[type="checkbox"] {
     font-weight: 500;
   }
 }
+
+.page-btns {
+  justify-content: center;
+  margin-top: 20px;
+  .page-btn {
+    margin: 0 5px;
+    padding: 5px 10px;
+  }
+}
