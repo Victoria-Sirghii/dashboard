@@ -6,9 +6,11 @@ import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { useState } from "react";
 import { Modal } from "components";
+import { NewUser } from "types/types";
 
 export const Users: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editUser, setEditUser] = useState<Partial<NewUser> | null>(null);
   const queryClient = useQueryClient();
 
   const openModal: () => void = () => {
@@ -16,10 +18,13 @@ export const Users: React.FC = () => {
   };
 
   const closeModal: () => void = () => {
+    if (editUser) {
+      setEditUser(null);
+    }
     setIsModalOpen(false);
   };
 
-  const { data = [], isLoading } = useQuery("users", async () => {
+  const { data = [], isLoading } = useQuery(["users"], async () => {
     const { data } = await axios.get("users");
     return data.data;
   });
@@ -33,9 +38,15 @@ export const Users: React.FC = () => {
     }
   );
 
+  const editHandler = (user: any) => {
+    setEditUser(user);
+    setIsModalOpen(true);
+  };
+
   if (isLoading) {
     return <h1>Loading...</h1>;
   }
+
   return (
     <div className="content-container">
       <div className="content-header d-flex">
@@ -67,7 +78,7 @@ export const Users: React.FC = () => {
                 </td>
                 <td className="name-box">
                   <img src={avatar} alt="user" className="user-avatar" />
-                  <Link to={`/single-user/${id}`}>
+                  <Link to={`/dashboard/user/${id}`}>
                     <span className="name name-center">
                       {first_name} {last_name}
                     </span>
@@ -75,7 +86,10 @@ export const Users: React.FC = () => {
                 </td>
                 <td>{email}</td>
                 <td>
-                  <EditIcon className="pointer" />
+                  <EditIcon
+                    className="pointer"
+                    onClick={() => editHandler(user)}
+                  />
                 </td>
                 <td>
                   <DeleteIcon
@@ -87,7 +101,13 @@ export const Users: React.FC = () => {
             );
           })}
       </table>
-      <Modal isModalOpen={isModalOpen} closeModal={closeModal} />
+      {isModalOpen && (
+        <Modal
+          isModalOpen={isModalOpen}
+          closeModal={closeModal}
+          editUser={editUser}
+        />
+      )}
     </div>
   );
 };

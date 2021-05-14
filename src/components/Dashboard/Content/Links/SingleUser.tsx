@@ -21,7 +21,7 @@ export const SingleUser: React.FC = () => {
   const { email, first_name, last_name, avatar } = data;
 
   return (
-    <div className="user-container">
+    <div className="content-container">
       <div className="cart d-flex">
         <img src={avatar} alt={last_name} className="avatar" />
         <p className="user-name info">

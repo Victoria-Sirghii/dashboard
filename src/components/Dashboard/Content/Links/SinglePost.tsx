@@ -26,7 +26,7 @@ export const SinglePost: React.FC = () => {
   };
 
   return (
-    <div className="user-container">
+    <div className="content-container">
       <div className="cart d-flex">
         <div className="circle-color" style={backgroundColor}></div>
         <p>

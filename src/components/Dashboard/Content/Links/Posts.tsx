@@ -1,15 +1,35 @@
 import { axios } from "api";
-import { useQuery } from "react-query";
-import { Link } from "react-router-dom";
+import { useMutation, useQuery, useQueryClient } from "react-query";
+import { useState } from "react";
+import { Link, useParams } from "react-router-dom";
 import EditIcon from "@material-ui/icons/Edit";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import DeleteIcon from "@material-ui/icons/Delete";
+import { NewPost, IdParams } from "types/types";
 
 export const Posts: React.FC = () => {
+  const [editPost, setEditPost] = useState<Partial<NewPost> | null>(null);
+  const { id } = useParams<IdParams>();
+  const queryClient = useQueryClient();
+
   const { data, isLoading } = useQuery("users", async () => {
     const { data } = await axios.get("unknown");
     return data.data;
   });
+
+  const mutation = useMutation(
+    (postId: string) => axios.delete(`/unknown/${postId}`),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries("users");
+      },
+    }
+  );
+
+  const editHandler = (post: any) => {
+    setEditPost(post);
+  };
+
   if (isLoading) {
     return <h1>Loading...</h1>;
   }
@@ -21,7 +41,9 @@ export const Posts: React.FC = () => {
           Company: <span className="bl-color"> All</span>{" "}
           <ArrowDropDownIcon className="pointer" />
         </p>
-        <button className="add-btn pointer">Add color</button>
+        <Link to="/dashboard/post/create">
+          <button className="add-btn pointer">Add color</button>
+        </Link>
       </div>
       <table className="table">
         <tr>
@@ -35,24 +57,32 @@ export const Posts: React.FC = () => {
           <th>Edit</th>
           <th>Remove</th>
         </tr>
-        {data.map((item: any) => {
-          const { id, name, year, color, pantone_value } = item;
+        {data.map((post: any) => {
+          const { id, name, year, color, pantone_value } = post;
           return (
             <tr key={id}>
               <td>
                 <input type="checkbox" id="check" />
               </td>
               <td className="name-box">
-                <Link to={`/single-post/${id}`}>{name}</Link>
+                <Link to={`/dashboard/post/${id}`}>{name}</Link>
               </td>
               <td>{year}</td>
               <td>{color}</td>
               <td>{pantone_value}</td>
               <td>
-                <EditIcon className="pointer" />
+                <Link to={`/dashboard/post/edit/${id}`} className="edit-link">
+                  <EditIcon
+                    className="pointer"
+                    onClick={() => editHandler(post)}
+                  />
+                </Link>
               </td>
               <td>
-                <DeleteIcon className="pointer" />
+                <DeleteIcon
+                  className="pointer"
+                  onClick={() => mutation.mutate(id)}
+                />
               </td>
             </tr>
           );
