@@ -88,6 +88,10 @@ export const Posts: React.FC = () => {
           );
         })}
       </table>
+      <div className="page-btns d-flex">
+        <button className="page-btn btn">1</button>
+        <button className="page-btn btn">2</button>
+      </div>
     </div>
   );
 };

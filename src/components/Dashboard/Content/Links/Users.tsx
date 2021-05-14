@@ -9,6 +9,7 @@ import { Modal } from "components";
 import { NewUser } from "types/types";
 
 export const Users: React.FC = () => {
+  const [page, setPage] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editUser, setEditUser] = useState<Partial<NewUser> | null>(null);
   const queryClient = useQueryClient();
@@ -24,10 +25,19 @@ export const Users: React.FC = () => {
     setIsModalOpen(false);
   };
 
-  const { data = [], isLoading } = useQuery(["users"], async () => {
-    const { data } = await axios.get("users");
-    return data.data;
-  });
+  const {
+    data = [],
+    isLoading,
+    isPreviousData,
+  } = useQuery(
+    ["users", page],
+    async () => {
+      const { data } = await axios.get("users?page=" + page);
+      setPage(data.page);
+      return data.data;
+    },
+    { keepPreviousData: true }
+  );
 
   const mutation = useMutation(
     (userId: string) => axios.delete(`/users/${userId}`),
@@ -41,6 +51,13 @@ export const Users: React.FC = () => {
   const editHandler = (user: any) => {
     setEditUser(user);
     setIsModalOpen(true);
+  };
+
+  // const secondPage = () => {
+  //   setPage(2);
+  // };
+  const firstPage = () => {
+    setPage(1);
   };
 
   if (isLoading) {
@@ -108,6 +125,26 @@ export const Users: React.FC = () => {
           editUser={editUser}
         />
       )}
+      <div className="page-btns d-flex">
+        <button
+          className="page-btn btn"
+          onClick={() => setPage((old) => old - 1)}
+          disabled={page === 0}
+        >
+          1
+        </button>
+        <button
+          className="page-btn btn"
+          onClick={() => {
+            if (!isPreviousData) {
+              setPage((old) => old + 1);
+            }
+          }}
+          disabled={page === 2}
+        >
+          2
+        </button>
+      </div>
     </div>
   );
 };
