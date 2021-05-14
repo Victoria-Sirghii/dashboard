@@ -1,10 +1,30 @@
 import { Switch, Route } from "react-router-dom";
-import { Dashboard, Users, Posts } from "components";
+import {
+  Dashboard,
+  Users,
+  Posts,
+  NewPostForm,
+  EditPost,
+  SingleUser,
+  SinglePost,
+} from "components";
 
 export const Content: React.FC = () => {
   return (
     <div className="content">
       <Switch>
+        <Route path="/dashboard/post/edit/:id">
+          <EditPost />
+        </Route>
+        <Route path="/dashboard/post/create">
+          <NewPostForm />
+        </Route>
+        <Route path="/dashboard/user/:id">
+          <SingleUser />
+        </Route>
+        <Route path="/dashboard/post/:id">
+          <SinglePost />
+        </Route>
         <Route path="/dashboard/users">
           <Users />
         </Route>
