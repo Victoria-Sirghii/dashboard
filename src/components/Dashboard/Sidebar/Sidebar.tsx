@@ -1,9 +1,13 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation  } from "react-router-dom";
 import DashboardIcon from "@material-ui/icons/Dashboard";
 import PeopleIcon from "@material-ui/icons/People";
 import PostAddIcon from "@material-ui/icons/PostAdd";
 
 export const Sidebar: React.FC = () => {
+  const location = useLocation();
+  const { pathname } = location;
+  const splitLocation = pathname.split("/");
+  console.log(splitLocation)
   return (
     <div className="sidebar">
       <h1 className="h1-title">SaaS Kit</h1>
@@ -20,17 +24,17 @@ export const Sidebar: React.FC = () => {
       </div>
       <nav className="nav">
         <ul className="menu">
-          <li className="d-flex">
+          <li className={(splitLocation[1] === "dashboard" && splitLocation.length === 2) ? "d-flex active" : "d-flex"}>
             <DashboardIcon className="icon-color" />
-            <Link to="/dashboard">Dashboard</Link>
+            <Link to="/dashboard" className="option">Dashboard</Link>
           </li>
-          <li className="d-flex">
+          <li className={splitLocation[2] === "users" ? "d-flex active" : "d-flex"}>
             <PeopleIcon className="icon-color" />
-            <Link to="/dashboard/users">Users</Link>
+            <Link to="/dashboard/users" className="option">Users</Link>
           </li>
-          <li className="d-flex">
+          <li className={splitLocation[2] === "posts" ? "d-flex active" : "d-flex"}>
             <PostAddIcon className="icon-color" />
-            <Link to="/dashboard/posts">Posts</Link>
+            <Link to="/dashboard/posts" className="option">Posts</Link>
           </li>
         </ul>
       </nav>

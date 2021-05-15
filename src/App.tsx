@@ -16,7 +16,7 @@ function App() {
           <Route path="/register">
             <RegisterForm />
           </Route>
-          <Route path="/">
+          <Route exact path="/">
             <LoginForm />
           </Route>
         </Switch>

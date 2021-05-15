@@ -44,22 +44,19 @@ $light-gray: rgb(204, 204, 204);
   text-decoration: none;
   li {
     padding: 10px 40px;
+    align-content: flex-start;
+  }
+  a{
     text-decoration: none;
-    a {
-      text-decoration: none;
-      padding-left: 15px;
-      color: black;
-    }
+    padding-left: 15px;
   }
 }
 .icon-color {
   color: $light-gray;
 }
-
-tab active {
-  background-color: red;
+.option {
+  color: black;
 }
-
-tab {
-  background-color: blue;
+.active a {
+  color: $blue;
 }
