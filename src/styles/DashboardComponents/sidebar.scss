@@ -5,6 +5,11 @@ $light-gray: rgb(204, 204, 204);
 .sidebar {
   width: 330px;
   box-shadow: -6px 1px 10px 0px #292828;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 
 .user-image {
