@@ -8,8 +8,10 @@ import { useState } from "react";
 import { Modal } from "components";
 import { NewUser } from "types/types";
 
+
 export const Users: React.FC = () => {
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState<any[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editUser, setEditUser] = useState<Partial<NewUser> | null>(null);
   const queryClient = useQueryClient();
@@ -28,15 +30,15 @@ export const Users: React.FC = () => {
   const {
     data = [],
     isLoading,
-    isPreviousData,
   } = useQuery(
     ["users", page],
     async () => {
       const { data } = await axios.get("users?page=" + page);
-      setPage(data.page);
+      const pages = Math.ceil(data.total / data.per_page)
+      const newArray:any[] = [] = Array.from({length: pages}, (x,i) => i + 1);
+      setTotalPages(newArray)
       return data.data;
-    },
-    { keepPreviousData: true }
+    }
   );
 
   const mutation = useMutation(
@@ -53,12 +55,9 @@ export const Users: React.FC = () => {
     setIsModalOpen(true);
   };
 
-  // const secondPage = () => {
-  //   setPage(2);
-  // };
-  const firstPage = () => {
-    setPage(1);
-  };
+  const handlePage = (index:any) => {
+    setPage(index)
+  }
 
   if (isLoading) {
     return <h1>Loading...</h1>;
@@ -126,24 +125,16 @@ export const Users: React.FC = () => {
         />
       )}
       <div className="page-btns d-flex">
-        <button
-          className="page-btn btn"
-          onClick={() => setPage((old) => old - 1)}
-          disabled={page === 0}
-        >
-          1
-        </button>
-        <button
-          className="page-btn btn"
-          onClick={() => {
-            if (!isPreviousData) {
-              setPage((old) => old + 1);
-            }
-          }}
-          disabled={page === 2}
-        >
-          2
-        </button>
+        {totalPages.map((item, index) => {
+          return (
+          <button
+            key={index}
+            className="page-btn btn"
+            onClick={() => handlePage(index+1)}
+          >
+            {index + 1}
+          </button>)
+        })}
       </div>
     </div>
   );

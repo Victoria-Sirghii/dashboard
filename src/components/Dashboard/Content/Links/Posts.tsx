@@ -8,12 +8,17 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import { NewPost, IdParams } from "types/types";
 
 export const Posts: React.FC = () => {
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState<any[]>([]);
   const [editPost, setEditPost] = useState<Partial<NewPost> | null>(null);
   const { id } = useParams<IdParams>();
   const queryClient = useQueryClient();
 
-  const { data, isLoading } = useQuery("users", async () => {
-    const { data } = await axios.get("unknown");
+  const { data, isLoading } = useQuery(["post", page], async () => {
+    const { data } = await axios.get("unknown?page=" + page);
+    const pages = Math.ceil(data.total / data.per_page)
+    const newArray:any[] = [] = Array.from({length: pages}, (x,i) => i + 1);
+    setTotalPages(newArray)
     return data.data;
   });
 
@@ -25,6 +30,9 @@ export const Posts: React.FC = () => {
       },
     }
   );
+  const handlePage = (index:any) => {
+    setPage(index)
+  }
 
   const editHandler = (post: any) => {
     setEditPost(post);
@@ -89,8 +97,16 @@ export const Posts: React.FC = () => {
         })}
       </table>
       <div className="page-btns d-flex">
-        <button className="page-btn btn">1</button>
-        <button className="page-btn btn">2</button>
+          {totalPages.map((item, index) => {
+              return (
+              <button
+                key={index}
+                className="page-btn btn"
+                onClick={() => handlePage(index+1)}
+              >
+                {index + 1}
+              </button>)
+            })}
       </div>
     </div>
   );
