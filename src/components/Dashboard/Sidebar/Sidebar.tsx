@@ -7,7 +7,6 @@ export const Sidebar: React.FC = () => {
   const location = useLocation();
   const { pathname } = location;
   const splitLocation = pathname.split("/");
-  console.log(splitLocation)
   return (
     <div className="sidebar">
       <h1 className="h1-title">SaaS Kit</h1>
