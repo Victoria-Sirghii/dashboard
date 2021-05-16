@@ -3,14 +3,14 @@ import { useState } from "react";
 import { useQuery } from "react-query";
 
 
-const useFetchQuery = (key: string): [any, (key: string) => void] => {
+const useFetchQuery = (key: string) => {
   const [dataFetch, setDataFetch] = useState()
-  const {data = [], isLoading} = useQuery(key, async () => {
-    const {data} = await axios.get("users");
+  const {data = [], isLoading} = useQuery(["data", key], async () => {
+    const {data} = await axios.get(key);
     setDataFetch(data)
-    console.log(dataFetch)
+    return data
   })
-  return {dataFetch}
+  return [dataFetch]
 }
-
 export default useFetchQuery;
+

@@ -1,20 +1,28 @@
-import {useFetchQuery} from "hooks";
-import { useEffect } from "react";
+import { axios } from "api";
+import { useEffect, useState } from "react";
+import {useQueries} from "react-query"
+import {useFetchQuery} from "hooks"
 
 export const Dashboard: React.FC = () => {
-  const [users, setUsers] = useFetchQuery()
+  const [users, setUsers] = useFetchQuery("users")
+  const [post, setPost] = useFetchQuery("post")
+  console.log(users)
+  console.log(post)
+  // const [queries, setQuieries] = useState<{ key: string; }[]>([
+  //   {key: "users"},
+  //   {key: "unkown"}
+  // ])
   
-  useEffect(() => {
-    setUsers("users")
-  }, [])
-  // const {data = [], isLoading} = useQuery(["users"], async () => {
-  //   const {data} = await axios.get("users");
-  //   return data
-  // })
-  
-  // if (isLoading) {
-  //   return <h1>Loading...</h1>;
-  // }
+  // const info = useQueries(queries.map((query) => {
+  //   return {
+  //     queryKey: ['key', query.key],
+  //     queryFn: async () => {
+  //       const {data} = await axios.get(query.key);
+  //       return data.data
+  //   }
+  // }}
+  // ))
+ 
   return (
   <div className="dashboard-container">
     <div className="box">
