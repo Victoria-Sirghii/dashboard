@@ -1,0 +1,57 @@
+$blue: #109cf1;
+$gray: rgb(180, 178, 178);
+$light-gray: rgb(204, 204, 204);
+
+.sidebar {
+  width: 330px;
+  box-shadow: -6px 1px 10px 0px #292828;
+}
+
+.user-image {
+  border-radius: 50%;
+  width: 70px;
+}
+
+.h1-title {
+  color: $blue;
+  box-shadow: -3px 1px 6px -3px #c7c7c7;
+  padding: 15px 0 15px 40px;
+  font-weight: 400;
+}
+
+.user-info {
+  padding: 40px;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.user-name {
+  font-weight: 500;
+}
+
+.user-email {
+  color: $gray;
+}
+
+.menu {
+  list-style-type: none;
+  text-decoration: none;
+  li {
+    padding: 10px 40px;
+    align-content: flex-start;
+  }
+  a {
+    text-decoration: none;
+    padding-left: 15px;
+  }
+}
+.icon-color {
+  color: $light-gray;
+}
+.option {
+  color: black;
+}
+.active a {
+  color: $blue;
+}

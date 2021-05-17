@@ -1,0 +1,21 @@
+.buttons-form {
+  margin: 0 auto;
+  .btn-add,
+  .btn-cancel {
+    margin: 35px 10px;
+    padding: 10px;
+    border-radius: $border-radius;
+    border: 0;
+    background-color: $blue;
+    color: $white;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    &:hover {
+      background-color: $dark-blue;
+    }
+  }
+}
+
+.edit-link {
+  color: #666565;
+}
