@@ -1,4 +1,4 @@
-import { Link, useLocation  } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import DashboardIcon from "@material-ui/icons/Dashboard";
 import PeopleIcon from "@material-ui/icons/People";
 import PostAddIcon from "@material-ui/icons/PostAdd";
@@ -23,17 +23,49 @@ export const Sidebar: React.FC = () => {
       </div>
       <nav className="nav">
         <ul className="menu">
-          <li className={(splitLocation[1] === "dashboard" && splitLocation.length === 2) ? "d-flex active" : "d-flex"}>
+          <li
+            className={
+              splitLocation[1] === "dashboard" && splitLocation.length === 2
+                ? "d-flex active"
+                : "d-flex"
+            }
+          >
             <DashboardIcon className="icon-color" />
-            <Link to="/dashboard" className="option">Dashboard</Link>
+            <NavLink
+              to="/dashboard"
+              className="option"
+              activeClassName="active"
+            >
+              Dashboard
+            </NavLink>
           </li>
-          <li className={splitLocation[2] === "users" ? "d-flex active" : "d-flex"}>
+          <li
+            className={
+              splitLocation[2] === "users" ? "d-flex active" : "d-flex"
+            }
+          >
             <PeopleIcon className="icon-color" />
-            <Link to="/dashboard/users" className="option">Users</Link>
+            <NavLink
+              to="/dashboard/users"
+              className="option"
+              activeClassName="active"
+            >
+              Users
+            </NavLink>
           </li>
-          <li className={splitLocation[2] === "posts" ? "d-flex active" : "d-flex"}>
+          <li
+            className={
+              splitLocation[2] === "posts" ? "d-flex active" : "d-flex"
+            }
+          >
             <PostAddIcon className="icon-color" />
-            <Link to="/dashboard/posts" className="option">Posts</Link>
+            <NavLink
+              to="/dashboard/posts"
+              className="option"
+              activeClassName="active"
+            >
+              Posts
+            </NavLink>
           </li>
         </ul>
       </nav>

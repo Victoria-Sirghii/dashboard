@@ -1,11 +1,11 @@
 export { RegisterForm } from "./RegisterPage/RegisterForm";
 export { LoginForm } from "./LoginPage/LoginForm";
-export { DashboardContent } from "./Dashboard/DashboardContent";
+export { DashboardContent } from "./Dashboard/Layout";
 
 //components
 export { Sidebar } from "./Dashboard/Sidebar/Sidebar";
-export { Header } from "./Dashboard/Header/Header";
-export { Footer } from "./Dashboard/Footer/Footer";
+export { HeaderContent } from "./Dashboard/Header/HeaderContent";
+export { FooterContent } from "./Dashboard/Footer/FooterContent";
 export { Content } from "./Dashboard/Content/Content";
 export { Modal } from "./Dashboard/Content/Options/Actions/Modal";
 
@@ -27,3 +27,8 @@ export { EditPost } from "./Dashboard/Content/Options/Actions/EditPost";
 export { LineChartPost } from "./Dashboard/Content/Options/Rechart/LineChartPost";
 export { AreaChartPost } from "./Dashboard/Content/Options/Rechart/AreaChartPost";
 export { BarChartPost } from "./Dashboard/Content/Options/Rechart/BarChartPost";
+
+export { DashboardRoutes } from "./Dashboard/DashboardRoutes";
+export { Sider } from "./Dashboard/Sidebar/Sider";
+export { Footer } from "./Dashboard/Footer/Footer";
+export { Header } from "./Dashboard/Header/Header";
