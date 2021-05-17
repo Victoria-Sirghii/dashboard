@@ -22,3 +22,8 @@ export { SinglePost } from "./Dashboard/Content/Options/Details/SinglePost";
 //add post page
 export { NewPostForm } from "./Dashboard/Content/Options/Actions/NewPostForm";
 export { EditPost } from "./Dashboard/Content/Options/Actions/EditPost";
+
+//Recharts
+export { LineChartPost } from "./Dashboard/Content/Options/Rechart/LineChartPost";
+export { AreaChartPost } from "./Dashboard/Content/Options/Rechart/AreaChartPost";
+export { BarChartPost } from "./Dashboard/Content/Options/Rechart/BarChartPost";
