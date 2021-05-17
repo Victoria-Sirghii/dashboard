@@ -1,5 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from "react-query";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom"
 import { Link } from "react-router-dom";
 import EditIcon from "@material-ui/icons/Edit";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
@@ -9,11 +10,12 @@ import { Modal } from "features";
 import { User } from "types/interfaces";
 
 export const Users: React.FC = () => {
-  const [page, setPage] = useState(1);
+  const queryClient = useQueryClient();
+  const history = useHistory()
+  const [page, setPage] = useState<number | string>(1);
   const [totalPages, setTotalPages] = useState<number[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editUser, setEditUser] = useState<Partial<User> | null>(null);
-  const queryClient = useQueryClient();
 
   const openModal: () => void = () => {
     setIsModalOpen(true);
@@ -55,10 +57,17 @@ export const Users: React.FC = () => {
     setPage(index);
   };
 
+  useEffect(() => {
+    const params = new URLSearchParams();
+    params.append("page", page.toString())
+
+    history.push({search: params.toString()})
+  }, [page, history])
+
+
   if (isLoading) {
     return <h1>Loading...</h1>;
   }
-
   return (
     <div className="content-container">
       <div className="content-header d-flex">
@@ -82,7 +91,6 @@ export const Users: React.FC = () => {
         </tr>
         {data &&
           data.map((user: User) => {
-            console.log(user)
             const { id, email, first_name, last_name, avatar } = user;
             return (
               <tr key={id}>

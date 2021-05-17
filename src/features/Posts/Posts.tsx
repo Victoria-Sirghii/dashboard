@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "react-query";
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useHistory } from "react-router-dom";
 import EditIcon from "@material-ui/icons/Edit";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import DeleteIcon from "@material-ui/icons/Delete";
@@ -9,6 +9,7 @@ import { Post } from "types/interfaces";
 
 export const Posts: React.FC = () => {
   const queryClient = useQueryClient();
+  const history = useHistory()
   const [page, setPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number[]>([]);
 
@@ -33,6 +34,13 @@ export const Posts: React.FC = () => {
   const handlePage = (index: number) => {
     setPage(index);
   };
+  
+  useEffect(() => {
+    const params = new URLSearchParams();
+    params.append("page", page.toString())
+
+    history.push({search: params.toString()})
+  }, [page, history])
 
   if (isLoading) {
     return <h1>Loading...</h1>;
