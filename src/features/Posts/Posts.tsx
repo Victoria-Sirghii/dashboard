@@ -5,6 +5,7 @@ import EditIcon from "@material-ui/icons/Edit";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { axios } from "api";
+import { Post } from "types/interfaces";
 
 export const Posts: React.FC = () => {
   const queryClient = useQueryClient();
@@ -60,7 +61,7 @@ export const Posts: React.FC = () => {
           <th>Edit</th>
           <th>Remove</th>
         </tr>
-        {data.map((post: any) => {
+        {data.map((post: Post) => {
           const { id, name, year, color, pantone_value } = post;
           return (
             <tr key={id}>

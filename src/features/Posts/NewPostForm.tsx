@@ -2,16 +2,16 @@ import { axios } from "api";
 import { useState } from "react";
 import { useMutation } from "react-query";
 import { Link } from "react-router-dom";
-import { NewPost } from "types/types";
+import { Post } from "types/interfaces";
 
 export const NewPostForm: React.FC = () => {
-  const [newPost, setNewPost] = useState<Partial<NewPost>>({});
+  const [newPost, setNewPost] = useState<Partial<Post>>({});
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNewPost({ ...newPost, [e.target.name]: e.target.value });
   };
 
-  const mutation = useMutation<unknown, unknown, Partial<NewPost>>((bodyData) =>
+  const mutation = useMutation<unknown, unknown, Partial<Post>>((bodyData) =>
     axios.post("/unknown", bodyData)
   );
 

@@ -1,4 +1,4 @@
-export interface User {
+export interface Values {
   firstName: string;
   lastName: string;
   gender: string;
@@ -13,20 +13,17 @@ export interface Login {
   password: string;
 }
 
-export interface NewUser {
-  id?: string;
-  firstName: string;
-  lastName: string;
-  email: string;
+export interface User {
+  id?: number;
+  first_name?: string;
+  last_name?: string;
+  email?: string;
+  avatar?: string;
 }
-export interface NewPost {
+export interface Post {
   id: string;
   name: string;
   color: string;
   year: string;
   pantone_value: string;
 }
-
-export type IdParams = {
-  id: string;
-};

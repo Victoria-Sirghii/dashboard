@@ -2,12 +2,12 @@ import CloseIcon from "@material-ui/icons/Close";
 import React, { useEffect, useState } from "react";
 import { useMutation } from "react-query";
 import { axios } from "api";
-import { NewUser } from "types/types";
+import { User } from "types/interfaces";
 
 type Props = {
   isModalOpen: boolean;
   closeModal: () => void;
-  editUser: any;
+  editUser: User | null;
 };
 
 export const Modal: React.FC<Props> = ({
@@ -15,23 +15,24 @@ export const Modal: React.FC<Props> = ({
   closeModal,
   editUser,
 }) => {
-  const [user, setUser] = useState<Partial<NewUser>>({});
+  const [user, setUser] = useState<Partial<User | null>>({});
 
   useEffect(() => {
     setUser({
       id: editUser?.id,
-      firstName: editUser?.first_name,
-      lastName: editUser?.last_name,
+      first_name: editUser?.first_name,
+      last_name: editUser?.last_name,
       email: editUser?.email,
+      avatar: editUser?.avatar,
     });
 
     return () => setUser({});
   }, [editUser]);
 
-  const mutation = useMutation<unknown, unknown, Partial<NewUser>>((bodyData) =>
+  const mutation = useMutation<unknown, unknown, Partial<User | null>>((bodyData) =>
     axios.post("/users", bodyData)
   );
-  const updateUser = useMutation<unknown, unknown, Partial<NewUser>>(
+  const updateUser = useMutation<unknown, unknown, Partial<User | null>>(
     (bodyData) => axios.patch(`/users/${bodyData?.id}`, bodyData)
   );
 
@@ -66,7 +67,7 @@ export const Modal: React.FC<Props> = ({
             placeholder="John"
             name="firstName"
             id="firstName"
-            value={user?.firstName}
+            value={user?.first_name}
             onChange={handleChange}
           />
           <label htmlFor="lastName" className="label">
@@ -78,7 +79,7 @@ export const Modal: React.FC<Props> = ({
             placeholder="Halep"
             name="lastName"
             id="lastName"
-            value={user?.lastName}
+            value={user?.last_name}
             onChange={handleChange}
           />
           <label htmlFor="email" className="label">
@@ -91,6 +92,18 @@ export const Modal: React.FC<Props> = ({
             name="email"
             id="email"
             value={user?.email}
+            onChange={handleChange}
+          />
+          <label htmlFor="avatar" className="label">
+            Avatar
+          </label>
+          <input
+            type="text"
+            className="form__field"
+            placeholder="img.jpg"
+            name="avatar"
+            id="avatar"
+            value={user?.avatar}
             onChange={handleChange}
           />
           <button type="submit" className="btn">

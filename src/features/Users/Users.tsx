@@ -6,13 +6,13 @@ import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { axios } from "api";
 import { Modal } from "features";
-import { NewUser } from "types/types";
+import { User } from "types/interfaces";
 
 export const Users: React.FC = () => {
   const [page, setPage] = useState(1);
-  const [totalPages, setTotalPages] = useState<any[]>([]);
+  const [totalPages, setTotalPages] = useState<number[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [editUser, setEditUser] = useState<Partial<NewUser> | null>(null);
+  const [editUser, setEditUser] = useState<Partial<User> | null>(null);
   const queryClient = useQueryClient();
 
   const openModal: () => void = () => {
@@ -30,7 +30,7 @@ export const Users: React.FC = () => {
     const { data } = await axios.get("users?page=" + page);
 
     const pages = Math.ceil(data.total / data.per_page);
-    const newArray: any[] = Array.from({ length: pages }, (x, i) => i + 1);
+    const newArray: number[] = Array.from({ length: pages }, (x, i) => i + 1);
 
     setTotalPages(newArray);
 
@@ -38,7 +38,7 @@ export const Users: React.FC = () => {
   });
 
   const mutation = useMutation(
-    (userId: string) => axios.delete(`/users/${userId}`),
+    (id: number | undefined) => axios.delete(`/users/${id}`),
     {
       onSuccess: () => {
         queryClient.invalidateQueries("users");
@@ -46,12 +46,12 @@ export const Users: React.FC = () => {
     }
   );
 
-  const editHandler = (user: any) => {
+  const editHandler = (user: User) => {
     setEditUser(user);
     setIsModalOpen(true);
   };
 
-  const handlePage = (index: any) => {
+  const handlePage = (index: number) => {
     setPage(index);
   };
 
@@ -81,7 +81,8 @@ export const Users: React.FC = () => {
           <th>Remove</th>
         </tr>
         {data &&
-          data.map((user: any) => {
+          data.map((user: User) => {
+            console.log(user)
             const { id, email, first_name, last_name, avatar } = user;
             return (
               <tr key={id}>

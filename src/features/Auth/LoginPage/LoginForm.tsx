@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useLocalStorage } from "hooks";
-import { Login } from "types/types";
+import { Login } from "types/interfaces";
 import { Input } from "../../../components/Input/Input";
 
 export const LoginForm: React.FC = () => {

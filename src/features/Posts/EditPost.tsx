@@ -2,10 +2,14 @@ import { axios } from "api";
 import React, { useState } from "react";
 import { useMutation, useQuery } from "react-query";
 import { Link, useParams } from "react-router-dom";
-import { NewPost, IdParams } from "types/types";
+import { Post } from "types/interfaces";
+
+type IdParams = {
+  id: string;
+};
 
 export const EditPost: React.FC = () => {
-  const [post, setPost] = useState<Partial<NewPost>>({});
+  const [post, setPost] = useState<Partial<Post>>({});
   let { id } = useParams<IdParams>();
 
   const { isLoading } = useQuery("post", async () => {
@@ -15,7 +19,7 @@ export const EditPost: React.FC = () => {
     return data.data;
   });
 
-  const updateUser = useMutation<unknown, unknown, Partial<NewPost>>(
+  const updateUser = useMutation<unknown, unknown, Partial<Post>>(
     (bodyData) => axios.patch(`/unknown/${bodyData?.id}`, bodyData)
   );
 

@@ -1,13 +1,13 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useLocalStorage } from "hooks";
-import { User } from "types/types";
+import { Values } from "types/interfaces";
 import { Input } from "../../../components/Input/Input";
 import { Label } from "../../../components/Label/Label";
 import { Button } from "../../../components/Button/Button";
 
 export const RegisterForm: React.FC = () => {
-  const [values, setValues] = useState<Partial<User>>({});
+  const [values, setValues] = useState<Partial<Values>>({});
   const [, setStorage] = useLocalStorage();
 
   const submitHandler = (e: React.SyntheticEvent) => {
