@@ -1,0 +1,68 @@
+$white: #fff;
+$green: #2ed47a;
+$gray: rgb(180, 178, 178);
+$light-gray: rgb(245, 245, 245);
+$yellow: #ffb946;
+$dark-blue: #334d6e;
+$light-blue: #eff4ff;
+$blue: #109cf1;
+$border-radius-8: 8px;
+$border-radius-13: 13px;
+$border-color: $gray;
+$cursor-pointer: pointer;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Fira Sans", sans-serif;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.mb-10 {
+  margin-bottom: 10px;
+}
+
+.pointer {
+  cursor: $cursor-pointer;
+}
+
+.space-around {
+  justify-content: space-around;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+.box {
+  background-color: $white;
+  box-shadow: -1px 2px 9px 0px #c7c7c7;
+  width: 400px;
+  padding: 30px;
+  border-radius: $border-radius-13;
+  margin: auto;
+  margin-top: 40px;
+}
+.container {
+  background-color: $light-gray;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  overflow: auto;
+}
