@@ -5,7 +5,9 @@
   font-family: "Fira Sans", sans-serif;
 }
 
-html, body, #root{
+html,
+body,
+#root {
   height: 100%;
 }
 
@@ -110,4 +112,8 @@ input[type="radio"] {
 
 .pointer {
   cursor: $cursor-pointer;
+}
+
+.space-around {
+  justify-content: space-around;
 }

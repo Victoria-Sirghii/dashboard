@@ -1,13 +1,12 @@
-import { axios } from "api";
 import { useQuery, useMutation, useQueryClient } from "react-query";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import EditIcon from "@material-ui/icons/Edit";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import DeleteIcon from "@material-ui/icons/Delete";
-import { useState } from "react";
+import { axios } from "api";
 import { Modal } from "components";
 import { NewUser } from "types/types";
-
 
 export const Users: React.FC = () => {
   const [page, setPage] = useState(1);
@@ -27,19 +26,13 @@ export const Users: React.FC = () => {
     setIsModalOpen(false);
   };
 
-  const {
-    data = [],
-    isLoading,
-  } = useQuery(
-    ["users", page],
-    async () => {
-      const { data } = await axios.get("users?page=" + page);
-      const pages = Math.ceil(data.total / data.per_page)
-      const newArray:any[] = [] = Array.from({length: pages}, (x,i) => i + 1);
-      setTotalPages(newArray)
-      return data.data;
-    }
-  );
+  const { data = [], isLoading } = useQuery(["users", page], async () => {
+    const { data } = await axios.get("users?page=" + page);
+    const pages = Math.ceil(data.total / data.per_page);
+    const newArray: any[] = Array.from({ length: pages }, (x, i) => i + 1);
+    setTotalPages(newArray);
+    return data.data;
+  });
 
   const mutation = useMutation(
     (userId: string) => axios.delete(`/users/${userId}`),
@@ -55,9 +48,9 @@ export const Users: React.FC = () => {
     setIsModalOpen(true);
   };
 
-  const handlePage = (index:any) => {
-    setPage(index)
-  }
+  const handlePage = (index: any) => {
+    setPage(index);
+  };
 
   if (isLoading) {
     return <h1>Loading...</h1>;
@@ -127,13 +120,14 @@ export const Users: React.FC = () => {
       <div className="page-btns d-flex">
         {totalPages.map((item, index) => {
           return (
-          <button
-            key={index}
-            className="page-btn btn"
-            onClick={() => handlePage(index+1)}
-          >
-            {index + 1}
-          </button>)
+            <button
+              key={index}
+              className="page-btn btn"
+              onClick={() => handlePage(index + 1)}
+            >
+              {index + 1}
+            </button>
+          );
         })}
       </div>
     </div>

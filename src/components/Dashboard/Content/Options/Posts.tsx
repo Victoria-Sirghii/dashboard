@@ -1,10 +1,10 @@
-import { axios } from "api";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import EditIcon from "@material-ui/icons/Edit";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import DeleteIcon from "@material-ui/icons/Delete";
+import { axios } from "api";
 import { NewPost, IdParams } from "types/types";
 
 export const Posts: React.FC = () => {
@@ -16,9 +16,9 @@ export const Posts: React.FC = () => {
 
   const { data, isLoading } = useQuery(["post", page], async () => {
     const { data } = await axios.get("unknown?page=" + page);
-    const pages = Math.ceil(data.total / data.per_page)
-    const newArray:any[] = [] = Array.from({length: pages}, (x,i) => i + 1);
-    setTotalPages(newArray)
+    const pages = Math.ceil(data.total / data.per_page);
+    const newArray: any[] = Array.from({ length: pages }, (x, i) => i + 1);
+    setTotalPages(newArray);
     return data.data;
   });
 
@@ -30,9 +30,9 @@ export const Posts: React.FC = () => {
       },
     }
   );
-  const handlePage = (index:any) => {
-    setPage(index)
-  }
+  const handlePage = (index: any) => {
+    setPage(index);
+  };
 
   const editHandler = (post: any) => {
     setEditPost(post);
@@ -97,16 +97,17 @@ export const Posts: React.FC = () => {
         })}
       </table>
       <div className="page-btns d-flex">
-          {totalPages.map((item, index) => {
-              return (
-              <button
-                key={index}
-                className="page-btn btn"
-                onClick={() => handlePage(index+1)}
-              >
-                {index + 1}
-              </button>)
-            })}
+        {totalPages.map((item, index) => {
+          return (
+            <button
+              key={index}
+              className="page-btn btn"
+              onClick={() => handlePage(index + 1)}
+            >
+              {index + 1}
+            </button>
+          );
+        })}
       </div>
     </div>
   );

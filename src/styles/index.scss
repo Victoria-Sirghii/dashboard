@@ -1,10 +1,10 @@
 @import "./register.scss";
 @import "./styles.scss";
-@import "./dashboard.scss";
-@import "./DashboardComponents/sidebar.scss";
-@import "./DashboardComponents/header.scss";
-@import "./DashboardComponents/users.scss";
-@import "./DashboardComponents//singleUser.scss";
-@import "./DashboardComponents/singlePost.scss";
+@import "./Dashboard/dashboard.scss";
+@import "./Dashboard/sidebar.scss";
+@import "./Dashboard/header.scss";
+@import "./Dashboard/users.scss";
+@import "./Dashboard//singleUser.scss";
+@import "./Dashboard/singlePost.scss";
 @import "./modal.scss";
-@import "./DashboardComponents/post.scss";
+@import "./Dashboard/post.scss";
