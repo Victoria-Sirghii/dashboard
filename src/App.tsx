@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "react-query";
-import { LoginForm, RegisterForm, DashboardContent } from "components";
+import { LoginForm, RegisterForm, DashboardContent } from "features";
 import "styles/index.scss";
 
 const queryClient = new QueryClient();

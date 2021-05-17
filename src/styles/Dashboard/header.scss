@@ -3,8 +3,8 @@ $light-gray: rgb(204, 204, 204);
 .header {
   box-shadow: 2px 1px 6px -3px #c7c7c7;
   padding: 0 40px;
-  
-  .header-center{
+
+  &-center {
     align-items: center;
     justify-content: space-between;
     height: 70px;
@@ -15,11 +15,11 @@ $light-gray: rgb(204, 204, 204);
     outline: 0;
     border-width: 0 0 0;
     border-color: $light-gray;
+
     &::placeholder {
       color: $light-gray;
       letter-spacing: 1px;
       font-weight: 400;
     }
   }
-  
 }

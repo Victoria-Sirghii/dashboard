@@ -41,17 +41,17 @@ $light-gray: rgb(204, 204, 204);
     padding: 10px 40px;
     align-content: flex-start;
   }
-  a {
+  .link-option {
     text-decoration: none;
     padding-left: 15px;
+    color: black;
+  }
+
+  .active {
+    color: $blue;
   }
 }
+
 .icon-color {
   color: $light-gray;
-}
-.option {
-  color: black;
-}
-.active a {
-  color: $blue;
 }
