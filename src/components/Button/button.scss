@@ -1,0 +1,41 @@
+.btn {
+  padding: 10px;
+  margin: 35px 0;
+  border-radius: $border-radius;
+  border: 0;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+
+  //type
+  &--primary {
+    background-color: $blue;
+    color: $white;
+    &:hover {
+      background-color: $white;
+      border: 1px solid $blue;
+      color: $blue;
+      outline: 0;
+    }
+  }
+  &--outline {
+    background-color: $white;
+    border: 1px solid $blue;
+    color: $blue;
+    &:hover {
+      background-color: $blue;
+      color: $white;
+    }
+  }
+
+  &--large {
+    padding: 10px;
+  }
+  &--medium {
+    padding: 10px 20px;
+    margin: 20px 10px;
+  }
+  &--small {
+    padding: 5px 10px;
+    margin: 0 5px;
+  }
+}

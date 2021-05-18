@@ -1,0 +1,26 @@
+.form__field {
+  margin: 10px 0;
+  // padding: 8px;
+  font-size: 16px;
+  border-radius: $border-radius;
+  outline: 0;
+  border: 1px solid transparent;
+  background-color: $light-blue;
+  &:focus {
+    border-color: $border-color;
+    background-color: $light-blue;
+  }
+  &::placeholder {
+    font-size: 14px;
+    font-style: italic;
+  }
+  &--large {
+    padding: 10px;
+  }
+  &--medium {
+    padding: 8px;
+  }
+  &--small {
+    padding: 5px;
+  }
+}

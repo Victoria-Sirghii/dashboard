@@ -1,0 +1,15 @@
+.card {
+  background-color: white;
+  padding: 30px;
+  border-radius: 13px;
+  margin-top: 40px;
+  &--boxShadow-1 {
+    box-shadow: -1px 2px 9px 0px #ecebeb;
+  }
+  &--boxShadow-2 {
+    box-shadow: -1px 2px 9px 0px #c5c5c5;
+  }
+  &--boxShadow-3 {
+    box-shadow: -1px 2px 9px 0px #3d3d3d;
+  }
+}
