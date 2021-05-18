@@ -6,6 +6,7 @@ import {
   Tooltip,
   Area,
 } from "recharts";
+import { Card } from "components";
 
 interface Post {
   post: any;
@@ -13,8 +14,8 @@ interface Post {
 
 export const AreaChartPost: React.FC<Post> = ({ post }) => {
   return (
-    <div className="box fit-content areaChart">
-      <h2 className="title-info mn-title">AreaChart</h2>
+    <Card boxShadow="1" className="fit-content area-chart">
+      <h2 className="h2__title ft-weight-500">AreaChart</h2>
       <AreaChart
         width={730}
         height={250}
@@ -43,6 +44,6 @@ export const AreaChartPost: React.FC<Post> = ({ post }) => {
           fill="url(#colorUv)"
         />
       </AreaChart>
-    </div>
+    </Card>
   );
 };

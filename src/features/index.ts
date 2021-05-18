@@ -7,7 +7,7 @@ export { Sidebar } from "./Sidebar";
 export { HeaderContent } from "./HeaderContent";
 export { FooterContent } from "./FooterContent";
 export { Content } from "../components/Layout/Content";
-export { Modal } from "./Users/Modal";
+export { ModalComponent } from "./Users/ModalComponent";
 
 //menu files
 export { Dashboard } from "./Dashboard/Dashboard";

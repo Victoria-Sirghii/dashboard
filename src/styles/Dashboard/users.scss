@@ -9,32 +9,9 @@ $blue: #109cf1;
   padding: 60px 60px 140px 60px;
 }
 
-.content-header {
-  justify-content: space-between;
-  padding-bottom: 30px;
-}
-
 .sort-box {
   color: $text-gray;
   align-items: center;
-}
-
-.bl-color {
-  color: $blue;
-  padding-left: 5px;
-}
-
-.add-btn {
-  padding: 13px 50px;
-  background-color: #109cf1;
-  color: white;
-  border-radius: $border-radius;
-  border: 0;
-  background-color: $blue;
-
-  &:hover {
-    background-color: $dark-blue;
-  }
 }
 
 .table {
@@ -89,11 +66,7 @@ input[type="checkbox"] {
   }
 }
 
-.page-btns {
+.box-btns {
   justify-content: center;
   margin-top: 20px;
-  .page-btn {
-    margin: 0 5px;
-    padding: 5px 10px;
-  }
 }

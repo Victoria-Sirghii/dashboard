@@ -1,17 +1,18 @@
 import { useQuery, useMutation, useQueryClient } from "react-query";
 import { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom"
+import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
 import EditIcon from "@material-ui/icons/Edit";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { axios } from "api";
-import { Modal } from "features";
+import { ModalComponent } from "features";
 import { User } from "types/interfaces";
+import { Button } from "components";
 
 export const Users: React.FC = () => {
   const queryClient = useQueryClient();
-  const history = useHistory()
+  const history = useHistory();
   const [page, setPage] = useState<number | string>(1);
   const [totalPages, setTotalPages] = useState<number[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -59,25 +60,29 @@ export const Users: React.FC = () => {
 
   useEffect(() => {
     const params = new URLSearchParams();
-    params.append("page", page.toString())
+    params.append("page", page.toString());
 
-    history.push({search: params.toString()})
-  }, [page, history])
-
+    history.push({ search: params.toString() });
+  }, [page, history]);
 
   if (isLoading) {
     return <h1>Loading...</h1>;
   }
   return (
     <div className="content-container">
-      <div className="content-header d-flex">
+      <div className="d-flex space-between">
         <p className="sort-box d-flex">
-          Company: <span className="bl-color"> All</span>{" "}
+          Company: <span className="color-blue pl-5"> All</span>{" "}
           <ArrowDropDownIcon className="pointer" />
         </p>
-        <button className="add-btn pointer" onClick={openModal}>
+        <Button
+          size="medium"
+          type="primary"
+          className="pointer"
+          onClick={openModal}
+        >
           Add user
-        </button>
+        </Button>
       </div>
       <table className="table">
         <tr>
@@ -123,22 +128,23 @@ export const Users: React.FC = () => {
           })}
       </table>
       {isModalOpen && (
-        <Modal
+        <ModalComponent
           isModalOpen={isModalOpen}
           closeModal={closeModal}
           editUser={editUser}
         />
       )}
-      <div className="page-btns d-flex">
+      <div className="box-btns d-flex">
         {totalPages.map((item, index) => {
           return (
-            <button
-              key={index}
-              className="page-btn btn"
+            <Button
+              size="small"
+              type="outline"
+              htmlType="button"
               onClick={() => handlePage(index + 1)}
             >
               {index + 1}
-            </button>
+            </Button>
           );
         })}
       </div>

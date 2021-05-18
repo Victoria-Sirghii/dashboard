@@ -6,46 +6,46 @@ import PostAddIcon from "@material-ui/icons/PostAdd";
 export const Sidebar: React.FC = () => {
   return (
     <div className="sidebar">
-      <h1 className="h1-title">SaaS Kit</h1>
+      <h1 className="h1__title">SaaS Kit</h1>
       <div className="user-info d-flex">
         <img
           src="https://pbs.twimg.com/media/D8dDZukXUAAXLdY.jpg"
           alt="random"
           className="user-image"
         />
-        <div className="info">
+        <div>
           <p className="user-name">Sierra Ferguson</p>
           <p className="user-email">s.ferguson@gmail.com</p>
         </div>
       </div>
-      <nav className="nav">
+      <nav>
         <ul className="menu">
           <li className="d-flex">
-            <DashboardIcon className="icon-color" />
+            <DashboardIcon className="menu-icon color-gray" />
             <NavLink
               exact
               to="/dashboard"
-              className="link-option"
+              className="link color-black"
               activeClassName="active"
             >
               Dashboard
             </NavLink>
           </li>
           <li className="d-flex">
-            <PeopleIcon className="icon-color" />
+            <PeopleIcon className="menu-icon color-gray" />
             <NavLink
               to="/dashboard/users"
-              className="link-option"
+              className="link color-black"
               activeClassName="active"
             >
               Users
             </NavLink>
           </li>
           <li className="d-flex">
-            <PostAddIcon className="icon-color" />
+            <PostAddIcon className="menu-icon color-gray" />
             <NavLink
               to="/dashboard/posts"
-              className="link-option"
+              className="link color-black"
               activeClassName="active"
             >
               Posts

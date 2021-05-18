@@ -27,13 +27,13 @@ export const SinglePost: React.FC = () => {
 
   return (
     <div className="content-container">
-      <div className="cart d-flex">
+      <div className="box box--margin-auto width-400 d-flex flex-column align-items-center">
         <div className="circle-color" style={backgroundColor}></div>
         <p>
-          <span className="bold">{name}:</span> {color}
+          <span className="font-weight-500">{name}:</span> {color}
         </p>
         <p>
-          <span className="bold">Year:</span> {year}
+          <span className="font-weight-500">Year:</span> {year}
         </p>
       </div>
     </div>

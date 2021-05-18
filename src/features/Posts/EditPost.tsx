@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { useMutation, useQuery } from "react-query";
 import { Link, useParams } from "react-router-dom";
 import { Post } from "types/interfaces";
+import { Input, Label, Button, Card } from "components/index";
 
 type IdParams = {
   id: string;
@@ -19,8 +20,8 @@ export const EditPost: React.FC = () => {
     return data.data;
   });
 
-  const updateUser = useMutation<unknown, unknown, Partial<Post>>(
-    (bodyData) => axios.patch(`/unknown/${bodyData?.id}`, bodyData)
+  const updateUser = useMutation<unknown, unknown, Partial<Post>>((bodyData) =>
+    axios.patch(`/unknown/${bodyData?.id}`, bodyData)
   );
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -40,14 +41,11 @@ export const EditPost: React.FC = () => {
 
   return (
     <div className="content-container">
-      <div className="box d-flex flex-column">
+      <Card boxShadow="2" className="d-flex flex-column width-400 mn-auto">
         <form className="form d-flex flex-column" onSubmit={submitHandler}>
-          <label htmlFor="name" className="label">
-            Name
-          </label>
-          <input
+          <Label htmlFor="name">Name</Label>
+          <Input
             type="text"
-            className="form__field"
             placeholder="cerulean"
             name="name"
             id="name"
@@ -55,12 +53,9 @@ export const EditPost: React.FC = () => {
             onChange={handleChange}
             required
           />
-          <label htmlFor="color" className="label">
-            Color
-          </label>
-          <input
+          <Label htmlFor="color">Color</Label>
+          <Input
             type="text"
-            className="form__field"
             placeholder="#98B2D1"
             name="color"
             id="color"
@@ -68,12 +63,9 @@ export const EditPost: React.FC = () => {
             onChange={handleChange}
             required
           />
-          <label htmlFor="year" className="label">
-            Year
-          </label>
-          <input
+          <Label htmlFor="year">Year</Label>
+          <Input
             type="text"
-            className="form__field"
             placeholder="2005"
             name="year"
             id="year"
@@ -81,12 +73,9 @@ export const EditPost: React.FC = () => {
             onChange={handleChange}
             required
           />
-          <label htmlFor="pantone_value" className="label">
-            Pantone value
-          </label>
-          <input
+          <Label htmlFor="pantone_value">Pantone value</Label>
+          <Input
             type="text"
-            className="form__field"
             placeholder="15-4020"
             name="pantone_value"
             id="pantone_value"
@@ -94,16 +83,23 @@ export const EditPost: React.FC = () => {
             onChange={handleChange}
             required
           />
-          <div className="buttons-form">
-            <button type="submit" className="btn-add">
+          <div className="mn-auto">
+            <Button
+              htmlType="submit"
+              size="medium"
+              type="primary"
+              className="pointer"
+            >
               Edit post
-            </button>
+            </Button>
             <Link to="/dashboard/posts">
-              <button className="btn-cancel">Cancel</button>
+              <Button size="medium" type="outline" className="pointer">
+                Cancel
+              </Button>
             </Link>
           </div>
         </form>
-      </div>
+      </Card>
     </div>
   );
 };

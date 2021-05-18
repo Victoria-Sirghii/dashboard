@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useMutation } from "react-query";
 import { Link } from "react-router-dom";
 import { Post } from "types/interfaces";
+import { Input, Label, Button, Card } from "components";
 
 export const NewPostForm: React.FC = () => {
   const [newPost, setNewPost] = useState<Partial<Post>>({});
@@ -22,15 +23,12 @@ export const NewPostForm: React.FC = () => {
 
   return (
     <div className="content-container">
-      <div className="box d-flex flex-column">
-        <h2 className="h2-title">New post</h2>
+      <Card className="d-flex flex-column width-400 mn-auto">
+        <h2 className="h2__title">New post</h2>
         <form className="form d-flex flex-column" onSubmit={submitHandler}>
-          <label htmlFor="name" className="label">
-            Name
-          </label>
-          <input
+          <Label htmlFor="name">Name</Label>
+          <Input
             type="text"
-            className="form__field"
             placeholder="cerulean"
             name="name"
             id="name"
@@ -38,12 +36,9 @@ export const NewPostForm: React.FC = () => {
             onChange={handleChange}
             required
           />
-          <label htmlFor="color" className="label">
-            Color
-          </label>
-          <input
+          <Label htmlFor="color">Color</Label>
+          <Input
             type="text"
-            className="form__field"
             placeholder="#98B2D1"
             name="color"
             id="color"
@@ -51,12 +46,9 @@ export const NewPostForm: React.FC = () => {
             onChange={handleChange}
             required
           />
-          <label htmlFor="year" className="label">
-            Year
-          </label>
-          <input
+          <Label htmlFor="year">Year</Label>
+          <Input
             type="text"
-            className="form__field"
             placeholder="2005"
             name="year"
             id="year"
@@ -64,12 +56,9 @@ export const NewPostForm: React.FC = () => {
             onChange={handleChange}
             required
           />
-          <label htmlFor="pantone_value" className="label">
-            Pantone value
-          </label>
-          <input
+          <Label htmlFor="pantone_value">Pantone value</Label>
+          <Input
             type="text"
-            className="form__field"
             placeholder="15-4020"
             name="pantone_value"
             id="pantone_value"
@@ -77,16 +66,23 @@ export const NewPostForm: React.FC = () => {
             onChange={handleChange}
             required
           />
-          <div className="buttons-form">
-            <button type="submit" className="btn-add">
+          <div className="mn-auto">
+            <Button
+              htmlType="submit"
+              size="medium"
+              type="primary"
+              className="pointer"
+            >
               Add post
-            </button>
+            </Button>
             <Link to="/dashboard/posts">
-              <button className="btn-cancel">Cancel</button>
+              <Button size="medium" type="outline" className="pointer">
+                Cancel
+              </Button>
             </Link>
           </div>
         </form>
-      </div>
+      </Card>
     </div>
   );
 };

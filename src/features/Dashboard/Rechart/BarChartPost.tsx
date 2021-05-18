@@ -7,6 +7,7 @@ import {
   Bar,
   Legend,
 } from "recharts";
+import { Card } from "components";
 
 interface Post {
   post: any;
@@ -14,8 +15,8 @@ interface Post {
 
 export const BarChartPost: React.FC<Post> = ({ post }) => {
   return (
-    <div className="box fit-content barChart">
-      <h2 className="title-info mn-title">BarChart</h2>
+    <Card boxShadow="1" className="fit-content bar-chart">
+      <h2 className="h2__title ft-weight-500">BarChart</h2>
       <BarChart width={600} height={250} data={post.data} barSize={30}>
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="name" />
@@ -24,6 +25,6 @@ export const BarChartPost: React.FC<Post> = ({ post }) => {
         <Legend />
         <Bar dataKey="year" fill="#109cf1" />
       </BarChart>
-    </div>
+    </Card>
   );
 };

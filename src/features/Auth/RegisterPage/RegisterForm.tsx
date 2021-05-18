@@ -2,9 +2,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useLocalStorage } from "hooks";
 import { Values } from "types/interfaces";
-import { Input } from "../../../components/Input/Input";
-import { Label } from "../../../components/Label/Label";
-import { Button } from "../../../components/Button/Button";
+import { Input, Label, Button, Card } from "components";
 
 export const RegisterForm: React.FC = () => {
   const [values, setValues] = useState<Partial<Values>>({});
@@ -22,8 +20,11 @@ export const RegisterForm: React.FC = () => {
 
   return (
     <div className="container">
-      <div className="box d-flex flex-column">
-        <h2 className="h2-title">Registration Form</h2>
+      <Card
+        boxShadow="2"
+        className="mn-auto d-flex flex-column width-400 mt-50"
+      >
+        <h2 className="h2__title">Registration Form</h2>
         <form className="form d-flex flex-column" onSubmit={submitHandler}>
           <Label htmlFor="firstName">First Name</Label>
           <Input
@@ -52,7 +53,7 @@ export const RegisterForm: React.FC = () => {
               value="male"
               onChange={handleChange}
             />
-            <label htmlFor="male">Male</label>
+            <Label htmlFor="male">Male</Label>
           </div>
           <div>
             <Input
@@ -62,17 +63,17 @@ export const RegisterForm: React.FC = () => {
               value="female"
               onChange={handleChange}
             />
-            <label htmlFor="female">Female</label>
+            <Label htmlFor="female">Female</Label>
           </div>
           <div className="mb-10">
-            <input
+            <Input
               type="radio"
               id="other"
               name="gender"
               value="other"
               onChange={handleChange}
             />
-            <label htmlFor="other">Other</label>
+            <Label htmlFor="other">Other</Label>
           </div>
           <Label htmlFor="birthday">Birthday</Label>
           <Input
@@ -113,16 +114,18 @@ export const RegisterForm: React.FC = () => {
             onChange={handleChange}
             required
           />
-          <Button type="submit">Submit</Button>
+          <Button size="large" type="primary" htmlType="submit">
+            Submit
+          </Button>
           <p className="text-center">
             Do you already have an account?
-            <Link to="/" className="link">
+            <Link to="/" className="link link--color-blue">
               {" "}
               Login here
             </Link>
           </p>
         </form>
-      </div>
+      </Card>
     </div>
   );
 };

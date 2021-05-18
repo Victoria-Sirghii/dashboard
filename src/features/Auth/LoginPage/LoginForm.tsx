@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useLocalStorage } from "hooks";
 import { Login } from "types/interfaces";
-import { Input } from "../../../components/Input/Input";
+import { Input, Button, Card } from "components";
 
 export const LoginForm: React.FC = () => {
   const [values, setValues] = useState<Partial<Login>>({});
@@ -20,10 +20,14 @@ export const LoginForm: React.FC = () => {
 
   return (
     <div className="container">
-      <div className="box d-flex flex-column">
-        <h2 className="h2-title">Login Form</h2>
+      <Card
+        boxShadow="2"
+        className="mn-auto d-flex flex-column width-400 mt-50"
+      >
+        <h2 className="h2__title">Login Form</h2>
         <form className="form d-flex flex-column" onSubmit={submitHandler}>
           <Input
+            size="medium"
             type="email"
             placeholder="E-mail"
             name="email"
@@ -33,6 +37,7 @@ export const LoginForm: React.FC = () => {
             required
           />
           <Input
+            size="medium"
             type="password"
             placeholder="Password"
             name="password"
@@ -41,19 +46,21 @@ export const LoginForm: React.FC = () => {
             onChange={handleChange}
             required
           />
-          <a href="/" className="link text-center">
+          <a href="/" className="link link--color-blue text-center">
             Forgot Password?
           </a>
-          <button className="btn">Login</button>
+          <Button size="large" type="primary" htmlType="submit">
+            Login
+          </Button>
           <p className="text-center">
             Not a member?
-            <Link to="/register" className="link">
+            <Link to="/register" className="link link--color-blue">
               {" "}
               Register now
             </Link>
           </p>
         </form>
-      </div>
+      </Card>
     </div>
   );
 };

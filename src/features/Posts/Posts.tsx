@@ -6,10 +6,11 @@ import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { axios } from "api";
 import { Post } from "types/interfaces";
+import { Button } from "components";
 
 export const Posts: React.FC = () => {
   const queryClient = useQueryClient();
-  const history = useHistory()
+  const history = useHistory();
   const [page, setPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number[]>([]);
 
@@ -34,13 +35,13 @@ export const Posts: React.FC = () => {
   const handlePage = (index: number) => {
     setPage(index);
   };
-  
+
   useEffect(() => {
     const params = new URLSearchParams();
-    params.append("page", page.toString())
+    params.append("page", page.toString());
 
-    history.push({search: params.toString()})
-  }, [page, history])
+    history.push({ search: params.toString() });
+  }, [page, history]);
 
   if (isLoading) {
     return <h1>Loading...</h1>;
@@ -48,13 +49,15 @@ export const Posts: React.FC = () => {
 
   return (
     <div className="content-container">
-      <div className="content-header d-flex">
+      <div className="d-flex space-between">
         <p className="sort-box d-flex">
-          Company: <span className="bl-color"> All</span>{" "}
+          Company: <span className="color-blue pl-5"> All</span>{" "}
           <ArrowDropDownIcon className="pointer" />
         </p>
         <Link to="/dashboard/posts/create">
-          <button className="add-btn pointer">Add color</button>
+          <Button size="medium" type="primary" className="pointer">
+            Add color
+          </Button>
         </Link>
       </div>
       <table className="table">
@@ -83,7 +86,10 @@ export const Posts: React.FC = () => {
               <td>{color}</td>
               <td>{pantone_value}</td>
               <td>
-                <Link to={`/dashboard/posts/edit/${id}`} className="edit-link">
+                <Link
+                  to={`/dashboard/posts/edit/${id}`}
+                  className="icon--color-darkgray"
+                >
                   <EditIcon className="pointer" />
                 </Link>
               </td>
@@ -97,16 +103,17 @@ export const Posts: React.FC = () => {
           );
         })}
       </table>
-      <div className="page-btns d-flex">
+      <div className="box-btns d-flex">
         {totalPages.map((item, index) => {
           return (
-            <button
-              key={index}
-              className="page-btn btn"
+            <Button
+              size="small"
+              type="outline"
+              className="pointer"
               onClick={() => handlePage(index + 1)}
             >
               {index + 1}
-            </button>
+            </Button>
           );
         })}
       </div>

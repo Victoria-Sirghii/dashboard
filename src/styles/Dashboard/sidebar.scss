@@ -1,6 +1,5 @@
 $blue: #109cf1;
 $gray: rgb(180, 178, 178);
-$light-gray: rgb(204, 204, 204);
 
 .sidebar {
   width: 330px;
@@ -12,7 +11,7 @@ $light-gray: rgb(204, 204, 204);
   width: 70px;
 }
 
-.h1-title {
+.h1__title {
   color: $blue;
   box-shadow: -3px 1px 6px -3px #c7c7c7;
   padding: 15px 0 15px 40px;
@@ -36,22 +35,15 @@ $light-gray: rgb(204, 204, 204);
 
 .menu {
   list-style-type: none;
-  text-decoration: none;
   li {
     padding: 10px 40px;
     align-content: flex-start;
   }
-  .link-option {
-    text-decoration: none;
-    padding-left: 15px;
-    color: black;
-  }
-
   .active {
     color: $blue;
   }
 }
 
-.icon-color {
-  color: $light-gray;
+.menu-icon {
+  margin-right: 15px;
 }

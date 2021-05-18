@@ -6,6 +6,7 @@ import {
   Tooltip,
   Line,
 } from "recharts";
+import { Card } from "components";
 
 interface Post {
   post: any;
@@ -13,8 +14,8 @@ interface Post {
 
 export const LineChartPost: React.FC<Post> = ({ post }) => {
   return (
-    <div className="box fit-content lineChart">
-      <h2 className="title-info mn-title">LineChart</h2>
+    <Card boxShadow="1" className="fit-content line-chart">
+      <h2 className="h2__title ft-weight-500">LineChart</h2>
       <LineChart
         width={600}
         height={300}
@@ -27,6 +28,6 @@ export const LineChartPost: React.FC<Post> = ({ post }) => {
         <YAxis type="number" domain={[1998, 2010]} />
         <Tooltip />
       </LineChart>
-    </div>
+    </Card>
   );
 };

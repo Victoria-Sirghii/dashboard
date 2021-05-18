@@ -1,11 +1,15 @@
-@import "./register.scss";
-@import "./styles.scss";
+@import "./auth.scss";
 @import "./Dashboard/dashboard.scss";
 @import "./Dashboard/sidebar.scss";
 @import "./Dashboard/header.scss";
 @import "./Dashboard/users.scss";
-@import "./Dashboard//singleUser.scss";
+@import "./Dashboard/singleUser.scss";
 @import "./Dashboard/singlePost.scss";
-@import "./modal.scss";
-@import "./Dashboard/post.scss";
-@import "./helpers.scss"
+@import "./helpers.scss";
+
+@import "../components/Input/input.scss";
+@import "../components/Label/label.scss";
+@import "../components/Layout/layout.scss";
+@import "../components/Button/button.scss";
+@import "../components/Card/Card.scss";
+@import "../components/Modal/Modal.scss";

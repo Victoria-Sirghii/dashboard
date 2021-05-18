@@ -4,9 +4,9 @@ import NotificationsIcon from "@material-ui/icons/Notifications";
 export const HeaderContent: React.FC = () => {
   return (
     <div className="header">
-      <div className="d-flex header-center">
+      <div className="d-flex header--center">
         <div className="search-bar d-flex">
-          <SearchIcon className="icon-color" />
+          <SearchIcon className="color-gray" />
           <input
             type="text"
             placeholder="Search for a contact"
@@ -14,7 +14,7 @@ export const HeaderContent: React.FC = () => {
           />
         </div>
         <div>
-          <NotificationsIcon className="icon-color" />
+          <NotificationsIcon className="color-gray" />
         </div>
       </div>
     </div>
