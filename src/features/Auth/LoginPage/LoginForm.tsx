@@ -1,66 +1,69 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useCallback } from "react";
+import {
+  Button,
+  Card,
+  Input,
+  Container,
+  Form,
+  useForm,
+} from "@ebs-integrator/react-ebs-ui";
 import { useLocalStorage } from "hooks";
-import { Login } from "types/interfaces";
-import { Input, Button, Card } from "components";
+
+export interface User {
+  email: string;
+  password: string;
+}
 
 export const LoginForm: React.FC = () => {
-  const [values, setValues] = useState<Partial<Login>>({});
+  const [form] = useForm();
   const [, setStorage] = useLocalStorage();
 
-  const submitHandler = (e: React.SyntheticEvent) => {
-    e.preventDefault();
-    setStorage("user", values);
-    setValues({});
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setValues({ ...values, [e.target.name]: e.target.value });
-  };
+  const handleSubmit = useCallback(
+    (data: any) => {
+      setStorage("user", data);
+      form.resetFields();
+    },
+    [form]
+  );
 
   return (
-    <div className="container">
-      <Card
-        boxShadow="2"
-        className="mn-auto d-flex flex-column width-400 mt-50"
-      >
-        <h2 className="h2__title">Login Form</h2>
-        <form className="form d-flex flex-column" onSubmit={submitHandler}>
-          <Input
-            size="medium"
-            type="email"
-            placeholder="E-mail"
-            name="email"
-            id="email"
-            value={values.email}
-            onChange={handleChange}
-            required
-          />
-          <Input
-            size="medium"
-            type="password"
-            placeholder="Password"
-            name="password"
-            id="password"
-            value={values.password}
-            onChange={handleChange}
-            required
-          />
-          <a href="/" className="link link--color-blue text-center">
-            Forgot Password?
-          </a>
-          <Button size="large" type="primary" htmlType="submit">
-            Login
-          </Button>
-          <p className="text-center">
-            Not a member?
-            <Link to="/register" className="link link--color-blue">
-              {" "}
-              Register now
-            </Link>
-          </p>
-        </form>
-      </Card>
+    <div className="container-auth">
+      <Container>
+        <Card className="mn-auto d-flex flex-column width-400 mt-50 p-20">
+          <h2 className="h2__title">Login Form</h2>
+          <Form
+            className="form d-flex flex-column"
+            onFinish={handleSubmit}
+            form={form}
+          >
+            <Form.Field name="email" rules={[{ required: true }]}>
+              <Input
+                size="large"
+                type="email"
+                className="mtb-10"
+                placeholder="E-mail"
+              />
+            </Form.Field>
+            <Form.Field name="password" rules={[{ required: true }]}>
+              <Input size="large" type="password" placeholder="Password" />
+            </Form.Field>
+            <a href="/" className="link link--color-blue text-center">
+              Forgot Password?
+            </a>
+            <Button size="medium" type="primary" submit className="mtb-20">
+              Login
+            </Button>
+            <p className="text-center">
+              Not a member?
+              <Link to="/register" className="link link--color-blue">
+                {" "}
+                Register now
+              </Link>
+            </p>
+          </Form>
+        </Card>
+      </Container>
     </div>
   );
 };

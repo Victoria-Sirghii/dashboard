@@ -1,3 +1,3 @@
 export const Header: React.FC = ({ children }) => {
-  return <>{children}</>;
+  return <header>{children}</header>;
 };

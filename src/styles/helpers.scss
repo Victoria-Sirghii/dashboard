@@ -24,7 +24,7 @@ body,
   height: 100%;
 }
 
-.container {
+.container-auth {
   background-color: $light-gray;
   position: fixed;
   top: 0;
@@ -102,6 +102,10 @@ body,
   color: $blue;
 }
 
+.p-20 {
+  padding: 20px;
+}
+
 .pl-5 {
   padding-left: 5px;
 }
@@ -111,6 +115,24 @@ body,
 .mb-10 {
   margin-bottom: 10px;
 }
+.mb-50 {
+  margin-bottom: 50px;
+}
 .mt-50 {
   margin-top: 50px;
+}
+
+.m-5 {
+  margin: 5px;
+}
+
+.m-10 {
+  margin: 10px;
+}
+
+.mtb-20 {
+  margin: 20px 0;
+}
+.mtb-10 {
+  margin: 10px 0;
 }

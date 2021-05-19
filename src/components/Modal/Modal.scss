@@ -1,4 +1,4 @@
-$red: rgb(177, 10, 10);
+$btn-close-color: rgb(177, 10, 10);
 
 .modal-overlay {
   position: fixed;
@@ -36,6 +36,6 @@ $red: rgb(177, 10, 10);
   font-size: 32px;
   background: transparent;
   border-color: transparent;
-  color: $red;
+  color: $btn-close-color;
   cursor: pointer;
 }

@@ -1,87 +1,78 @@
 import { axios } from "api";
-import { useState } from "react";
 import { useMutation } from "react-query";
+import { useCallback } from "react";
 import { Link } from "react-router-dom";
+import {
+  Button,
+  Form,
+  Input,
+  Card,
+  useForm,
+} from "@ebs-integrator/react-ebs-ui";
 import { Post } from "types/interfaces";
-import { Input, Label, Button, Card } from "components";
 
 export const NewPostForm: React.FC = () => {
-  const [newPost, setNewPost] = useState<Partial<Post>>({});
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setNewPost({ ...newPost, [e.target.name]: e.target.value });
-  };
+  const [form] = useForm();
 
   const mutation = useMutation<unknown, unknown, Partial<Post>>((bodyData) =>
     axios.post("/unknown", bodyData)
   );
 
-  const submitHandler = (e: React.SyntheticEvent) => {
-    e.preventDefault();
-    mutation.mutate(newPost);
-  };
+  const submitHandler = useCallback(
+    (data: any) => {
+      mutation.mutate(data);
+      form.resetFields();
+    },
+    [form]
+  );
 
   return (
     <div className="content-container">
-      <Card className="d-flex flex-column width-400 mn-auto">
+      <Card className="d-flex flex-column width-400 mn-auto p-20">
         <h2 className="h2__title">New post</h2>
-        <form className="form d-flex flex-column" onSubmit={submitHandler}>
-          <Label htmlFor="name">Name</Label>
-          <Input
-            type="text"
-            placeholder="cerulean"
-            name="name"
-            id="name"
-            value={newPost.name}
-            onChange={handleChange}
-            required
-          />
-          <Label htmlFor="color">Color</Label>
-          <Input
-            type="text"
-            placeholder="#98B2D1"
-            name="color"
-            id="color"
-            value={newPost?.color}
-            onChange={handleChange}
-            required
-          />
-          <Label htmlFor="year">Year</Label>
-          <Input
-            type="text"
-            placeholder="2005"
-            name="year"
-            id="year"
-            value={newPost?.year}
-            onChange={handleChange}
-            required
-          />
-          <Label htmlFor="pantone_value">Pantone value</Label>
-          <Input
-            type="text"
-            placeholder="15-4020"
-            name="pantone_value"
-            id="pantone_value"
-            value={newPost?.pantone_value}
-            onChange={handleChange}
-            required
-          />
+        <Form
+          className="form d-flex flex-column"
+          onFinish={submitHandler}
+          form={form}
+        >
+          <Form.Field name="name" label="Color name">
+            <Input type="text" size="large" placeholder="cerulean" />
+          </Form.Field>
+          <Form.Field name="color" label="Color name">
+            <Input
+              type="text"
+              size="large"
+              placeholder="#98B2D1"
+              name="color"
+            />
+          </Form.Field>
+          <Form.Field name="year" label="Year">
+            <Input type="text" size="large" placeholder="2005" name="year" />
+          </Form.Field>
+          <Form.Field name="pantone_value" label="Pantone value">
+            <Input
+              type="text"
+              size="large"
+              placeholder="15-4020"
+              name="pantone_value"
+            />
+          </Form.Field>
           <div className="mn-auto">
             <Button
-              htmlType="submit"
+              submit
               size="medium"
               type="primary"
-              className="pointer"
+              className="pointer m-10"
             >
               Add post
             </Button>
             <Link to="/dashboard/posts">
-              <Button size="medium" type="outline" className="pointer">
+              <Button size="medium" type="ghost" className="pointer m-10">
                 Cancel
               </Button>
             </Link>
           </div>
-        </form>
+        </Form>
       </Card>
     </div>
   );

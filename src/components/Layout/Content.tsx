@@ -1,3 +1,3 @@
 export const Content: React.FC = ({ children }) => {
-  return <div className="content">{children}</div>;
+  return <section className="content">{children}</section>;
 };

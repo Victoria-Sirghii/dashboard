@@ -2,8 +2,9 @@ import CloseIcon from "@material-ui/icons/Close";
 import React, { useEffect, useState } from "react";
 import { useMutation } from "react-query";
 import { axios } from "api";
+import { Button } from "@ebs-integrator/react-ebs-ui";
 import { User } from "types/interfaces";
-import { Input, Label, Button, Modal } from "components";
+import { Input, Label, Modal } from "components";
 
 type Props = {
   isModalOpen: boolean;
@@ -11,7 +12,7 @@ type Props = {
   editUser: User | null;
 };
 
-export const ModalComponent: React.FC<Props> = ({
+export const UserFormModal: React.FC<Props> = ({
   isModalOpen,
   closeModal,
   editUser,
@@ -94,18 +95,11 @@ export const ModalComponent: React.FC<Props> = ({
           value={user?.avatar}
           onChange={handleChange}
         />
-        <Button
-          htmlType="submit"
-          type="primary"
-          size="large"
-          className="pointer"
-        >
+        <Button submit type="primary" size="medium" className="pointer mtb-20">
           Submit
         </Button>
       </form>
-      <Button className="close-modal-btn" onClick={closeModal}>
-        <CloseIcon />
-      </Button>
+      <CloseIcon className="close-modal-btn" onClick={closeModal} />
     </Modal>
   );
 };

@@ -2,8 +2,9 @@ import { axios } from "api";
 import React, { useState } from "react";
 import { useMutation, useQuery } from "react-query";
 import { Link, useParams } from "react-router-dom";
+import { Button } from "@ebs-integrator/react-ebs-ui";
 import { Post } from "types/interfaces";
-import { Input, Label, Button, Card } from "components/index";
+import { Input, Label, Card } from "components/index";
 
 type IdParams = {
   id: string;
@@ -85,15 +86,15 @@ export const EditPost: React.FC = () => {
           />
           <div className="mn-auto">
             <Button
-              htmlType="submit"
+              submit
               size="medium"
               type="primary"
-              className="pointer"
+              className="pointer m-10"
             >
               Edit post
             </Button>
             <Link to="/dashboard/posts">
-              <Button size="medium" type="outline" className="pointer">
+              <Button size="medium" type="ghost" className="pointer m-10">
                 Cancel
               </Button>
             </Link>

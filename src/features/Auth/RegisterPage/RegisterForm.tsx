@@ -1,131 +1,108 @@
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useCallback } from "react";
+import {
+  Button,
+  Card,
+  Input,
+  Container,
+  Form,
+  DatePicker,
+  useForm,
+} from "@ebs-integrator/react-ebs-ui";
 import { useLocalStorage } from "hooks";
-import { Values } from "types/interfaces";
-import { Input, Label, Button, Card } from "components";
+// import { Label } from "components";
+
+interface User {
+  firstName: string;
+  lastName: string;
+  gender: string;
+  birthday: string;
+  email: string;
+  password: string;
+  confirmation: string;
+}
 
 export const RegisterForm: React.FC = () => {
-  const [values, setValues] = useState<Partial<Values>>({});
+  const [form] = useForm();
   const [, setStorage] = useLocalStorage();
 
-  const submitHandler = (e: React.SyntheticEvent) => {
-    e.preventDefault();
-    setStorage("values", values);
-    setValues({});
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setValues({ ...values, [e.target.name]: e.target.value });
-  };
+  const handleSubmit = useCallback(
+    (data: any) => {
+      setStorage("data", data);
+      form.resetFields();
+    },
+    [form]
+  );
 
   return (
-    <div className="container">
-      <Card
-        boxShadow="2"
-        className="mn-auto d-flex flex-column width-400 mt-50"
-      >
-        <h2 className="h2__title">Registration Form</h2>
-        <form className="form d-flex flex-column" onSubmit={submitHandler}>
-          <Label htmlFor="firstName">First Name</Label>
-          <Input
-            type="text"
-            placeholder="John"
-            name="firstName"
-            id="firstName"
-            value={values?.firstName}
-            onChange={handleChange}
-          />
-          <Label htmlFor="lastName">Last Name</Label>
-          <Input
-            type="text"
-            placeholder="Jackson"
-            name="lastName"
-            id="lastName"
-            value={values?.lastName}
-            onChange={handleChange}
-          />
-          <Label>Gender</Label>
-          <div>
-            <Input
-              type="radio"
-              id="male"
-              name="gender"
-              value="male"
-              onChange={handleChange}
-            />
-            <Label htmlFor="male">Male</Label>
-          </div>
-          <div>
-            <Input
-              type="radio"
-              id="female"
-              name="gender"
-              value="female"
-              onChange={handleChange}
-            />
-            <Label htmlFor="female">Female</Label>
-          </div>
-          <div className="mb-10">
-            <Input
-              type="radio"
-              id="other"
-              name="gender"
-              value="other"
-              onChange={handleChange}
-            />
-            <Label htmlFor="other">Other</Label>
-          </div>
-          <Label htmlFor="birthday">Birthday</Label>
-          <Input
-            type="date"
-            placeholder=""
-            name="birthday"
-            id="birthday"
-            value={values?.birthday}
-            onChange={handleChange}
-          />
-          <Label htmlFor="email">Email</Label>
-          <Input
-            type="email"
-            placeholder="john.jackson@gmail.com"
-            name="email"
-            id="email"
-            value={values?.email}
-            onChange={handleChange}
-            required
-          />
-          <Label htmlFor="password">Password</Label>
-          <Input
-            type="password"
-            placeholder="Password"
-            name="password"
-            id="password"
-            value={values?.password}
-            onChange={handleChange}
-            required
-          />
-          <Label htmlFor="confirmation">Confirm password</Label>
-          <Input
-            type="password"
-            placeholder="Password"
-            name="confirmation"
-            id="confirmation"
-            value={values?.confirmation}
-            onChange={handleChange}
-            required
-          />
-          <Button size="large" type="primary" htmlType="submit">
-            Submit
-          </Button>
-          <p className="text-center">
-            Do you already have an account?
-            <Link to="/" className="link link--color-blue">
-              {" "}
-              Login here
-            </Link>
-          </p>
-        </form>
-      </Card>
+    <div className="container-auth">
+      <Container>
+        <Card className="mn-auto d-flex flex-column width-400 mt-50 p-20">
+          <h2 className="h2__title">Registration Form</h2>
+          <Form
+            className="form d-flex flex-column"
+            onFinish={handleSubmit}
+            form={form}
+          >
+            <Form.Field
+              name="firstName"
+              label="First Name"
+              rules={[{ required: true }]}
+            >
+              <Input size="large" type="text" placeholder="John" />
+            </Form.Field>
+            <Form.Field
+              name="lastName"
+              label="Last Name"
+              rules={[{ required: true }]}
+            >
+              <Input size="large" type="text" placeholder="Jackson" />
+            </Form.Field>
+            <Form.Field
+              name="birthday"
+              label="Birthday"
+              rules={[{ required: true }]}
+            >
+              <DatePicker
+                dateFormat="dd-MM-yyyy"
+                placeholderText="dd-MM-yyyy"
+              />
+            </Form.Field>
+            <Form.Field name="email" label="Email" rules={[{ required: true }]}>
+              <Input
+                size="large"
+                type="email"
+                placeholder="john.jackson@gmail.com"
+                name="email"
+              />
+            </Form.Field>
+            <Form.Field
+              name="Password"
+              label="Password"
+              rules={[{ required: true }]}
+            >
+              <Input size="large" type="password" placeholder="Password" />
+            </Form.Field>
+            <Form.Field
+              name="confirmation"
+              label="Confirm password"
+              rules={[{ required: true }]}
+            >
+              <Input size="large" type="password" placeholder="Password" />
+            </Form.Field>
+            <Button size="medium" type="primary" className="mtb-20" submit>
+              Submit
+            </Button>
+            <p className="text-center">
+              Do you already have an account?
+              <Link to="/" className="link link--color-blue">
+                {" "}
+                Login here
+              </Link>
+            </p>
+          </Form>
+        </Card>
+      </Container>
     </div>
   );
 };

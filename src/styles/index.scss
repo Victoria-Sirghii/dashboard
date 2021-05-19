@@ -1,3 +1,7 @@
+@import "./variables.scss";
+@import "~@ebs-integrator/react-ebs-ui/dist/styles/index";
+@import "./Dashboard/table.scss";
+
 @import "./auth.scss";
 @import "./Dashboard/dashboard.scss";
 @import "./Dashboard/sidebar.scss";

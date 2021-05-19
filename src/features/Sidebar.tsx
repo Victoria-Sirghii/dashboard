@@ -5,7 +5,7 @@ import PostAddIcon from "@material-ui/icons/PostAdd";
 
 export const Sidebar: React.FC = () => {
   return (
-    <div className="sidebar">
+    <div>
       <h1 className="h1__title">SaaS Kit</h1>
       <div className="user-info d-flex">
         <img

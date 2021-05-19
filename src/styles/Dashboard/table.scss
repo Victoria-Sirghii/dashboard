@@ -1,0 +1,11 @@
+@import "../variables.scss";
+
+.ebs-table .rc-table-tbody tr.rc-table-row:nth-child(odd) td.rc-table-cell {
+  font-size: 15px;
+}
+.rc-table-cell {
+  font-size: 15px;
+}
+.ebs-table td a {
+  color: $primary-color;
+}

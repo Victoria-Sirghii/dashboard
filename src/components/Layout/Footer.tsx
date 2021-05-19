@@ -1,3 +1,3 @@
 export const Footer: React.FC = ({ children }) => {
-  return <>{children}</>;
+  return <footer>{children}</footer>;
 };

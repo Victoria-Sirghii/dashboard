@@ -2,13 +2,13 @@ import { useQuery, useMutation, useQueryClient } from "react-query";
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { Button, Table } from "@ebs-integrator/react-ebs-ui";
 import EditIcon from "@material-ui/icons/Edit";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { axios } from "api";
-import { ModalComponent } from "features";
+import { UserFormModal } from "features";
 import { User } from "types/interfaces";
-import { Button } from "components";
 
 export const Users: React.FC = () => {
   const queryClient = useQueryClient();
@@ -58,6 +58,48 @@ export const Users: React.FC = () => {
     setPage(index);
   };
 
+  const columns = [
+    {
+      title: <input type="checkbox" id="check-all" />,
+      render: (record: any) => <input type="checkbox" id="check" />,
+    },
+    {
+      title: "Avatar",
+      render: (user: any) => (
+        <img src={user.avatar} alt="user" className="user-avatar" />
+      ),
+    },
+    {
+      title: "Name",
+      render: (user: any) => (
+        <Link to={`/dashboard/users/${user.id}`}>
+          <span className="name name-center">
+            {user.first_name} {user.last_name}
+          </span>
+        </Link>
+      ),
+    },
+    {
+      title: "Avatar",
+      dataIndex: "email",
+    },
+    {
+      title: "Edit",
+      render: (user: any) => (
+        <EditIcon className="pointer" onClick={() => editHandler(user)} />
+      ),
+    },
+    {
+      title: "Remove",
+      render: (user: any) => (
+        <DeleteIcon
+          className="pointer"
+          onClick={() => mutation.mutate(user.id)}
+        />
+      ),
+    },
+  ];
+
   useEffect(() => {
     const params = new URLSearchParams();
     params.append("page", page.toString());
@@ -70,9 +112,9 @@ export const Users: React.FC = () => {
   }
   return (
     <div className="content-container">
-      <div className="d-flex space-between">
+      <div className="d-flex space-between mb-50">
         <p className="sort-box d-flex">
-          Company: <span className="color-blue pl-5"> All</span>{" "}
+          Users: <span className="color-blue pl-5"> All</span>{" "}
           <ArrowDropDownIcon className="pointer" />
         </p>
         <Button
@@ -84,7 +126,8 @@ export const Users: React.FC = () => {
           Add user
         </Button>
       </div>
-      <table className="table">
+      <Table data={data} columns={columns} />
+      {/* <table className="table">
         <tr>
           <th>
             <input type="checkbox" id="check-all" />
@@ -126,9 +169,9 @@ export const Users: React.FC = () => {
               </tr>
             );
           })}
-      </table>
+      </table> */}
       {isModalOpen && (
-        <ModalComponent
+        <UserFormModal
           isModalOpen={isModalOpen}
           closeModal={closeModal}
           editUser={editUser}
@@ -139,8 +182,8 @@ export const Users: React.FC = () => {
           return (
             <Button
               size="small"
-              type="outline"
-              htmlType="button"
+              type="ghost"
+              className="pointer m-5"
               onClick={() => handlePage(index + 1)}
             >
               {index + 1}
