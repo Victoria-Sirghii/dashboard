@@ -2,9 +2,9 @@ import { axios } from "api";
 import React, { useState } from "react";
 import { useMutation, useQuery } from "react-query";
 import { Link, useParams } from "react-router-dom";
-import { Button } from "@ebs-integrator/react-ebs-ui";
+import { Button, Card, Form, Input } from "@ebs-integrator/react-ebs-ui";
 import { Post } from "types/interfaces";
-import { Input, Label, Card } from "components/index";
+// import { Input, Label, Card } from "components/index";
 
 type IdParams = {
   id: string;
@@ -25,65 +25,39 @@ export const EditPost: React.FC = () => {
     axios.patch(`/unknown/${bodyData?.id}`, bodyData)
   );
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPost({ ...post, [e.target.name]: e.target.value });
-  };
-
   if (isLoading) {
     return <h2>Loading...</h2>;
   }
 
-  const submitHandler = (e: React.SyntheticEvent) => {
-    console.log(post);
-
-    e.preventDefault();
-    updateUser.mutate(post);
+  const submitHandler = (data: any) => {
+    updateUser.mutate(data);
   };
 
   return (
     <div className="content-container">
-      <Card boxShadow="2" className="d-flex flex-column width-400 mn-auto">
-        <form className="form d-flex flex-column" onSubmit={submitHandler}>
-          <Label htmlFor="name">Name</Label>
-          <Input
-            type="text"
-            placeholder="cerulean"
-            name="name"
-            id="name"
-            value={post?.name}
-            onChange={handleChange}
-            required
-          />
-          <Label htmlFor="color">Color</Label>
-          <Input
-            type="text"
-            placeholder="#98B2D1"
-            name="color"
-            id="color"
-            value={post?.color}
-            onChange={handleChange}
-            required
-          />
-          <Label htmlFor="year">Year</Label>
-          <Input
-            type="text"
-            placeholder="2005"
-            name="year"
-            id="year"
-            value={post?.year}
-            onChange={handleChange}
-            required
-          />
-          <Label htmlFor="pantone_value">Pantone value</Label>
-          <Input
-            type="text"
-            placeholder="15-4020"
-            name="pantone_value"
-            id="pantone_value"
-            value={post?.pantone_value}
-            onChange={handleChange}
-            required
-          />
+      <Card className="d-flex flex-column width-400 mn-auto  p-20">
+        <Form
+          className="form d-flex flex-column"
+          initialValues={{
+            name: post.name,
+            color: post.color,
+            year: post.year,
+            pantone_value: post.pantone_value,
+          }}
+          onFinish={submitHandler}
+        >
+          <Form.Field name="name" label="Color name">
+            <Input size="large" type="text" name="name" />
+          </Form.Field>
+          <Form.Field name="color" label="Color">
+            <Input size="large" type="text" name="color" />
+          </Form.Field>
+          <Form.Field name="year" label="Year">
+            <Input size="large" type="text" name="year" />
+          </Form.Field>
+          <Form.Field name="pantone_value" label="Pantone value">
+            <Input size="large" type="text" name="pantone_value" />
+          </Form.Field>
           <div className="mn-auto">
             <Button
               submit
@@ -99,7 +73,7 @@ export const EditPost: React.FC = () => {
               </Button>
             </Link>
           </div>
-        </form>
+        </Form>
       </Card>
     </div>
   );
