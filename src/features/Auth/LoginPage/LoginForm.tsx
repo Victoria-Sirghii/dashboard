@@ -24,7 +24,7 @@ export const LoginForm: React.FC = () => {
       setStorage("user", data);
       form.resetFields();
     },
-    [form]
+    [form, setStorage]
   );
 
   return (
