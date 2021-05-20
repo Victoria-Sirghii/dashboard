@@ -5,7 +5,7 @@ import { Button, Table, SortBy, Checkbox } from "@ebs-integrator/react-ebs-ui";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { axios } from "api";
-import { Options } from "@ebs-integrator/react-ebs-ui/dist/components/molecules/Select/Options";
+import { SearchInput } from "features";
 
 export const Posts: React.FC = () => {
   const queryClient = useQueryClient();
@@ -38,8 +38,6 @@ export const Posts: React.FC = () => {
   const handlePage = (index: number) => {
     setPage(index);
   };
-
-  console.log("checkeds", checkeds);
 
   const columns = [
     {
@@ -130,6 +128,7 @@ export const Posts: React.FC = () => {
 
   return (
     <div className="content-container">
+      <SearchInput messege="hello" />
       <div className="d-flex space-between mb-50">
         <SortBy
           options={sortOptions as any}

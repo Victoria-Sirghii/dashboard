@@ -2,7 +2,7 @@ import { useQuery, useMutation, useQueryClient } from "react-query";
 import { useEffect, useMemo, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { Button, Table, SortBy } from "@ebs-integrator/react-ebs-ui";
+import { Button, Table, SortBy, Checkbox } from "@ebs-integrator/react-ebs-ui";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { axios } from "api";
@@ -17,6 +17,8 @@ export const Users: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [filter, setFilter] = useState("");
   const [editUser, setEditUser] = useState<Partial<User> | null>(null);
+  const [checked, setChecked] = useState(false);
+  const [checkeds, setCheckeds] = useState<any>({});
 
   const openModal: () => void = () => {
     setIsModalOpen(true);
@@ -60,8 +62,32 @@ export const Users: React.FC = () => {
 
   const columns = [
     {
-      title: <input type="checkbox" id="check" />,
-      render: (record: any) => <input type="checkbox" id="check" />,
+      title: (
+        <Checkbox
+          checked={checked}
+          onChange={(value) => {
+            setChecked(value);
+
+            data.forEach((item: any, index: number) =>
+              setCheckeds((prevState: any) => ({
+                ...prevState,
+                [index]: value,
+              }))
+            );
+          }}
+        />
+      ),
+      render: (record: any, row: any, index: number) => (
+        <Checkbox
+          checked={checkeds[index]}
+          onChange={(value) => {
+            setCheckeds((prevState: any) => ({
+              ...prevState,
+              [index]: value,
+            }));
+          }}
+        />
+      ),
     },
     {
       title: "Avatar",
@@ -71,7 +97,7 @@ export const Users: React.FC = () => {
     },
     {
       title: "Name",
-      filter: "name",
+      filter: "first_name",
       render: (user: any) => (
         <Link to={`/dashboard/users/${user.id}`}>
           <span className="name name-center">
@@ -103,18 +129,12 @@ export const Users: React.FC = () => {
   ];
 
   const filterData = useMemo(() => {
-    if (filter === "-name") {
-      return data.sort((a: any, b: any) =>
-        a.first_name > b.first_name ? -1 : 1
-      );
-    } else if (filter === "name") {
-      return data.sort((a: any, b: any) =>
-        a.first_name > b.first_name ? 1 : -1
-      );
-    } else if (filter === "email") {
-      return data.sort((a: any, b: any) => (a.email > b.email ? -1 : 1));
+    if (filter[0] === "-") {
+      const v = filter.slice(1);
+
+      return data.sort((a: any, b: any) => (a[v] > b[v] ? 1 : -1));
     } else {
-      return data.sort((a: any, b: any) => (a.email > b.email ? 1 : -1));
+      return data.sort((a: any, b: any) => (a[filter] > b[filter] ? -1 : 1));
     }
   }, [data, filter]);
 
