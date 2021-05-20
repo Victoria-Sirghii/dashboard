@@ -29,7 +29,7 @@ export const NewPostForm: React.FC = () => {
       mutation.mutate(data);
       form.resetFields();
     },
-    [form]
+    [form, mutation]
   );
 
   return (

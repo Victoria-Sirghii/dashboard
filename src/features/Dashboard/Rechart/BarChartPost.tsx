@@ -7,7 +7,7 @@ import {
   Bar,
   Legend,
 } from "recharts";
-import { Card } from "components";
+import { Card } from "@ebs-integrator/react-ebs-ui";
 
 interface Post {
   post: any;
@@ -15,7 +15,7 @@ interface Post {
 
 export const BarChartPost: React.FC<Post> = ({ post }) => {
   return (
-    <Card boxShadow="1" className="fit-content bar-chart">
+    <Card className="fit-content bar-chart p-20">
       <h2 className="h2__title ft-weight-500">BarChart</h2>
       <BarChart width={600} height={250} data={post.data} barSize={30}>
         <CartesianGrid strokeDasharray="3 3" />

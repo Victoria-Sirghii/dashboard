@@ -1,6 +1,6 @@
 import { useFetchQuery } from "hooks";
 import { LineChartPost, AreaChartPost, BarChartPost } from "features";
-import { Card } from "components";
+import { Card } from "@ebs-integrator/react-ebs-ui";
 
 export const Dashboard: React.FC = () => {
   const { data: users } = useFetchQuery("users");
@@ -8,7 +8,7 @@ export const Dashboard: React.FC = () => {
 
   return (
     <div className="dashboard-container grid-charts">
-      <Card boxShadow="1" className="d-flex total-chart fit-content">
+      <Card className="d-flex total-chart fit-content">
         <h2 className="h2__title ft-weight-500 d-flex flex-column">
           Total users: <span className="total-users">{users?.total}</span>
         </h2>

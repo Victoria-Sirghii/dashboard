@@ -10,17 +10,6 @@ import {
   useForm,
 } from "@ebs-integrator/react-ebs-ui";
 import { useLocalStorage } from "hooks";
-// import { Label } from "components";
-
-interface User {
-  firstName: string;
-  lastName: string;
-  gender: string;
-  birthday: string;
-  email: string;
-  password: string;
-  confirmation: string;
-}
 
 export const RegisterForm: React.FC = () => {
   const [form] = useForm();
@@ -31,7 +20,7 @@ export const RegisterForm: React.FC = () => {
       setStorage("data", data);
       form.resetFields();
     },
-    [form]
+    [form, setStorage]
   );
 
   return (

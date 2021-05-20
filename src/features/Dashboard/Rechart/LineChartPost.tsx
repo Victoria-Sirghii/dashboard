@@ -6,7 +6,7 @@ import {
   Tooltip,
   Line,
 } from "recharts";
-import { Card } from "components";
+import { Card } from "@ebs-integrator/react-ebs-ui";
 
 interface Post {
   post: any;
@@ -14,7 +14,7 @@ interface Post {
 
 export const LineChartPost: React.FC<Post> = ({ post }) => {
   return (
-    <Card boxShadow="1" className="fit-content line-chart">
+    <Card className="fit-content line-chart p-20">
       <h2 className="h2__title ft-weight-500">LineChart</h2>
       <LineChart
         width={600}
