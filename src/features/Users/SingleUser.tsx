@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useQuery } from "react-query";
 import { axios } from "api";
+import { Card } from "@ebs-integrator/react-ebs-ui";
 
 type IdParams = {
   id: string;
@@ -22,13 +23,15 @@ export const SingleUser: React.FC = () => {
 
   return (
     <div className="content-container">
-      <div className="box box--margin-auto width-400 d-flex flex-column align-items-center">
-        <img src={avatar} alt={last_name} className="avatar" />
-        <p className="user-name info">
-          {first_name} {last_name}
-        </p>
-        <p>{email}</p>
-      </div>
+      <Card className="mn-auto p-20 width-400">
+        <div className="d-flex flex-column align-items-center">
+          <img src={avatar} alt={last_name} className="avatar" />
+          <p className="user-name info">
+            {first_name} {last_name}
+          </p>
+          <p>{email}</p>
+        </div>
+      </Card>
     </div>
   );
 };
