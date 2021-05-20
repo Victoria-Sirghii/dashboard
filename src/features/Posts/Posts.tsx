@@ -6,7 +6,6 @@ import EditIcon from "@material-ui/icons/Edit";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { axios } from "api";
-// import { Button } from "components";
 
 export const Posts: React.FC = () => {
   const queryClient = useQueryClient();

@@ -126,50 +126,9 @@ export const Users: React.FC = () => {
           Add user
         </Button>
       </div>
+
       <Table data={data} columns={columns} />
-      {/* <table className="table">
-        <tr>
-          <th>
-            <input type="checkbox" id="check-all" />
-          </th>
-          <th>Name</th>
-          <th>Email</th>
-          <th>Edit</th>
-          <th>Remove</th>
-        </tr>
-        {data &&
-          data.map((user: User) => {
-            const { id, email, first_name, last_name, avatar } = user;
-            return (
-              <tr key={id}>
-                <td>
-                  <input type="checkbox" id="check" />
-                </td>
-                <td className="name-box">
-                  <img src={avatar} alt="user" className="user-avatar" />
-                  <Link to={`/dashboard/users/${id}`}>
-                    <span className="name name-center">
-                      {first_name} {last_name}
-                    </span>
-                  </Link>
-                </td>
-                <td>{email}</td>
-                <td>
-                  <EditIcon
-                    className="pointer"
-                    onClick={() => editHandler(user)}
-                  />
-                </td>
-                <td>
-                  <DeleteIcon
-                    className="pointer"
-                    onClick={() => mutation.mutate(id)}
-                  />
-                </td>
-              </tr>
-            );
-          })}
-      </table> */}
+
       {isModalOpen && (
         <UserFormModal
           isModalOpen={isModalOpen}

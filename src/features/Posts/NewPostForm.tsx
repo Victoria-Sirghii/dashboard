@@ -1,7 +1,7 @@
 import { axios } from "api";
 import { useMutation } from "react-query";
 import { useCallback } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import {
   Button,
   Form,
@@ -13,9 +13,15 @@ import { Post } from "types/interfaces";
 
 export const NewPostForm: React.FC = () => {
   const [form] = useForm();
+  let history = useHistory();
 
-  const mutation = useMutation<unknown, unknown, Partial<Post>>((bodyData) =>
-    axios.post("/unknown", bodyData)
+  const mutation = useMutation<unknown, unknown, Partial<Post>>(
+    (bodyData) => axios.post("/unknown", bodyData),
+    {
+      onSuccess: () => {
+        history.push("/dashboard/posts/?page=1");
+      },
+    }
   );
 
   const submitHandler = useCallback(

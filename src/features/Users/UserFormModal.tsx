@@ -1,10 +1,15 @@
 import CloseIcon from "@material-ui/icons/Close";
-import React, { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useMutation } from "react-query";
 import { axios } from "api";
-import { Button } from "@ebs-integrator/react-ebs-ui";
+import {
+  Button,
+  Form,
+  Input,
+  Modal,
+  useForm,
+} from "@ebs-integrator/react-ebs-ui";
 import { User } from "types/interfaces";
-import { Input, Label, Modal } from "components";
 
 type Props = {
   isModalOpen: boolean;
@@ -17,88 +22,62 @@ export const UserFormModal: React.FC<Props> = ({
   closeModal,
   editUser,
 }) => {
-  const [user, setUser] = useState<Partial<User | null>>({});
+  const [form] = useForm();
 
   useEffect(() => {
-    setUser({
-      id: editUser?.id,
-      first_name: editUser?.first_name,
-      last_name: editUser?.last_name,
+    form.setFieldsValue({
+      firstName: editUser?.first_name,
+      lastName: editUser?.last_name,
       email: editUser?.email,
       avatar: editUser?.avatar,
     });
-
-    return () => setUser({});
-  }, [editUser]);
+  }, [editUser, form]);
 
   const mutation = useMutation<unknown, unknown, Partial<User | null>>(
-    (bodyData) => axios.post("/users", bodyData)
+    (bodyData) => axios.post("/users", bodyData),
+    {
+      onSuccess: closeModal,
+    }
   );
   const updateUser = useMutation<unknown, unknown, Partial<User | null>>(
-    (bodyData) => axios.patch(`/users/${bodyData?.id}`, bodyData)
+    (bodyData) => axios.patch(`/users/${bodyData?.id}`, bodyData),
+    {
+      onSuccess: closeModal,
+    }
   );
 
-  const submitHandler = (e: React.SyntheticEvent) => {
-    e.preventDefault();
+  const submitHandler = (data: any) => {
     if (editUser) {
       // mutate = (bodyData) => axios.patch(`/users/${bodyData?.id}`, bodyData)
-      updateUser.mutate(user);
+      updateUser.mutate(data);
     } else {
-      mutation.mutate(user);
+      mutation.mutate(data);
     }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setUser({ ...user, [e.target.name]: e.target.value });
-  };
-
   return (
-    <Modal visible={isModalOpen}>
-      <form className="form d-flex flex-column" onSubmit={submitHandler}>
-        <Label htmlFor="firstName">First name</Label>
-        <Input
-          size="large"
-          type="text"
-          placeholder="John"
-          name="firstName"
-          id="firstName"
-          value={user?.first_name}
-          onChange={handleChange}
-        />
-        <Label htmlFor="lastName">Last name</Label>
-        <Input
-          size="large"
-          type="text"
-          placeholder="Halep"
-          name="lastName"
-          id="lastName"
-          value={user?.last_name}
-          onChange={handleChange}
-        />
-        <Label htmlFor="email">Email</Label>
-        <Input
-          size="large"
-          type="email"
-          placeholder="jogn.halep@gmail.com"
-          name="email"
-          id="email"
-          value={user?.email}
-          onChange={handleChange}
-        />
-        <Label htmlFor="avatar">Avatar</Label>
-        <Input
-          size="large"
-          type="text"
-          placeholder="img.jpg"
-          name="avatar"
-          id="avatar"
-          value={user?.avatar}
-          onChange={handleChange}
-        />
+    <Modal mask={isModalOpen}>
+      <Form
+        className="modal-form d-flex flex-column"
+        onFinish={submitHandler}
+        form={form}
+      >
+        <Form.Field name="firstName" label="First Name">
+          <Input size="large" type="text" placeholder="John" />
+        </Form.Field>
+        <Form.Field name="lastName" label="Last Name">
+          <Input size="large" type="text" placeholder="Halep" />
+        </Form.Field>
+        <Form.Field name="email" label="Email">
+          <Input size="large" type="email" placeholder="jogn.halep@gmail.com" />
+        </Form.Field>
+        <Form.Field name="avatar" label="Avatar">
+          <Input size="large" type="text" placeholder="img.jpg" />
+        </Form.Field>
         <Button submit type="primary" size="medium" className="pointer mtb-20">
           Submit
         </Button>
-      </form>
+      </Form>
       <CloseIcon className="close-modal-btn" onClick={closeModal} />
     </Modal>
   );
