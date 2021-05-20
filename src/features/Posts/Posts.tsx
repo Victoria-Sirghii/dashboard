@@ -1,23 +1,27 @@
 import { useMutation, useQuery, useQueryClient } from "react-query";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
-import { Button, Table } from "@ebs-integrator/react-ebs-ui";
+import { Button, Table, SortBy, Checkbox } from "@ebs-integrator/react-ebs-ui";
 import EditIcon from "@material-ui/icons/Edit";
-import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { axios } from "api";
+import { Options } from "@ebs-integrator/react-ebs-ui/dist/components/molecules/Select/Options";
 
 export const Posts: React.FC = () => {
   const queryClient = useQueryClient();
   const history = useHistory();
   const [page, setPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number[]>([]);
+  const [filter, setFilter] = useState("name");
+  const [checked, setChecked] = useState(false);
+  const [checkeds, setCheckeds] = useState<any>({});
 
-  const { data, isLoading } = useQuery(["post", page], async () => {
+  const { data = [], isLoading } = useQuery(["post", page], async () => {
     const { data } = await axios.get("unknown?page=" + page);
 
     const pages = Math.ceil(data.total / data.per_page);
     const newArray: number[] = Array.from({ length: pages }, (x, i) => i + 1);
+
     setTotalPages(newArray);
 
     return data.data;
@@ -35,20 +39,46 @@ export const Posts: React.FC = () => {
     setPage(index);
   };
 
+  console.log("checkeds", checkeds);
+
   const columns = [
     {
-      title: <input type="checkbox" id="check-all" />,
-      render: (record: any) => <input type="checkbox" id="check" />,
+      title: (
+        <Checkbox
+          checked={checked}
+          onChange={(value) => {
+            setChecked(value);
+
+            data.forEach((item: any, index: number) =>
+              setCheckeds((prevState: any) => ({
+                ...prevState,
+                [index]: value,
+              }))
+            );
+          }}
+        />
+      ),
+      render: (record: any, row: any, index: number) => (
+        <Checkbox
+          checked={checkeds[index]}
+          onChange={(value) => {
+            setCheckeds((prevState: any) => ({
+              ...prevState,
+              [index]: value,
+            }));
+          }}
+        />
+      ),
     },
     {
       title: "Name",
+      filter: "name",
       render: (post: any) => (
         <Link to={`/dashboard/posts/${post.id}`}>{post.name}</Link>
       ),
     },
-    { title: "Year", dataIndex: "year" },
+    { title: "Year", dataIndex: "year", filter: "year" },
     { title: "Color", dataIndex: "color" },
-    { title: "Year", dataIndex: "year" },
     { title: "Pantone value", dataIndex: "pantone_value" },
     {
       title: "Edit",
@@ -69,6 +99,24 @@ export const Posts: React.FC = () => {
     },
   ];
 
+  const filterData = useMemo(() => {
+    if (filter[0] === "-") {
+      const v = filter.slice(1);
+
+      return data.sort((a: any, b: any) => (a[v] > b[v] ? 1 : -1));
+    } else {
+      return data.sort((a: any, b: any) => (a[filter] > b[filter] ? -1 : 1));
+    }
+  }, [data, filter]);
+
+  const sortOptions =
+    columns
+      .filter((column) => column.filter)
+      .map((column) => ({
+        title: column.title,
+        value: column.filter,
+      })) || [];
+
   useEffect(() => {
     const params = new URLSearchParams();
     params.append("page", page.toString());
@@ -83,10 +131,11 @@ export const Posts: React.FC = () => {
   return (
     <div className="content-container">
       <div className="d-flex space-between mb-50">
-        <p className="sort-box d-flex">
-          Company: <span className="color-blue pl-5"> All</span>{" "}
-          <ArrowDropDownIcon className="pointer" />
-        </p>
+        <SortBy
+          options={sortOptions as any}
+          value={filter as any}
+          onChange={(value) => setFilter(value)}
+        />
         <Link to="/dashboard/posts/create">
           <Button size="medium" type="primary" className="pointer">
             Add color
@@ -94,12 +143,13 @@ export const Posts: React.FC = () => {
         </Link>
       </div>
 
-      <Table data={data} columns={columns} />
+      <Table data={filterData} columns={columns} rowKey="id" />
 
       <div className="box-btns d-flex">
         {totalPages.map((item, index) => {
           return (
             <Button
+              key={index}
               size="small"
               className="pointer m-5"
               onClick={() => handlePage(index + 1)}

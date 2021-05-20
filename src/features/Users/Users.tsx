@@ -1,10 +1,9 @@
 import { useQuery, useMutation, useQueryClient } from "react-query";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { Button, Table } from "@ebs-integrator/react-ebs-ui";
+import { Button, Table, SortBy } from "@ebs-integrator/react-ebs-ui";
 import EditIcon from "@material-ui/icons/Edit";
-import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { axios } from "api";
 import { UserFormModal } from "features";
@@ -16,6 +15,7 @@ export const Users: React.FC = () => {
   const [page, setPage] = useState<number | string>(1);
   const [totalPages, setTotalPages] = useState<number[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [filter, setFilter] = useState("");
   const [editUser, setEditUser] = useState<Partial<User> | null>(null);
 
   const openModal: () => void = () => {
@@ -60,7 +60,7 @@ export const Users: React.FC = () => {
 
   const columns = [
     {
-      title: <input type="checkbox" id="check-all" />,
+      title: <input type="checkbox" id="check" />,
       render: (record: any) => <input type="checkbox" id="check" />,
     },
     {
@@ -71,6 +71,7 @@ export const Users: React.FC = () => {
     },
     {
       title: "Name",
+      filter: "name",
       render: (user: any) => (
         <Link to={`/dashboard/users/${user.id}`}>
           <span className="name name-center">
@@ -80,8 +81,9 @@ export const Users: React.FC = () => {
       ),
     },
     {
-      title: "Avatar",
+      title: "Email",
       dataIndex: "email",
+      filter: "email",
     },
     {
       title: "Edit",
@@ -100,6 +102,30 @@ export const Users: React.FC = () => {
     },
   ];
 
+  const filterData = useMemo(() => {
+    if (filter === "-name") {
+      return data.sort((a: any, b: any) =>
+        a.first_name > b.first_name ? -1 : 1
+      );
+    } else if (filter === "name") {
+      return data.sort((a: any, b: any) =>
+        a.first_name > b.first_name ? 1 : -1
+      );
+    } else if (filter === "email") {
+      return data.sort((a: any, b: any) => (a.email > b.email ? -1 : 1));
+    } else {
+      return data.sort((a: any, b: any) => (a.email > b.email ? 1 : -1));
+    }
+  }, [data, filter]);
+
+  const sortOptions =
+    columns
+      .filter((column) => column.filter)
+      .map((column) => ({
+        title: column.title,
+        value: column.filter,
+      })) || [];
+
   useEffect(() => {
     const params = new URLSearchParams();
     params.append("page", page.toString());
@@ -113,10 +139,11 @@ export const Users: React.FC = () => {
   return (
     <div className="content-container">
       <div className="d-flex space-between mb-50">
-        <p className="sort-box d-flex">
-          Users: <span className="color-blue pl-5"> All</span>{" "}
-          <ArrowDropDownIcon className="pointer" />
-        </p>
+        <SortBy
+          options={sortOptions as any}
+          value={filter as any}
+          onChange={(value) => setFilter(value)}
+        />
         <Button
           size="medium"
           type="primary"
@@ -127,7 +154,7 @@ export const Users: React.FC = () => {
         </Button>
       </div>
 
-      <Table data={data} columns={columns} />
+      <Table data={filterData} columns={columns} />
 
       {isModalOpen && (
         <UserFormModal
