@@ -5,6 +5,7 @@ export { DashboardContent } from "./Layout";
 //components
 export { Sidebar } from "./Sidebar";
 export { HeaderContent } from "./HeaderContent";
+export { SearchInput } from "./SearchInput";
 export { FooterContent } from "./FooterContent";
 export { Content } from "../components/Layout/Content";
 export { UserFormModal } from "./Users/UserFormModal";
