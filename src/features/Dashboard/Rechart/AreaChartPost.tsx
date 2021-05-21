@@ -14,7 +14,7 @@ interface Post {
 
 export const AreaChartPost: React.FC<Post> = ({ post }) => {
   return (
-    <Card className="fit-content area-chart p-20">
+    <Card className="fit-content mb-30 p-20">
       <h2 className="h2__title ft-weight-500">AreaChart</h2>
       <AreaChart
         width={730}

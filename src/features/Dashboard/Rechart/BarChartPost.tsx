@@ -15,7 +15,7 @@ interface Post {
 
 export const BarChartPost: React.FC<Post> = ({ post }) => {
   return (
-    <Card className="fit-content bar-chart p-20">
+    <Card className="fit-content mb-40 p-20">
       <h2 className="h2__title ft-weight-500">BarChart</h2>
       <BarChart width={600} height={250} data={post.data} barSize={30}>
         <CartesianGrid strokeDasharray="3 3" />

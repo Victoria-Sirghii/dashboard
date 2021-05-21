@@ -14,7 +14,7 @@ interface Post {
 
 export const LineChartPost: React.FC<Post> = ({ post }) => {
   return (
-    <Card className="fit-content line-chart p-20">
+    <Card className="fit-content mb-40 p-20">
       <h2 className="h2__title ft-weight-500">LineChart</h2>
       <LineChart
         width={600}
