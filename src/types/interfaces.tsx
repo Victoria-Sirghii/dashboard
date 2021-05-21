@@ -12,3 +12,12 @@ export interface Post {
   year: string;
   pantone_value: string;
 }
+
+export interface Sort {
+  title: React.ReactNode;
+  value: string;
+}
+
+export interface Checks {
+  [index: number]: boolean;
+}
