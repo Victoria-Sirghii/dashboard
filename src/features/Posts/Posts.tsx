@@ -1,31 +1,50 @@
 import { useMutation, useQuery, useQueryClient } from "react-query";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
-import { Button, Table, SortBy, Checkbox } from "@ebs-integrator/react-ebs-ui";
+import {
+  Button,
+  Table,
+  SortBy,
+  Checkbox,
+  InputSearch,
+} from "@ebs-integrator/react-ebs-ui";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { axios } from "api";
-import { SearchInput } from "features";
+import { SearchInput } from "features/SearchInput";
+import { Post, Sort, Checks } from "../../types/interfaces";
+
+type FilterType = keyof Post;
 
 export const Posts: React.FC = () => {
   const queryClient = useQueryClient();
   const history = useHistory();
   const [page, setPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number[]>([]);
-  const [filter, setFilter] = useState("name");
+  const [filter, setFilter] = useState<FilterType>("name");
   const [checked, setChecked] = useState(false);
-  const [checkeds, setCheckeds] = useState<any>({});
+  const [checkeds, setCheckeds] = useState<Checks>({});
+  const [searchItem, setSearchItem] = useState<string>("");
+  const [filterData, setFilterData] = useState([]);
 
-  const { data = [], isLoading } = useQuery(["post", page], async () => {
-    const { data } = await axios.get("unknown?page=" + page);
+  const { data = [], isLoading } = useQuery(
+    ["post", page],
+    async () => {
+      const { data } = await axios.get("unknown?page=" + page);
 
-    const pages = Math.ceil(data.total / data.per_page);
-    const newArray: number[] = Array.from({ length: pages }, (x, i) => i + 1);
+      const pages = Math.ceil(data.total / data.per_page);
+      const newArray: number[] = Array.from({ length: pages }, (x, i) => i + 1);
 
-    setTotalPages(newArray);
+      setTotalPages(newArray);
 
-    return data.data;
-  });
+      return data.data;
+    },
+    {
+      onSuccess: (res) => {
+        setFilterData(res);
+      },
+    }
+  );
 
   const mutation = useMutation(
     (postId: string) => axios.delete(`/unknown/${postId}`),
@@ -47,8 +66,8 @@ export const Posts: React.FC = () => {
           onChange={(value) => {
             setChecked(value);
 
-            data.forEach((item: any, index: number) =>
-              setCheckeds((prevState: any) => ({
+            data.forEach((item: Post, index: number) =>
+              setCheckeds((prevState) => ({
                 ...prevState,
                 [index]: value,
               }))
@@ -56,11 +75,14 @@ export const Posts: React.FC = () => {
           }}
         />
       ),
-      render: (record: any, row: any, index: number) => (
+      render: (record: Post, row: Post, index: number) => (
         <Checkbox
           checked={checkeds[index]}
           onChange={(value) => {
-            setCheckeds((prevState: any) => ({
+            if (value === false && checked === true) {
+              setChecked(false);
+            }
+            setCheckeds((prevState) => ({
               ...prevState,
               [index]: value,
             }));
@@ -71,7 +93,7 @@ export const Posts: React.FC = () => {
     {
       title: "Name",
       filter: "name",
-      render: (post: any) => (
+      render: (post: Post) => (
         <Link to={`/dashboard/posts/${post.id}`}>{post.name}</Link>
       ),
     },
@@ -80,7 +102,7 @@ export const Posts: React.FC = () => {
     { title: "Pantone value", dataIndex: "pantone_value" },
     {
       title: "Edit",
-      render: (post: any) => (
+      render: (post: Post) => (
         <Link to={`/dashboard/posts/edit/${post.id}`}>
           <EditIcon className="pointer" />
         </Link>
@@ -88,7 +110,7 @@ export const Posts: React.FC = () => {
     },
     {
       title: "Remove",
-      render: (post: any) => (
+      render: (post: Post) => (
         <DeleteIcon
           className="pointer"
           onClick={() => mutation.mutate(post.id)}
@@ -97,22 +119,29 @@ export const Posts: React.FC = () => {
     },
   ];
 
-  const filterData = useMemo(() => {
+  useEffect(() => {
     if (filter[0] === "-") {
-      const v = filter.slice(1);
+      const v = filter.slice(1) as FilterType;
 
-      return data.sort((a: any, b: any) => (a[v] > b[v] ? 1 : -1));
+      setFilterData(data.sort((a: Post, b: Post) => (a[v] > b[v] ? 1 : -1)));
     } else {
-      return data.sort((a: any, b: any) => (a[filter] > b[filter] ? -1 : 1));
+      setFilterData(
+        data.sort((a: Post, b: Post) => (a[filter] > b[filter] ? -1 : 1))
+      );
     }
-  }, [data, filter]);
+    if (searchItem.length > 0) {
+      setFilterData(
+        data.filter((item: Post) => item.name.includes(searchItem))
+      );
+    }
+  }, [data, filter, searchItem]);
 
-  const sortOptions =
+  const sortOptions: Sort[] =
     columns
       .filter((column) => column.filter)
       .map((column) => ({
-        title: column.title,
-        value: column.filter,
+        title: column.title as React.ReactNode,
+        value: column.filter!,
       })) || [];
 
   useEffect(() => {
@@ -127,37 +156,45 @@ export const Posts: React.FC = () => {
   }
 
   return (
-    <div className="content-container">
-      <SearchInput messege="hello" />
-      <div className="d-flex space-between mb-50">
-        <SortBy
-          options={sortOptions as any}
-          value={filter as any}
-          onChange={(value) => setFilter(value)}
+    <>
+      <SearchInput className="">
+        <InputSearch
+          iconAlign="prefix"
+          placeholder="Search for color"
+          onSearch={(value) => setSearchItem(value)}
         />
-        <Link to="/dashboard/posts/create">
-          <Button size="medium" type="primary" className="pointer">
-            Add color
-          </Button>
-        </Link>
-      </div>
-
-      <Table data={filterData} columns={columns} rowKey="id" />
-
-      <div className="box-btns d-flex">
-        {totalPages.map((item, index) => {
-          return (
-            <Button
-              key={index}
-              size="small"
-              className="pointer m-5"
-              onClick={() => handlePage(index + 1)}
-            >
-              {index + 1}
+      </SearchInput>
+      <div className="content-container">
+        <div className="d-flex space-between mb-50">
+          <SortBy
+            options={sortOptions}
+            value={filter as any}
+            onChange={(value) => setFilter(value as FilterType)}
+          />
+          <Link to="/dashboard/posts/create">
+            <Button size="medium" type="primary" className="pointer">
+              Add color
             </Button>
-          );
-        })}
+          </Link>
+        </div>
+
+        <Table data={filterData} columns={columns} rowKey="id" />
+
+        <div className="box-btns d-flex">
+          {totalPages.map((item, index) => {
+            return (
+              <Button
+                key={index}
+                size="small"
+                className="pointer m-5"
+                onClick={() => handlePage(index + 1)}
+              >
+                {index + 1}
+              </Button>
+            );
+          })}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
