@@ -1,16 +1,12 @@
-import { InputSearch } from "@ebs-integrator/react-ebs-ui";
-import { createPortal } from "react-dom";
+import React from "react";
+import ReactDOM from "react-dom";
+import { usePortal } from "../hooks";
 
-export const SearchInput: React.FC = ({ children}) => {
-  return createPortal(
-    <>
-    <InputSearch
-      styleType={styleType}
-      iconAlign="prefix"
-      placeholder="Search for something"
-    />,
-    <div>{messege}</div>
-    </>
-    document.body
-  );
+export interface Search {
+  className?: string;
+}
+
+export const SearchInput: React.FC<Search> = ({ children, className }) => {
+  const target = usePortal("#portal", className);
+  return ReactDOM.createPortal(children, target);
 };
