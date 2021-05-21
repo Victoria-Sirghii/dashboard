@@ -1,6 +1,7 @@
 import { useFetchQuery } from "hooks";
-import { LineChartPost, AreaChartPost, BarChartPost } from "features";
+import { LineChartPost, AreaChartPost, BarChartPost, Loading } from "features";
 import { Card } from "@ebs-integrator/react-ebs-ui";
+import { useState } from "react";
 
 export const Dashboard: React.FC = () => {
   const { data: users } = useFetchQuery("users");
@@ -17,7 +18,7 @@ export const Dashboard: React.FC = () => {
         </h2>
       </Card>
       {isLoading ? (
-        "is loading"
+        <Loading />
       ) : (
         <>
           <AreaChartPost post={post} />
