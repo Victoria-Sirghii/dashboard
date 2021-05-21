@@ -42,25 +42,5 @@ export const Dashboard: React.FC = () => {
         </Container>
       )}
     </>
-
-    // <div className="dashboard-container grid-charts">
-    //   <Card className="d-flex total-chart fit-content">
-    //     <h2 className="h2__title ft-weight-500 d-flex flex-column">
-    //       Total users: <span className="total-users">{users?.total}</span>
-    //     </h2>
-    //     <h2 className="h2__title ft-weight-500 d-flex flex-column">
-    //       Total posts: <span className="total-posts">{post?.total}</span>
-    //     </h2>
-    //   </Card>
-    //   {isLoading ? (
-    //     <Loading />
-    //   ) : (
-    //     <>
-    //       <AreaChartPost post={post} />
-    //       <LineChartPost post={post} />
-    //       <BarChartPost post={post} />
-    //     </>
-    //   )}
-    // </div>
   );
 };
