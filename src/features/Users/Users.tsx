@@ -15,17 +15,20 @@ import { axios } from "api";
 import { UserFormModal } from "features";
 import { SearchInput } from "features/SearchInput";
 import { User, Sort, Checks } from "types/interfaces";
+import { Loading } from "features";
 
 type FilterType = keyof User;
 
 export const Users: React.FC = () => {
   const queryClient = useQueryClient();
   const history = useHistory();
+
   const [page, setPage] = useState<number | string>(1);
   const [totalPages, setTotalPages] = useState<number[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [filter, setFilter] = useState<FilterType>("first_name");
   const [editUser, setEditUser] = useState<Partial<User> | null>(null);
+
+  const [filter, setFilter] = useState<FilterType>();
   const [checked, setChecked] = useState(false);
   const [checkeds, setCheckeds] = useState<Checks>({});
   const [searchItem, setSearchItem] = useState<string>("");
@@ -151,14 +154,18 @@ export const Users: React.FC = () => {
   ];
 
   useEffect(() => {
-    if (filter[0] === "-") {
-      const v = filter.slice(1) as FilterType;
+    if (filter) {
+      if (filter[0] === "-") {
+        const v = filter.slice(1) as FilterType;
 
-      setFilterData(data.sort((a: User, b: User) => (a[v]! > b[v]! ? 1 : -1)));
-    } else {
-      setFilterData(
-        data.sort((a: User, b: User) => (a[filter]! > b[filter]! ? -1 : 1))
-      );
+        setFilterData(
+          data.sort((a: User, b: User) => (a[v]! > b[v]! ? 1 : -1))
+        );
+      } else {
+        setFilterData(
+          data.sort((a: User, b: User) => (a[filter]! > b[filter]! ? -1 : 1))
+        );
+      }
     }
 
     if (searchItem.length > 0) {
@@ -189,7 +196,7 @@ export const Users: React.FC = () => {
   }, [page, history]);
 
   if (isLoading) {
-    return <h1>Loading...</h1>;
+    return <Loading />;
   }
   return (
     <>

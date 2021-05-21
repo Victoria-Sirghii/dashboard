@@ -12,6 +12,7 @@ import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { axios } from "api";
 import { SearchInput } from "features/SearchInput";
+import { Loading } from "features";
 import { Post, Sort, Checks } from "../../types/interfaces";
 
 type FilterType = keyof Post;
@@ -21,7 +22,7 @@ export const Posts: React.FC = () => {
   const history = useHistory();
   const [page, setPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number[]>([]);
-  const [filter, setFilter] = useState<FilterType>("name");
+  const [filter, setFilter] = useState<FilterType>();
   const [checked, setChecked] = useState(false);
   const [checkeds, setCheckeds] = useState<Checks>({});
   const [searchItem, setSearchItem] = useState<string>("");
@@ -120,14 +121,15 @@ export const Posts: React.FC = () => {
   ];
 
   useEffect(() => {
-    if (filter[0] === "-") {
-      const v = filter.slice(1) as FilterType;
-
-      setFilterData(data.sort((a: Post, b: Post) => (a[v] > b[v] ? 1 : -1)));
-    } else {
-      setFilterData(
-        data.sort((a: Post, b: Post) => (a[filter] > b[filter] ? -1 : 1))
-      );
+    if (filter) {
+      if (filter[0] === "-") {
+        const v = filter.slice(1) as FilterType;
+        setFilterData(data.sort((a: Post, b: Post) => (a[v] > b[v] ? 1 : -1)));
+      } else {
+        setFilterData(
+          data.sort((a: Post, b: Post) => (a[filter] > b[filter] ? -1 : 1))
+        );
+      }
     }
     if (searchItem.length > 0) {
       setFilterData(
@@ -152,7 +154,7 @@ export const Posts: React.FC = () => {
   }, [page, history]);
 
   if (isLoading) {
-    return <h1>Loading...</h1>;
+    return <Loading />;
   }
 
   return (
