@@ -33,3 +33,4 @@ export { DashboardRoutes } from "./Dashboard/DashboardRoutes";
 export { Sider } from "../components/Layout/Sider";
 export { Footer } from "../components/Layout/Footer";
 export { Header } from "../components/Layout/Header";
+export { Loading } from "./Loading";
