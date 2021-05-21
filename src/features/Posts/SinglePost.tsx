@@ -3,6 +3,7 @@ import { useQuery } from "react-query";
 import { Card } from "@ebs-integrator/react-ebs-ui";
 import CSS from "csstype";
 import { axios } from "api";
+import { Loading } from "features";
 
 type IdParams = {
   id: string;
@@ -17,7 +18,7 @@ export const SinglePost: React.FC = () => {
   });
 
   if (isLoading) {
-    return <h2>Loading...</h2>;
+    return <Loading className="loading-center" />;
   }
 
   const { name, year, color } = data;

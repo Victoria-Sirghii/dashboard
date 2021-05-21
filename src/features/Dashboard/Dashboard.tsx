@@ -9,7 +9,7 @@ export const Dashboard: React.FC = () => {
   return (
     <>
       {isLoading ? (
-        <Loading />
+        <Loading className="loading-center" />
       ) : (
         <Container className="dashboard-container">
           <Row>

@@ -196,7 +196,7 @@ export const Users: React.FC = () => {
   }, [page, history]);
 
   if (isLoading) {
-    return <Loading />;
+    return <Loading className="loading-center" />;
   }
   return (
     <>

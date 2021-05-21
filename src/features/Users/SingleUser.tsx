@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import { useQuery } from "react-query";
 import { axios } from "api";
 import { Card } from "@ebs-integrator/react-ebs-ui";
+import { Loading } from "features";
 
 type IdParams = {
   id: string;
@@ -16,7 +17,7 @@ export const SingleUser: React.FC = () => {
   });
 
   if (isLoading) {
-    return <h2>Loading...</h2>;
+    return <Loading className="loading-center" />;
   }
 
   const { email, first_name, last_name, avatar } = data;
