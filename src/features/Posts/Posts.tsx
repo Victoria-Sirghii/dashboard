@@ -7,7 +7,9 @@ import {
   SortBy,
   Checkbox,
   InputSearch,
-  Alert,
+  Modal,
+  Icon,
+  Space,
 } from "@ebs-integrator/react-ebs-ui";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
@@ -28,6 +30,8 @@ export const Posts: React.FC = () => {
   const [page, setPage] = useState<number>(1);
   const [filterData, setFilterData] = useState([]);
   const [searchItem, setSearchItem] = useState<string>("");
+  const [open, setOpen] = useState(false);
+  const [userDelete, setUserDelete] = useState<number | undefined>();
 
   const { data = [], isLoading } = useQuery(
     ["posts", page],
@@ -119,8 +123,9 @@ export const Posts: React.FC = () => {
         <DeleteIcon
           className="pointer"
           onClick={() => {
-            if (window.confirm("Are you sure you wish to delete this user?"))
-              mutation.mutate(posts.id);
+            setOpen(true);
+            setUserDelete(posts.id);
+            // mutation.mutate(posts.id);
           }}
         />
       ),
@@ -172,6 +177,28 @@ export const Posts: React.FC = () => {
 
   return (
     <>
+      {open && (
+        <Modal>
+          <Modal.Content>
+            Are you sure you wish to delete this user?
+          </Modal.Content>
+          <Modal.Footer>
+            <Space justify="space-between">
+              <Button onClick={() => setOpen(false)}>Cancel</Button>
+              <Button
+                type="primary"
+                prefix={<Icon type="check" />}
+                onClick={() => {
+                  mutation.mutate(userDelete as any);
+                  setOpen(false);
+                }}
+              >
+                Delete
+              </Button>
+            </Space>
+          </Modal.Footer>
+        </Modal>
+      )}
       <SearchInput className="">
         <InputSearch
           iconAlign="prefix"

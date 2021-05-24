@@ -16,7 +16,6 @@ import { UserFormModal } from "features";
 import { SearchInput } from "features/SearchInput";
 import { User, Sort, Checks } from "types/interfaces";
 import { Loading } from "features";
-import { payload } from "utils/payload";
 
 type FilterType = keyof User;
 
