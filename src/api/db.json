@@ -1,0 +1,111 @@
+{
+  "posts": [
+    {
+      "firstName": "Maria",
+      "lastName": "Ettuk",
+      "bio": "hello",
+      "age": "60-90",
+      "sex": "f",
+      "birthday": "09-05-2019",
+      "phone": "242345453",
+      "id": 2
+    },
+    {
+      "firstName": "Janel",
+      "lastName": "Baton",
+      "bio": "eu sunt programator",
+      "age": "90-120",
+      "sex": "m",
+      "birthday": "05-05-2021",
+      "phone": "355343432",
+      "id": 3
+    },
+    {
+      "firstName": "Dana",
+      "lastName": "Banana",
+      "bio": "asasa",
+      "age": "0-60",
+      "sex": "m",
+      "birthday": "09-05-2016",
+      "phone": "37623232323",
+      "id": 4
+    },
+    {
+      "firstName": "Irinel",
+      "lastName": "asas",
+      "bio": "asasa",
+      "age": 3,
+      "sex": "m",
+      "birthday": "06-05-2021",
+      "phone": "93234232",
+      "id": 5
+    },
+    {
+      "firstName": "Ana",
+      "lastName": "sssssssss",
+      "bio": "1212323",
+      "age": 3,
+      "birthday": "06-05-2021",
+      "phone": "3762323232",
+      "id": 6
+    },
+    {
+      "firstName": "sdssssssss",
+      "lastName": "3242",
+      "bio": "2342",
+      "id": 8
+    },
+    {
+      "firstName": "sds",
+      "lastName": "sdsd",
+      "bio": "2w32",
+      "age": 2,
+      "sex": "m",
+      "birthday": "05-05-2021",
+      "phone": "376",
+      "id": 9
+    },
+    {
+      "firstName": "232",
+      "lastName": "ds",
+      "bio": "2321edd",
+      "age": 2,
+      "sex": "f",
+      "birthday": "20-05-2021",
+      "phone": "23",
+      "id": 10
+    },
+    {
+      "firstName": "eerinasf",
+      "lastName": "dfdfd",
+      "bio": "dfd",
+      "age": 4,
+      "birthday": "13-05-2021",
+      "phone": "376",
+      "id": 14
+    },
+    {
+      "firstName": "ala",
+      "lastName": "asa",
+      "bio": "a2e3ds",
+      "age": 3,
+      "sex": "m",
+      "birthday": "15-05-2021",
+      "phone": "244",
+      "id": 15
+    },
+    {
+      "firstName": "Ionel",
+      "lastName": "sds",
+      "bio": "asdsasd",
+      "age": 3,
+      "birthday": "05-05-2021",
+      "phone": "2443434343",
+      "id": 16
+    }
+  ],
+  "comments": [],
+  "profile": {
+    "name": "typicode"
+  }
+}

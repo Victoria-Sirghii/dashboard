@@ -13,30 +13,36 @@ export const SinglePost: React.FC = () => {
   const { id } = useParams<IdParams>();
 
   const { data, isLoading } = useQuery(["posts", id], async () => {
-    const { data } = await axios.get(`unknown/${id}`);
-    return data.data;
+    const { data } = await axios.get(`posts/${id}`);
+    return data;
   });
 
   if (isLoading) {
     return <Loading className="loading-center" />;
   }
-
-  const { name, year, color } = data;
-
-  const backgroundColor: CSS.Properties = {
-    backgroundColor: `${color}`,
-  };
+  const { age, bio, birthday, firstName, sex, phone, lastName } = data;
 
   return (
     <div className="content-container">
       <Card className="mn-auto p-20 width-400">
-        <div className="d-flex flex-column align-items-center">
-          <div className="circle-color" style={backgroundColor}></div>
-          <p>
-            <span className="font-weight-500">{name}:</span> {color}
+        <div className="d-flex flex-column align-center">
+          <p className="m-10">
+            First Name: <span className="ft-weight-500">{firstName}</span>
           </p>
-          <p>
-            <span className="font-weight-500">Year:</span> {year}
+          <p className="m-10">
+            Last Name: <span className="ft-weight-500">{lastName}</span>
+          </p>
+          <p className="m-10">
+            Biography: <span className="ft-weight-500">{bio}</span>
+          </p>
+          <p className="m-10">
+            Birthday:<span className="ft-weight-500">{birthday}</span>
+          </p>
+          <p className="m-10">
+            Sex:<span className="ft-weight-500">{sex}</span>
+          </p>
+          <p className="m-10">
+            Phone:<span className="ft-weight-500">{phone}</span>
           </p>
         </div>
       </Card>

@@ -8,6 +8,11 @@ import {
   Input,
   Card,
   useForm,
+  Textarea,
+  InputSelect,
+  Radio,
+  DatePicker,
+  InputPhone,
 } from "@ebs-integrator/react-ebs-ui";
 import { Post } from "types/interfaces";
 
@@ -16,7 +21,7 @@ export const NewPostForm: React.FC = () => {
   let history = useHistory();
 
   const mutation = useMutation<unknown, unknown, Partial<Post>>(
-    (bodyData) => axios.post("/unknown", bodyData),
+    (bodyData) => axios.post("/posts", bodyData),
     {
       onSuccess: () => {
         history.push("/dashboard/posts/?page=1");
@@ -40,28 +45,43 @@ export const NewPostForm: React.FC = () => {
           className="form d-flex flex-column"
           onFinish={submitHandler}
           form={form}
+          type="horizontal"
         >
-          <Form.Field name="name" label="Color name">
-            <Input type="text" size="large" placeholder="cerulean" />
+          <Form.Field name="firstName" label="First Name">
+            <Input type="text" size="large" placeholder="Eva" />
           </Form.Field>
-          <Form.Field name="color" label="Color name">
-            <Input
-              type="text"
-              size="large"
-              placeholder="#98B2D1"
-              name="color"
+          <Form.Field name="lastName" label="Last Name">
+            <Input type="text" size="large" placeholder="Everest" />
+          </Form.Field>
+          <Form.Field name="bio" label="Biography">
+            <Textarea />
+          </Form.Field>
+          <Form.Field name="age" label="Age">
+            <InputSelect
+              options={[
+                { value: 2, text: "0-60" },
+                { value: 3, text: "60-90" },
+                { value: 4, text: "90-120" },
+              ]}
             />
           </Form.Field>
-          <Form.Field name="year" label="Year">
-            <Input type="text" size="large" placeholder="2005" name="year" />
-          </Form.Field>
-          <Form.Field name="pantone_value" label="Pantone value">
-            <Input
-              type="text"
-              size="large"
-              placeholder="15-4020"
-              name="pantone_value"
+          <Form.Field name="sex" label="Sex">
+            <Radio
+              options={[
+                { text: "Male", value: "m" },
+                { text: "Female", value: "f" },
+              ]}
             />
+          </Form.Field>
+          <Form.Field name="birthday" label="Birthday">
+            <DatePicker
+              type="date"
+              placeholderText="Birthday"
+              dateFormat="dd-MM-yyyy"
+            />
+          </Form.Field>
+          <Form.Field name="phone" label="Phone Nr:">
+            <InputPhone />
           </Form.Field>
           <div className="mn-auto">
             <Button

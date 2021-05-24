@@ -7,6 +7,7 @@ import {
   SortBy,
   Checkbox,
   InputSearch,
+  Alert,
 } from "@ebs-integrator/react-ebs-ui";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
@@ -20,25 +21,27 @@ type FilterType = keyof Post;
 export const Posts: React.FC = () => {
   const queryClient = useQueryClient();
   const history = useHistory();
-  const [page, setPage] = useState<number>(1);
-  const [totalPages, setTotalPages] = useState<number[]>([]);
   const [filter, setFilter] = useState<FilterType>();
   const [checked, setChecked] = useState(false);
   const [checkeds, setCheckeds] = useState<Checks>({});
-  const [searchItem, setSearchItem] = useState<string>("");
+  const [totalPages, setTotalPages] = useState<number[]>([]);
+  const [page, setPage] = useState<number>(1);
   const [filterData, setFilterData] = useState([]);
+  const [searchItem, setSearchItem] = useState<string>("");
 
   const { data = [], isLoading } = useQuery(
-    ["post", page],
+    ["posts", page],
     async () => {
-      const { data } = await axios.get("unknown?page=" + page);
+      const { data, headers } = await axios.get(
+        `/posts?_page=${page}&_limit=10`
+      );
 
-      const pages = Math.ceil(data.total / data.per_page);
+      const pages = Math.ceil(headers["x-total-count"] / 10);
       const newArray: number[] = Array.from({ length: pages }, (x, i) => i + 1);
 
       setTotalPages(newArray);
 
-      return data.data;
+      return data;
     },
     {
       onSuccess: (res) => {
@@ -47,14 +50,12 @@ export const Posts: React.FC = () => {
     }
   );
 
-  const mutation = useMutation(
-    (postId: string) => axios.delete(`/unknown/${postId}`),
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries("users");
-      },
-    }
-  );
+  const mutation = useMutation((id: number) => axios.delete(`/posts/${id}`), {
+    onSuccess: () => {
+      queryClient.invalidateQueries("posts");
+    },
+  });
+
   const handlePage = (index: number) => {
     setPage(index);
   };
@@ -92,29 +93,35 @@ export const Posts: React.FC = () => {
       ),
     },
     {
-      title: "Name",
-      filter: "name",
-      render: (post: Post) => (
-        <Link to={`/dashboard/posts/${post.id}`}>{post.name}</Link>
+      title: "First Name",
+      filter: "firstName",
+      render: (posts: Post) => (
+        <Link to={`/dashboard/posts/${posts.id}`}>{posts.firstName}</Link>
       ),
     },
-    { title: "Year", dataIndex: "year", filter: "year" },
-    { title: "Color", dataIndex: "color" },
-    { title: "Pantone value", dataIndex: "pantone_value" },
+    { title: "Last Name", dataIndex: "lastName", filter: "lastName" },
+    { title: "Biography", dataIndex: "bio" },
+    { title: "Age", dataIndex: "age", filter: "age" },
+    { title: "Sex", dataIndex: "sex" },
+    { title: "Birthday", dataIndex: "birthday", filter: "birthday" },
+    { title: "Phone Nr", dataIndex: "phone" },
     {
       title: "Edit",
-      render: (post: Post) => (
-        <Link to={`/dashboard/posts/edit/${post.id}`}>
+      render: (posts: Post) => (
+        <Link to={`/dashboard/posts/edit/${posts.id}`}>
           <EditIcon className="pointer" />
         </Link>
       ),
     },
     {
       title: "Remove",
-      render: (post: Post) => (
+      render: (posts: Post) => (
         <DeleteIcon
           className="pointer"
-          onClick={() => mutation.mutate(post.id)}
+          onClick={() => {
+            if (window.confirm("Are you sure you wish to delete this user?"))
+              mutation.mutate(posts.id);
+          }}
         />
       ),
     },
@@ -124,6 +131,7 @@ export const Posts: React.FC = () => {
     if (filter) {
       if (filter[0] === "-") {
         const v = filter.slice(1) as FilterType;
+
         setFilterData(data.sort((a: Post, b: Post) => (a[v] > b[v] ? 1 : -1)));
       } else {
         setFilterData(
@@ -131,12 +139,24 @@ export const Posts: React.FC = () => {
         );
       }
     }
+  }, [filter]);
+
+  useEffect(() => {
     if (searchItem.length > 0) {
       setFilterData(
-        data.filter((item: Post) => item.name.includes(searchItem))
+        data.filter((item: Post) => item.firstName.includes(searchItem))
       );
+    } else {
+      setFilterData(data);
     }
-  }, [data, filter, searchItem]);
+  }, [searchItem]);
+
+  useEffect(() => {
+    const params = new URLSearchParams();
+    params.append("page", page.toString());
+
+    history.push({ search: params.toString() });
+  }, [page, history]);
 
   const sortOptions: Sort[] =
     columns
@@ -145,13 +165,6 @@ export const Posts: React.FC = () => {
         title: column.title as React.ReactNode,
         value: column.filter!,
       })) || [];
-
-  useEffect(() => {
-    const params = new URLSearchParams();
-    params.append("page", page.toString());
-
-    history.push({ search: params.toString() });
-  }, [page, history]);
 
   if (isLoading) {
     return <Loading className="loading-center" />;

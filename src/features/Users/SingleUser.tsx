@@ -25,7 +25,7 @@ export const SingleUser: React.FC = () => {
   return (
     <div className="content-container">
       <Card className="mn-auto p-20 width-400">
-        <div className="d-flex flex-column align-items-center">
+        <div className="d-flex flex-column align-center">
           <img src={avatar} alt={last_name} className="avatar" />
           <p className="user-name info">
             {first_name} {last_name}

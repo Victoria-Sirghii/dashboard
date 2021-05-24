@@ -16,6 +16,7 @@ import { UserFormModal } from "features";
 import { SearchInput } from "features/SearchInput";
 import { User, Sort, Checks } from "types/interfaces";
 import { Loading } from "features";
+import { payload } from "utils/payload";
 
 type FilterType = keyof User;
 
@@ -44,6 +45,11 @@ export const Users: React.FC = () => {
     }
     setIsModalOpen(false);
   };
+
+  // const { data = [], isLoading } = useQuery("users", async () => {
+  //   const { data } = await axios.get("ged4PNnU/?token=L3NapX8oGdzcCmwkrBjHkQ");
+  //   console.log(data);
+  // });
 
   const { data = [], isLoading } = useQuery(
     ["users", page],
@@ -198,6 +204,7 @@ export const Users: React.FC = () => {
   if (isLoading) {
     return <Loading className="loading-center" />;
   }
+
   return (
     <>
       <SearchInput className="">

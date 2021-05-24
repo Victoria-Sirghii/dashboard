@@ -7,6 +7,11 @@ import {
   Form,
   Input,
   useForm,
+  Textarea,
+  InputSelect,
+  InputPhone,
+  DatePicker,
+  Radio,
 } from "@ebs-integrator/react-ebs-ui";
 import { Post } from "types/interfaces";
 
@@ -19,23 +24,26 @@ export const EditPost: React.FC = () => {
   let { id } = useParams<IdParams>();
   let history = useHistory();
 
-  const { isLoading } = useQuery("post", async () => {
-    const { data } = await axios.get(`unknown/${id}`);
+  const { data = [], isLoading } = useQuery("post", async () => {
+    const { data } = await axios.get(`posts/${id}`);
 
-    const { name, color, year, pantone_value } = data.data;
+    const { age, bio, birthday, firstName, sex, phone, lastName } = data;
 
     form.setFieldsValue({
-      name: name,
-      color: color,
-      year: year,
-      pantone_value: pantone_value,
+      age: age,
+      bio: bio,
+      birthday: birthday,
+      firstName: firstName,
+      sex: sex,
+      phone: phone,
+      lastName: lastName,
     });
 
-    return data.data;
+    return data;
   });
 
   const updateUser = useMutation<unknown, unknown, Partial<Post>>(
-    (bodyData) => axios.patch(`/unknown/${bodyData?.id}`, bodyData),
+    (bodyData) => axios.patch(`/posts/${id}`, bodyData),
     {
       onSuccess: () => {
         history.push("/dashboard/posts/?page=1");
@@ -43,7 +51,7 @@ export const EditPost: React.FC = () => {
     }
   );
 
-  const submitHandler = (data: any) => {
+  const submitHandler = (data: Post) => {
     updateUser.mutate(data);
   };
 
@@ -59,17 +67,45 @@ export const EditPost: React.FC = () => {
           onFinish={submitHandler}
           form={form}
         >
-          <Form.Field name="name" label="Color name">
-            <Input size="large" type="text" name="name" />
+          <Form.Field name="firstName" label="First Name">
+            <Input type="text" size="large" placeholder="Eva" />
           </Form.Field>
-          <Form.Field name="color" label="Color">
-            <Input size="large" type="text" name="color" />
+          <Form.Field name="lastName" label="Last Name">
+            <Input type="text" size="large" placeholder="Everest" />
           </Form.Field>
-          <Form.Field name="year" label="Year">
-            <Input size="large" type="text" name="year" />
+          <Form.Field name="bio" label="Biography">
+            <Textarea />
           </Form.Field>
-          <Form.Field name="pantone_value" label="Pantone value">
-            <Input size="large" type="text" name="pantone_value" />
+          <Form.Field name="age" label="Age">
+            <InputSelect
+              options={[
+                { value: "0-60", text: "0-60" },
+                { value: "60-90", text: "60-90" },
+                { value: "90-120", text: "90-120" },
+              ]}
+            />
+          </Form.Field>
+          <Form.Field name="sex" label="Sex">
+            <Radio
+              options={[
+                { text: "Male", value: "m" },
+                { text: "Female", value: "f" },
+              ]}
+            />
+          </Form.Field>
+          <Form.Field name="birthday" label="Birthday">
+            <DatePicker
+              type="date"
+              placeholderText="Birthday"
+              dateFormat="dd-MM-yyyy"
+            />
+          </Form.Field>
+          <Form.Field
+            name="phone"
+            label="Phone Nr:"
+            extra="This field is required"
+          >
+            <InputPhone />
           </Form.Field>
           <div className="mn-auto">
             <Button

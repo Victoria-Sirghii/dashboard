@@ -6,11 +6,14 @@ export interface User {
   avatar?: string;
 }
 export interface Post {
-  id: string;
-  name: string;
-  color: string;
-  year: string;
-  pantone_value: string;
+  id: number;
+  age: number;
+  bio: string;
+  birthday: string;
+  firstName: string;
+  lastName: string;
+  phone: string;
+  sex: string;
 }
 
 export interface Sort {
