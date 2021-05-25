@@ -62,80 +62,21 @@
   "tasks": [
     {
       "date": "5/25/2021",
-      "task": "fff",
-      "comments": "fffffff",
-      "deadline": "28-05-2021",
-      "priority": "danger",
-      "user": "Igor Soviet",
-      "id": 4
-    },
-    {
-      "date": "5/25/2021",
-      "task": "ssssssss",
-      "comments": "sdfdd",
-      "deadline": "30-05-2021",
-      "priority": "info",
-      "user": "Irinel Ciolacu",
-      "id": 5
-    },
-    {
-      "date": "5/25/2021",
-      "task": "ssssssss",
-      "comments": "sdsdsd",
-      "deadline": "05-05-2021",
-      "priority": "warning",
-      "user": "Irinel Ciolacu",
-      "id": 6
-    },
-    {
-      "date": "5/25/2021",
-      "task": "errorre",
-      "comments": "sss",
-      "deadline": "06-05-2021",
-      "priority": "danger",
-      "user": "Mihai Dodon",
-      "id": 7
-    },
-    {
-      "date": "5/25/2021",
-      "task": "sdsds",
-      "comments": "sds",
-      "deadline": "05-06-2021",
-      "priority": "info",
-      "user": "Iurii Paine",
-      "id": 8
-    },
-    {
-      "date": "5/25/2021",
-      "task": "asasa",
+      "tasks": [
+        {
+          "task": "sss",
+          "id": 1621970876598
+        },
+        {
+          "task": "ssasfdf",
+          "id": 1621970879590
+        }
+      ],
       "comments": "asas",
-      "deadline": "05-06-2021",
+      "deadline": "23-05-2021",
       "priority": "warning",
-      "user": "Ana Ciobanu",
-      "id": 9
-    },
-    {
-      "date": "5/25/2021",
-      "task": "sdsd",
-      "comments": "sdsd",
-      "deadline": "27-04-2021",
-      "priority": "info",
-      "user": "Igor Soviet",
-      "id": 10
-    },
-    {
-      "date": "5/25/2021",
-      "task": "sds",
-      "comments": "sds",
-      "deadline": "01-05-2021",
-      "priority": "danger",
       "user": "Irinel Ciolacu",
-      "id": 11
-    },
-    {
-      "date": "5/25/2021",
-      "task": "erer",
-      "id": 12
+      "id": 13
     }
   ],
   "comments": [],

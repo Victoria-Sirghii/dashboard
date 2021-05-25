@@ -53,6 +53,8 @@ export const TaskForm: React.FC = () => {
 
   const submitHandler = useCallback(
     (data: any) => {
+      data.task = tasksList
+      console.log(data)
       mutation.mutate(data);
       form.resetFields();
     },

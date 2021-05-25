@@ -7,6 +7,7 @@ import { axios } from "api";
 import { useEffect, useState } from "react";
 import { Task, Sort } from "types/interfaces";
 import { Loading } from "features";
+import { createReturn } from "typescript";
 
 type FilterType = keyof Task;
 
@@ -58,7 +59,11 @@ export const Tasks: React.FC = () => {
     },
     {
       title: "Task",
-      dataIndex: "task",
+      render: (item: Task)=> {
+        item.tasks.map((list: any) => {
+          return (<div>{item.tasks[1]}</div>)
+        })
+      }
     },
     {
       title: "Comments",

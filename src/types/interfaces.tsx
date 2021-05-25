@@ -20,7 +20,7 @@ export interface Task {
   id: number;
   user: "string";
   date: "string";
-  task: "string";
+  tasks: {task: string, id: number}[];
   comments: "string";
   deadline: "string";
   priority: "string";

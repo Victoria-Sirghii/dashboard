@@ -1,5 +1,6 @@
 import { ListGroup } from "ebs-design";
 import HighlightOffIcon from "@material-ui/icons/HighlightOff";
+import { Task } from "types/interfaces";
 
 interface Props {
   tasksList: { task: string; id: number }[];
@@ -8,10 +9,8 @@ interface Props {
 
 export const TaskList: React.FC<Props> = ({ tasksList, setTasksList }) => {
   const removeTask = (id: number) => {
-    const newList = [...tasksList];
-    newList.filter((item) => item.id !== id);
-    setTasksList(newList);
-    console.log(tasksList);
+    const newList = tasksList.filter((item) => item.id !== id)
+    setTasksList(newList)
   };
 
   return (
