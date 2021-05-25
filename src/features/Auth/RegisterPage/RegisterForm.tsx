@@ -8,7 +8,7 @@ import {
   Form,
   DatePicker,
   useForm,
-} from "@ebs-integrator/react-ebs-ui";
+} from "ebs-design";
 import { useLocalStorage } from "hooks";
 
 export const RegisterForm: React.FC = () => {

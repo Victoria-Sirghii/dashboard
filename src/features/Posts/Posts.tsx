@@ -10,7 +10,7 @@ import {
   Modal,
   Icon,
   Space,
-} from "@ebs-integrator/react-ebs-ui";
+} from "ebs-design";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { axios } from "api";
@@ -31,7 +31,7 @@ export const Posts: React.FC = () => {
   const [filterData, setFilterData] = useState([]);
   const [searchItem, setSearchItem] = useState<string>("");
   const [open, setOpen] = useState(false);
-  const [userDelete, setUserDelete] = useState<number | undefined>();
+  const [userDelete, setUserDelete] = useState<number>();
 
   const { data = [], isLoading } = useQuery(
     ["posts", page],
@@ -189,7 +189,7 @@ export const Posts: React.FC = () => {
                 type="primary"
                 prefix={<Icon type="check" />}
                 onClick={() => {
-                  mutation.mutate(userDelete as any);
+                  mutation.mutate(userDelete!);
                   setOpen(false);
                 }}
               >

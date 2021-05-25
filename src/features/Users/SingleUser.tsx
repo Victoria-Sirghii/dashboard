@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useQuery } from "react-query";
 import { axios } from "api";
-import { Card } from "@ebs-integrator/react-ebs-ui";
+import { Card } from "ebs-design";
 import { Loading } from "features";
 
 type IdParams = {

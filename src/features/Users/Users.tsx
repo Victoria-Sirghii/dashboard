@@ -2,13 +2,7 @@ import { useQuery, useMutation, useQueryClient } from "react-query";
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
-import {
-  Button,
-  Table,
-  SortBy,
-  Checkbox,
-  InputSearch,
-} from "@ebs-integrator/react-ebs-ui";
+import { Button, Table, SortBy, Checkbox, InputSearch } from "ebs-design";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { axios } from "api";

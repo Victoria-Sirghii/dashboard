@@ -7,7 +7,7 @@ import {
   Bar,
   Legend,
 } from "recharts";
-import { Card } from "@ebs-integrator/react-ebs-ui";
+import { Card } from "ebs-design";
 
 interface Post {
   post: any;

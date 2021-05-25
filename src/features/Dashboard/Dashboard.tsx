@@ -1,6 +1,6 @@
 import { useFetchQuery } from "hooks";
 import { LineChartPost, AreaChartPost, BarChartPost, Loading } from "features";
-import { Card, Container, Row, Col } from "@ebs-integrator/react-ebs-ui";
+import { Card, Container, Row, Col } from "ebs-design";
 
 export const Dashboard: React.FC = () => {
   const { data: users } = useFetchQuery("users");

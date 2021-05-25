@@ -14,6 +14,7 @@ export { UserFormModal } from "./Users/UserFormModal";
 export { Dashboard } from "./Dashboard/Dashboard";
 export { Users } from "./Users/Users";
 export { Posts } from "./Posts/Posts";
+export { Tasks } from "./Tasks/Tasks";
 
 //single user/post
 
@@ -23,6 +24,11 @@ export { SinglePost } from "./Posts/SinglePost";
 //add post page
 export { NewPostForm } from "./Posts/NewPostForm";
 export { EditPost } from "./Posts/EditPost";
+
+//taskform
+export { TaskForm } from "./Tasks/TaskForm";
+export { EditTask } from "./Tasks/EditTask";
+export { TaskList } from "./Tasks/TaskList";
 
 //Recharts
 export { LineChartPost } from "./Dashboard/Rechart/LineChartPost";

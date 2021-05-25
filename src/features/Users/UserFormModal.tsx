@@ -2,13 +2,7 @@ import CloseIcon from "@material-ui/icons/Close";
 import { useEffect } from "react";
 import { useMutation } from "react-query";
 import { axios } from "api";
-import {
-  Button,
-  Form,
-  Input,
-  Modal,
-  useForm,
-} from "@ebs-integrator/react-ebs-ui";
+import { Button, Form, Input, Modal, useForm } from "ebs-design";
 import { User } from "types/interfaces";
 
 type Props = {

@@ -12,7 +12,7 @@ import {
   InputPhone,
   DatePicker,
   Radio,
-} from "@ebs-integrator/react-ebs-ui";
+} from "ebs-design";
 import { Post } from "types/interfaces";
 
 type IdParams = {

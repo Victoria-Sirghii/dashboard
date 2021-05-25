@@ -2,6 +2,7 @@ import { NavLink } from "react-router-dom";
 import DashboardIcon from "@material-ui/icons/Dashboard";
 import PeopleIcon from "@material-ui/icons/People";
 import PostAddIcon from "@material-ui/icons/PostAdd";
+import FormatListBulletedIcon from "@material-ui/icons/FormatListBulleted";
 
 export const Sidebar: React.FC = () => {
   return (
@@ -49,6 +50,16 @@ export const Sidebar: React.FC = () => {
               activeClassName="active"
             >
               Posts
+            </NavLink>
+          </li>
+          <li className="d-flex">
+            <FormatListBulletedIcon className="menu-icon color-gray" />
+            <NavLink
+              to="/dashboard/tasks"
+              className="link color-black"
+              activeClassName="active"
+            >
+              Tasks
             </NavLink>
           </li>
         </ul>

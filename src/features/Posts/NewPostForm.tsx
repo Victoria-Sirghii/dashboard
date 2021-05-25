@@ -13,7 +13,7 @@ import {
   Radio,
   DatePicker,
   InputPhone,
-} from "@ebs-integrator/react-ebs-ui";
+} from "ebs-design";
 import { Post } from "types/interfaces";
 
 export const NewPostForm: React.FC = () => {

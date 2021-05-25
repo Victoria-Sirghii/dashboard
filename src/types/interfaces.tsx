@@ -16,6 +16,16 @@ export interface Post {
   sex: string;
 }
 
+export interface Task {
+  id: number;
+  user: "string";
+  date: "string";
+  task: "string";
+  comments: "string";
+  deadline: "string";
+  priority: "string";
+}
+
 export interface Sort {
   title: React.ReactNode;
   value: string;

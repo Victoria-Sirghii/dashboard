@@ -1218,23 +1218,6 @@
   resolved "https://registry.yarnpkg.com/@csstools/normalize.css/-/normalize.css-10.1.0.tgz#f0950bba18819512d42f7197e56c518aa491cf18"
   integrity sha512-ij4wRiunFfaJxjB0BdrYHIH8FxBJpOwNPhhAcunlmPdXudL1WQV1qoP9un6JsEBAgQH+7UXyyjh0g7jTxXK6tg==
 
-"@ebs-integrator/react-ebs-ui@latest":
-  version "0.0.1-beta.47"
-  resolved "https://npm.pkg.github.com/download/@ebs-integrator/react-ebs-ui/0.0.1-beta.47/8c995db39caff234e74d035fd8e446f2e9a156ce8bcaa5df8a67d4d28c519bb1#b2d68b2f76c7e78fad85892266dc326a7fccdc5a"
-  integrity sha512-TbKUBz0WynBkqUP7bN+akX5mH+Z6ydXwZFSpUBFyLzxlN9IVrPrIm5o/A3As6JaC5HkPfRDm1AK1TULmcD55qQ==
-  dependencies:
-    classnames "^2.2.6"
-    dayjs "^1.9.4"
-    rc-field-form "^1.17.4"
-    rc-input-number "^6.1.1"
-    rc-table "^7.12.3"
-    rc-upload "^3.3.4"
-    react-animate-height "^2.0.23"
-    react-datepicker "^3.6.0"
-    react-phone-input-2 "^2.13.8"
-    react-popper-tooltip "^3.1.1"
-    react-use "^17.1.0"
-
 "@emotion/hash@^0.8.0":
   version "0.8.0"
   resolved "https://registry.yarnpkg.com/@emotion/hash/-/hash-0.8.0.tgz#bbbff68978fefdbe68ccb533bc8cbe1d1afb5413"
@@ -4699,6 +4682,23 @@ duplexify@^3.4.2, duplexify@^3.6.0:
     inherits "^2.0.1"
     readable-stream "^2.0.0"
     stream-shift "^1.0.0"
+
+ebs-design@^0.0.1-beta.51:
+  version "0.0.1-beta.51"
+  resolved "https://registry.yarnpkg.com/ebs-design/-/ebs-design-0.0.1-beta.51.tgz#f66ce8d8cdc500dbb7b458ec4494eb9b8583790a"
+  integrity sha512-Rt6csZjkKniJ9tUNpdcYIoXbqzhxyc5kDTDtUS0tnJVCftL767Z73eUXdL8JDTs3liLT5UUUjptlvvyDfX+0lA==
+  dependencies:
+    classnames "^2.2.6"
+    dayjs "^1.9.4"
+    rc-field-form "^1.17.4"
+    rc-input-number "^6.1.1"
+    rc-table "^7.12.3"
+    rc-upload "^3.3.4"
+    react-animate-height "^2.0.23"
+    react-datepicker "^3.6.0"
+    react-phone-input-2 "^2.13.8"
+    react-popper-tooltip "^3.1.1"
+    react-use "^17.1.0"
 
 ecc-jsbn@~0.1.1:
   version "0.1.2"

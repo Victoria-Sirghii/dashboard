@@ -1,13 +1,6 @@
 import { Link } from "react-router-dom";
 import { useCallback } from "react";
-import {
-  Button,
-  Card,
-  Input,
-  Container,
-  Form,
-  useForm,
-} from "@ebs-integrator/react-ebs-ui";
+import { Button, Card, Input, Container, Form, useForm } from "ebs-design";
 import { useLocalStorage } from "hooks";
 
 export interface User {

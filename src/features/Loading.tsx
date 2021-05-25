@@ -1,4 +1,4 @@
-import { Loader } from "@ebs-integrator/react-ebs-ui";
+import { Loader } from "ebs-design";
 
 interface LoadingProps {
   className?: string;

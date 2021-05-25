@@ -105,6 +105,9 @@ body,
 .p-20 {
   padding: 20px;
 }
+.p-5 {
+  padding: 5px;
+}
 
 .pl-5 {
   padding-left: 5px;
@@ -118,12 +121,18 @@ body,
 .mb-50 {
   margin-bottom: 50px;
 }
+.mb-80 {
+  margin-bottom: 80px;
+}
 .mt-50 {
   margin-top: 50px;
 }
 
 .m-5 {
   margin: 5px;
+}
+.ml-5 {
+  margin-left: 5px;
 }
 
 .m-10 {
@@ -138,4 +147,21 @@ body,
 }
 .mb-40 {
   margin-bottom: 30px;
+}
+
+.flow-auto {
+  overflow: inherit;
+}
+
+.list-relative {
+  position: relative;
+  bottom: 10px;
+  left: 126px;
+}
+
+.ebs-list-group {
+  border: none;
+}
+.ebs-list-group__item:not(:last-child) {
+  border: none;
 }
