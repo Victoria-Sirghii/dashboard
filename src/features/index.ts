@@ -29,6 +29,7 @@ export { EditPost } from "./Posts/EditPost";
 export { TaskForm } from "./Tasks/TaskForm";
 export { EditTask } from "./Tasks/EditTask";
 export { TaskList } from "./Tasks/TaskList";
+export { EditTaskList } from "./Tasks/EditTaskList";
 
 //Recharts
 export { LineChartPost } from "./Dashboard/Rechart/LineChartPost";

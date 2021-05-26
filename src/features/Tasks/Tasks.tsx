@@ -1,21 +1,27 @@
-import { Button, Table, SortBy, Label } from "ebs-design";
+import { Button, Table, SortBy, Label, Checkbox } from "ebs-design";
+import cn from "classnames";
 import { Link } from "react-router-dom";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { axios } from "api";
 import { useEffect, useState } from "react";
-import { Task, Sort } from "types/interfaces";
+import { Task, Sort, Subtask } from "types/interfaces";
 import { Loading } from "features";
-import { createReturn } from "typescript";
 
 type FilterType = keyof Task;
+
+interface UpdatedData {
+  id: number;
+  tasks: Subtask[];
+}
 
 export const Tasks: React.FC = () => {
   const queryClient = useQueryClient();
   const [totalPages, setTotalPages] = useState<number[]>([]);
   const [filter, setFilter] = useState<FilterType>();
   const [filterData, setFilterData] = useState([]);
+  const [checkTasks, setCheckTasks] = useState<any>({});
 
   const [page, setPage] = useState<number>(1);
 
@@ -46,12 +52,19 @@ export const Tasks: React.FC = () => {
     },
   });
 
-  const columns = [
+  const updateTask = useMutation(
+    (data: UpdatedData) =>
+      axios.patch(`/tasks/${data.id}`, {
+        tasks: data.tasks,
+      }),
     {
-      title: "User",
-      dataIndex: "user",
-      filter: "user",
-    },
+      onSuccess: () => {
+        queryClient.invalidateQueries("tasks");
+      },
+    }
+  );
+
+  const columns = [
     {
       title: "Start Date",
       dataIndex: "date",
@@ -59,11 +72,63 @@ export const Tasks: React.FC = () => {
     },
     {
       title: "Task",
-      render: (item: Task)=> {
-        item.tasks.map((list: any) => {
-          return (<div>{item.tasks[1]}</div>)
-        })
-      }
+      dataIndex: "tasks",
+      render: (items: Subtask[] = [], record: Subtask, rowIdx: number) => {
+        return items.map((item, taskIndex) => (
+          <div
+            className={cn("d-flex", { "tx-line": item.done })}
+            key={taskIndex}
+          >
+            <Checkbox
+              className="mr-5"
+              checked={checkTasks?.[rowIdx]?.[taskIndex]?.done || item.done}
+              onChange={(value) => {
+                setCheckTasks((prevState: any) => ({
+                  ...prevState,
+                  [rowIdx]: {
+                    ...prevState[rowIdx],
+                    [taskIndex]: {
+                      ...prevState?.[rowIdx]?.[taskIndex],
+                      done: value,
+                    },
+                  },
+                }));
+
+                updateTask.mutate({
+                  id: record.id,
+                  tasks: items.map((i) =>
+                    i.id === item.id ? { ...item, done: value } : i
+                  ),
+                });
+
+                // item.done = value;
+                // const updateData = filterData.map(
+                //   (itemData: any, iIdx: number) => {
+                //     if (idx === iIdx) {
+                //       return {
+                //         ...itemData,
+                //         tasks: itemData.tasks.map((task: any) => {
+                //           if (item.id === task.id) {
+                //             return {
+                //               ...task,
+                //               done: value,
+                //             };
+                //           }
+                //           return task;
+                //         }),
+                //       };
+                //     }
+                //     return itemData;
+                //   }
+                // );
+
+                // setFilterData(updateData);
+              }}
+            />
+            {item.task}
+          </div>
+        ));
+      },
     },
     {
       title: "Comments",
@@ -90,6 +155,11 @@ export const Tasks: React.FC = () => {
           />
         );
       },
+    },
+    {
+      title: "User",
+      dataIndex: "user",
+      filter: "user",
     },
     {
       title: "Edit",

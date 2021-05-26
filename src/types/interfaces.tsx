@@ -16,11 +16,17 @@ export interface Post {
   sex: string;
 }
 
+export interface Subtask {
+  task: string;
+  id: number;
+  done: boolean;
+}
+
 export interface Task {
   id: number;
   user: "string";
   date: "string";
-  tasks: {task: string, id: number}[];
+  tasks: Subtask[];
   comments: "string";
   deadline: "string";
   priority: "string";

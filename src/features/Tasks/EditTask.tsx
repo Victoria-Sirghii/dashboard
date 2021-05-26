@@ -1,6 +1,7 @@
 import { axios } from "api";
 import { useMutation, useQuery } from "react-query";
 import { Link, useHistory, useParams } from "react-router-dom";
+import AddIcon from "@material-ui/icons/Add";
 import {
   Button,
   Form,
@@ -10,10 +11,11 @@ import {
   InputSelect,
   DatePicker,
   Select,
+  Input,
 } from "ebs-design";
 import { Task, Post } from "types/interfaces";
-import { Loading } from "features";
-import { useEffect, useState } from "react";
+import { Loading, EditTaskList } from "features";
+import React, { useEffect, useState } from "react";
 
 type IdParams = {
   id: string;
@@ -22,6 +24,13 @@ type IdParams = {
 export const EditTask: React.FC = () => {
   const [search, setSearch] = useState<string>("");
   const [filterData, setFilterData] = useState([]);
+  const [tasksList, setTasksList] = useState<
+    {
+      task: string;
+      id: number;
+      done: boolean;
+    }[]
+  >([]);
 
   const [form] = useForm();
   let { id } = useParams<IdParams>();
@@ -44,9 +53,10 @@ export const EditTask: React.FC = () => {
   const { data = [], isLoading } = useQuery("tasks", async () => {
     const { data } = await axios.get(`tasks/${id}`);
 
+    setTasksList(data.tasks);
+
     form.setFieldsValue({
       date: data.date,
-      task: data.task,
       comments: data.comments,
       deadline: data.deadline,
       priority: data.priority,
@@ -65,6 +75,7 @@ export const EditTask: React.FC = () => {
   );
 
   const submitHandler = (data: Task) => {
+    data.tasks = tasksList;
     updateUser.mutate(data);
   };
 
@@ -81,6 +92,14 @@ export const EditTask: React.FC = () => {
     }
   }, [search]);
 
+  const addTask = () => {
+    setTasksList((prevState) => [
+      ...prevState,
+      { task: form.getFieldValue("tasks"), id: Date.now(), done: false },
+    ]);
+    form.resetFields(["tasks"]);
+  };
+
   if (isLoading) {
     return <Loading className="loading-center" />;
   }
@@ -88,7 +107,7 @@ export const EditTask: React.FC = () => {
   return (
     <div className="content-container">
       <Card className="d-flex flex-column width-400 mn-auto p-20 flow-auto">
-        <h2 className="h2__title">New Task</h2>
+        <h2 className="h2__title">Edit Task</h2>
         <Form
           className="form d-flex flex-column"
           onFinish={submitHandler}
@@ -101,9 +120,10 @@ export const EditTask: React.FC = () => {
           <Form.Field name="date" label="Start Date">
             <DatePicker type="date" dateFormat="dd-MM-yyyy" />
           </Form.Field>
-          <Form.Field name="task" label="Task">
-            <Textarea placeholder="fix all bugs" />
+          <Form.Field name="tasks" label="Task">
+            <Input suffix={<AddIcon type="check" onClick={addTask} />} />
           </Form.Field>
+          <EditTaskList tasksList={tasksList} setTasksList={setTasksList} />
           <Form.Field name="comments" label="Comments">
             <Textarea placeholder="data should be updated" />
           </Form.Field>
@@ -150,7 +170,8 @@ export const EditTask: React.FC = () => {
           </Form.Field>
           <div className="mn-auto">
             <Button
-              submit
+              // submit
+              onClick={() => form.submit()}
               size="medium"
               type="primary"
               className="pointer m-10"

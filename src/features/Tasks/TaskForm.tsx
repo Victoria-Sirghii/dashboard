@@ -51,16 +51,6 @@ export const TaskForm: React.FC = () => {
     }
   );
 
-  const submitHandler = useCallback(
-    (data: any) => {
-      data.task = tasksList
-      console.log(data)
-      mutation.mutate(data);
-      form.resetFields();
-    },
-    [form, mutation]
-  );
-
   useEffect(() => {
     if (search.length > 0) {
       setFilterData(
@@ -74,12 +64,21 @@ export const TaskForm: React.FC = () => {
     }
   }, [search]);
 
+  const submitHandler = useCallback(
+    (data: any) => {
+      data.tasks = tasksList;
+      mutation.mutate(data);
+      form.resetFields();
+    },
+    [form, mutation]
+  );
+
   const addTask = () => {
     setTasksList((prevState) => [
       ...prevState,
-      { task: form.getFieldValue("task"), id: Date.now() },
+      { task: form.getFieldValue("tasks"), id: Date.now(), done: false },
     ]);
-    form.resetFields(["task"]);
+    form.resetFields(["tasks"]);
   };
 
   if (isLoading) {
@@ -101,9 +100,8 @@ export const TaskForm: React.FC = () => {
           <Form.Field name="date" label="Start Date">
             <DatePicker type="date" dateFormat="dd-MM-yyyy" />
           </Form.Field>
-          <Form.Field name="task" label="Task">
+          <Form.Field name="tasks" label="Task">
             <Input suffix={<AddIcon type="check" onClick={addTask} />} />
-            {/* <Textarea placeholder="fix all bugs" /> */}
           </Form.Field>
           <TaskList tasksList={tasksList} setTasksList={setTasksList} />
           <Form.Field name="comments" label="Comments">

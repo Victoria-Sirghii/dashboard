@@ -63,6 +63,15 @@ body,
 .width-400 {
   width: 400px;
 }
+.width-230 {
+  width: 230px;
+}
+.width-190 {
+  width: 190px;
+}
+.width-90 {
+  width: 90px;
+}
 
 .fit-content {
   width: fit-content;
@@ -134,6 +143,9 @@ body,
 .ml-5 {
   margin-left: 5px;
 }
+.mr-5 {
+  margin-right: 5px;
+}
 
 .m-10 {
   margin: 10px;
@@ -164,4 +176,21 @@ body,
 }
 .ebs-list-group__item:not(:last-child) {
   border: none;
+}
+
+.tx-line {
+  text-decoration: line-through;
+}
+
+.input-inline {
+  border: 0;
+  border-bottom: 1px solid gray;
+  outline: none;
+}
+
+.d-block {
+  display: block;
+}
+.d-none {
+  display: none;
 }
