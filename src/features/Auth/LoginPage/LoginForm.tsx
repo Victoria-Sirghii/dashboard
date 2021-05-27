@@ -1,5 +1,7 @@
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { useCallback } from "react";
+import { useQuery } from "react-query";
+import axios from "api/axios";
 import { Button, Card, Input, Container, Form, useForm } from "ebs-design";
 import { useLocalStorage } from "hooks";
 
@@ -10,12 +12,26 @@ export interface User {
 
 export const LoginForm: React.FC = () => {
   const [form] = useForm();
+  let history = useHistory();
   const [, setStorage] = useLocalStorage();
 
+  const { data = [] } = useQuery("users", async () => {
+    const { data } = await axios.get("users");
+    return data;
+  });
+
   const handleSubmit = useCallback(
-    (data: any) => {
-      setStorage("user", data);
-      form.resetFields();
+    (user: any) => {
+      for (let i = 0; i < data.length; i++) {
+        if (
+          data[i].email === user.email ||
+          data[i].password === user.password
+        ) {
+          setStorage("userd", data[i].id);
+          form.resetFields();
+          history.push("/dashboard");
+        }
+      }
     },
     [form, setStorage]
   );

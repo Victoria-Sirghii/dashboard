@@ -5,7 +5,7 @@
 .btn-add-img {
   position: relative;
   top: -29px;
-  left: -42px;
+  left: 51px;
 }
 
 .ebs-button--ghost.ebs-button__wrapper {
@@ -13,6 +13,35 @@
   border-color: #afafaf;
   color: #494f7d;
 }
-.MuiSvgIcon-root .icon-ft-17 {
-  font-size: 17px;
+
+.pos-rel-right {
+  position: absolute;
+  right: 60px;
+}
+
+.dropdown {
+  position: absolute;
+  right: 60px;
+  top: 58px;
+  z-index: 1;
+}
+
+.menu-option {
+  color: #494f7d;
+  padding: 10px 15px;
+  &:hover {
+    background-color: #109cf1;
+    color: white;
+  }
+}
+
+.menu-header {
+  border-bottom: 1px solid rgb(194, 194, 194);
+}
+
+.dropdown-arrow {
+  position: absolute;
+  right: 65px;
+  top: 46px;
+  color: #e6e4e4;
 }

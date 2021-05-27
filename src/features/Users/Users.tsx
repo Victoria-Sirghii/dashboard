@@ -39,11 +39,6 @@ export const Users: React.FC = () => {
     setIsModalOpen(false);
   };
 
-  // const { data = [], isLoading } = useQuery("users", async () => {
-  //   const { data } = await axios.get("ged4PNnU/?token=L3NapX8oGdzcCmwkrBjHkQ");
-  //   console.log(data);
-  // });
-
   const { data = [], isLoading } = useQuery(
     ["users", page],
     async () => {
@@ -54,7 +49,7 @@ export const Users: React.FC = () => {
 
       setTotalPages(newArray);
 
-      return data.data;
+      return data;
     },
     {
       onSuccess: (res) => {
@@ -121,11 +116,11 @@ export const Users: React.FC = () => {
     },
     {
       title: "Name",
-      filter: "first_name",
+      filter: "firstName",
       render: (user: User) => (
         <Link to={`/dashboard/users/${user.id}`}>
           <span className="name name-center">
-            {user.first_name} {user.last_name}
+            {user.firstName} {user.lastName}
           </span>
         </Link>
       ),
@@ -134,6 +129,11 @@ export const Users: React.FC = () => {
       title: "Email",
       dataIndex: "email",
       filter: "email",
+    },
+    {
+      title: "Birthday",
+      dataIndex: "birthday",
+      filter: "birthday",
     },
     {
       title: "Edit",
@@ -171,8 +171,8 @@ export const Users: React.FC = () => {
       setFilterData(
         data.filter(
           (item: User) =>
-            item.first_name?.includes(searchItem) ||
-            item.last_name?.includes(searchItem) ||
+            item.firstName?.includes(searchItem) ||
+            item.lastName?.includes(searchItem) ||
             item.email?.includes(searchItem)
         )
       );

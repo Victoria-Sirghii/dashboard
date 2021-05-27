@@ -1,5 +1,10 @@
 import { Link } from "react-router-dom";
 import { useCallback } from "react";
+import { useMutation } from "react-query";
+import { axios } from "api";
+import { useHistory } from "react-router-dom";
+import { User } from "types/interfaces";
+
 import {
   Button,
   Card,
@@ -8,19 +13,28 @@ import {
   Form,
   DatePicker,
   useForm,
+  Upload,
 } from "ebs-design";
-import { useLocalStorage } from "hooks";
 
 export const RegisterForm: React.FC = () => {
   const [form] = useForm();
-  const [, setStorage] = useLocalStorage();
+  let history = useHistory();
+
+  const mutation = useMutation<unknown, unknown, Partial<User>>(
+    (bodyData) => axios.post("/users", bodyData),
+    {
+      onSuccess: () => {
+        history.push("/dashboard");
+      },
+    }
+  );
 
   const handleSubmit = useCallback(
     (data: any) => {
-      setStorage("data", data);
+      mutation.mutate(data);
       form.resetFields();
     },
-    [form, setStorage]
+    [form, mutation]
   );
 
   return (
@@ -79,6 +93,9 @@ export const RegisterForm: React.FC = () => {
             >
               <Input size="large" type="password" placeholder="Password" />
             </Form.Field>
+            <Upload action="http://localhost:3004/images">
+              <Button>Upload a picture with you</Button>
+            </Upload>
             <Button size="medium" type="primary" className="mtb-20" submit>
               Submit
             </Button>

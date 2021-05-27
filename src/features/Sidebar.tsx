@@ -3,20 +3,22 @@ import DashboardIcon from "@material-ui/icons/Dashboard";
 import PeopleIcon from "@material-ui/icons/People";
 import PostAddIcon from "@material-ui/icons/PostAdd";
 import FormatListBulletedIcon from "@material-ui/icons/FormatListBulleted";
+import { User } from "types/interfaces";
+import { useUser } from "context";
 
 export const Sidebar: React.FC = () => {
+  const { data }: any = useUser();
+
   return (
     <div>
       <h1 className="h1__title">SaaS Kit</h1>
       <div className="user-info d-flex">
-        <img
-          src="https://pbs.twimg.com/media/D8dDZukXUAAXLdY.jpg"
-          alt="random"
-          className="user-image"
-        />
+        <img src={data?.avatar} alt="random" className="user-image" />
         <div>
-          <p className="user-name">Sierra Ferguson</p>
-          <p className="user-email">s.ferguson@gmail.com</p>
+          <p className="user-name">
+            {data.firstName} {data.lastName}
+          </p>
+          <p className="user-email">{data.email}</p>
         </div>
       </div>
       <nav>

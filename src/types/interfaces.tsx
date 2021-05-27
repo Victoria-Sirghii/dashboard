@@ -1,8 +1,11 @@
 export interface User {
   id?: number;
-  first_name?: string;
-  last_name?: string;
+  firstName?: string;
+  lastName?: string;
+  birthday?: string;
   email?: string;
+  password?: string;
+  confirmation?: string;
   avatar?: string;
 }
 export interface Post {

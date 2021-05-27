@@ -20,8 +20,8 @@ export const UserFormModal: React.FC<Props> = ({
 
   useEffect(() => {
     form.setFieldsValue({
-      firstName: editUser?.first_name,
-      lastName: editUser?.last_name,
+      firstName: editUser?.firstName,
+      lastName: editUser?.lastName,
       email: editUser?.email,
       avatar: editUser?.avatar,
     });

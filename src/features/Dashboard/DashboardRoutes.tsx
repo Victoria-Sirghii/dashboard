@@ -10,6 +10,7 @@ import {
   SinglePost,
   TaskForm,
   EditTask,
+  Profile,
 } from "features";
 
 export const DashboardRoutes: React.FC = () => {
@@ -32,6 +33,9 @@ export const DashboardRoutes: React.FC = () => {
       </Route>
       <Route path="/dashboard/posts/:id">
         <SinglePost />
+      </Route>
+      <Route path="/dashboard/profile">
+        <Profile />
       </Route>
       <Route path="/dashboard/users">
         <Users />

@@ -117,8 +117,35 @@
       "id": 15
     }
   ],
+  "users": [
+    {
+      "id": 1,
+      "firstName": "Irina",
+      "lastName": "Ciolacu",
+      "birthday": "07-05-2021",
+      "email": "irina.ciolacu@gmail.com",
+      "password": "haha",
+      "confirmation": "haha",
+      "avatar": "https://pbs.twimg.com/media/D8dDZukXUAAXLdY.jpg"
+    },
+    {
+      "firstName": "Mihai",
+      "lastName": "Dinca",
+      "birthday": "15-05-2021",
+      "email": "miihaidinca@gdfdf",
+      "Password": "asas",
+      "confirmation": "asasasa",
+      "avatar": "https://pbs.twimg.com/media/D8dDZukXUAAXLdY.jpg",
+      "id": 2
+    }
+  ],
   "comments": [],
   "profile": {
-    "name": "typicode"
+    "firstName": "Mihai",
+    "lastName": "Dinca",
+    "birthday": "23-05-2021",
+    "email": "mihai.dinca@gmai.com",
+    "Password": "aaaaaaaaaaaaaaa",
+    "confirmation": "aaaaaaaaaaa"
   }
 }

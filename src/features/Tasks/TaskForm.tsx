@@ -132,7 +132,7 @@ export const TaskForm: React.FC = () => {
               ]}
             />
           </Form.Field>
-          <Form.Field name="user" label="User" className="">
+          <Form.Field name="user" label="User">
             <Select mode="single" placeholder="Select">
               <Select.Search onSearch={(value) => setSearch(value)} />
 
