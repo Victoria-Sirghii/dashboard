@@ -115,26 +115,6 @@
       "priority": "danger",
       "user": "Mihai Dodon",
       "id": 15
-    },
-    {
-      "date": "5/26/2021",
-      "tasks": [
-        {
-          "task": "rrrrrrr",
-          "id": 1622037592926,
-          "done": false
-        },
-        {
-          "task": "erere",
-          "id": 1622037595259,
-          "done": false
-        }
-      ],
-      "comments": "fgf",
-      "deadline": "30-04-2021",
-      "priority": "warning",
-      "user": "Irinel Ciolacu",
-      "id": 16
     }
   ],
   "comments": [],

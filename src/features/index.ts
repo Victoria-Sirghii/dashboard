@@ -1,6 +1,7 @@
 export { RegisterForm } from "./Auth/RegisterPage/RegisterForm";
 export { LoginForm } from "./Auth/LoginPage/LoginForm";
 export { DashboardContent } from "./Layout";
+export { Profile } from "./Profile";
 
 //components
 export { Sidebar } from "./Sidebar";
