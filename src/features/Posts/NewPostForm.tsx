@@ -30,7 +30,7 @@ export const NewPostForm: React.FC = () => {
   );
 
   const submitHandler = useCallback(
-    (data: any) => {
+    (data: Post) => {
       mutation.mutate(data);
       form.resetFields();
     },

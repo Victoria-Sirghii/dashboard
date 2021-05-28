@@ -1,15 +1,25 @@
 import { axios } from "api";
-import React, { ReactNode, useEffect } from "react";
+import React, { ReactNode } from "react";
 import { useContext } from "react";
 import { useQuery } from "react-query";
-import { User } from "types/interfaces";
 import { Loading } from "features";
+import { User } from "types/interfaces";
 
 interface IProps {
   children: ReactNode;
 }
 
-const AppContext = React.createContext<any>({});
+interface Context {
+  data: User;
+  userId: number | null;
+  refetch: () => void;
+}
+
+const AppContext = React.createContext<Context>({
+  data: {},
+  userId: null,
+  refetch: () => null,
+});
 
 const AppProvider = ({ children }: IProps) => {
   const userId = JSON.parse(`${localStorage.getItem("userId")}`);
@@ -18,10 +28,6 @@ const AppProvider = ({ children }: IProps) => {
     () => (Array.isArray(userId) ? userId[0] : null),
     [userId]
   );
-
-  useEffect(() => {
-    console.log(id);
-  }, [id]);
 
   const {
     data = {},

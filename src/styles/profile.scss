@@ -1,47 +1,9 @@
 .h2__title-border {
-  border-bottom: 1px solid rgb(194, 194, 194);
+  border-bottom: 1px solid $normal-color;
 }
 
 .btn-add-img {
   position: relative;
   top: -29px;
   left: 51px;
-}
-
-.ebs-button--ghost.ebs-button__wrapper {
-  background-color: white;
-  border-color: #afafaf;
-  color: #494f7d;
-}
-
-.pos-rel-right {
-  position: absolute;
-  right: 60px;
-}
-
-.dropdown {
-  position: absolute;
-  right: 60px;
-  top: 58px;
-  z-index: 1;
-}
-
-.menu-option {
-  color: #494f7d;
-  padding: 10px 15px;
-  &:hover {
-    background-color: #109cf1;
-    color: white;
-  }
-}
-
-.menu-header {
-  border-bottom: 1px solid rgb(194, 194, 194);
-}
-
-.dropdown-arrow {
-  position: absolute;
-  right: 65px;
-  top: 46px;
-  color: #e6e4e4;
 }

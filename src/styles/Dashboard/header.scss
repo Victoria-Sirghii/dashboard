@@ -23,3 +23,30 @@ $light-gray: rgb(204, 204, 204);
     }
   }
 }
+
+.dropdown {
+  position: absolute;
+  right: 60px;
+  top: 58px;
+  z-index: 1;
+}
+
+.menu-option {
+  color: #494f7d;
+  padding: 10px 15px;
+  &:hover {
+    background-color: $primary-color;
+    color: white;
+  }
+}
+
+.menu-header {
+  border-bottom: 1px solid $normal-color;
+}
+
+.dropdown-arrow {
+  position: absolute;
+  right: 65px;
+  top: 46px;
+  color: #e6e4e4;
+}

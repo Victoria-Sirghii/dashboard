@@ -4,21 +4,23 @@ import { useMutation } from "react-query";
 import { axios } from "api";
 import { Button, Form, Input, Modal, useForm } from "ebs-design";
 import { User } from "types/interfaces";
+import { useUser } from "context";
 
 type Props = {
   isModalOpen: boolean;
   closeModal: () => void;
   editUser: User | null;
-  refetch: () => void;
+  refetchTable: () => void;
 };
 
 export const UserFormModal: React.FC<Props> = ({
   isModalOpen,
   closeModal,
   editUser,
-  refetch,
+  refetchTable,
 }) => {
   const [form] = useForm();
+  const { refetch } = useUser();
 
   useEffect(() => {
     form.setFieldsValue({
@@ -42,12 +44,13 @@ export const UserFormModal: React.FC<Props> = ({
     {
       onSuccess: () => {
         closeModal();
+        refetchTable();
         refetch();
       },
     }
   );
 
-  const submitHandler = (data: any) => {
+  const submitHandler = (data: User) => {
     if (editUser) {
       // mutate = (bodyData) => axios.patch(`/users/${bodyData?.id}`, bodyData)
       updateUser.mutate(data);

@@ -19,7 +19,7 @@ export const HeaderContent: React.FC = () => {
 
   return (
     <div ref={ref} className="header">
-      <div className="d-flex header--center" id="portal">
+      <div className="d-flex header--center" id="portal-header">
         <div className="d-flex align-center pos-rel-right">
           <img
             src={data?.avatar}

@@ -22,7 +22,7 @@ export interface Post {
 export interface Subtask {
   task: string;
   id: number;
-  done: boolean;
+  done?: boolean;
 }
 
 export interface Task {

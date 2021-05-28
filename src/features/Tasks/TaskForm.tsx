@@ -13,9 +13,8 @@ import {
   DatePicker,
   Select,
   Input,
-  Icon,
 } from "ebs-design";
-import { Task, Post } from "types/interfaces";
+import { Task, User } from "types/interfaces";
 import { Loading, TaskList } from "features";
 
 export const TaskForm: React.FC = () => {
@@ -29,9 +28,9 @@ export const TaskForm: React.FC = () => {
   let history = useHistory();
 
   const { data = [], isLoading } = useQuery(
-    "posts",
+    "users",
     async () => {
-      const { data } = await axios.get("/posts");
+      const { data } = await axios.get("/users");
 
       return data;
     },
@@ -55,22 +54,22 @@ export const TaskForm: React.FC = () => {
     if (search.length > 0) {
       setFilterData(
         data.filter(
-          (post: Post) =>
-            post.firstName.includes(search) || post.lastName.includes(search)
+          (user: User) =>
+            user.firstName?.includes(search) || user.lastName?.includes(search)
         )
       );
     } else {
       setFilterData(data);
     }
-  }, [search]);
+  }, [search, data]);
 
   const submitHandler = useCallback(
-    (data: any) => {
+    (data: Task) => {
       data.tasks = tasksList;
       mutation.mutate(data);
       form.resetFields();
     },
-    [form, mutation]
+    [form, mutation, tasksList]
   );
 
   const addTask = () => {
@@ -118,15 +117,15 @@ export const TaskForm: React.FC = () => {
             <InputSelect
               options={[
                 {
-                  value: "info",
+                  value: "low",
                   text: "low",
                 },
                 {
-                  value: "warning",
+                  value: "medium",
                   text: "medium",
                 },
                 {
-                  value: "danger",
+                  value: "high",
                   text: "high",
                 },
               ]}
@@ -137,7 +136,7 @@ export const TaskForm: React.FC = () => {
               <Select.Search onSearch={(value) => setSearch(value)} />
 
               <Select.Options>
-                {filterData.map((user: Post) => (
+                {filterData.map((user: User) => (
                   <Select.Options.Item
                     key={user.id}
                     value={user.firstName + " " + user.lastName}

@@ -60,6 +60,9 @@ body,
 .space-between {
   justify-content: space-between;
 }
+.fl-center {
+  justify-content: center;
+}
 .align-center {
   align-items: center;
 }
@@ -184,11 +187,9 @@ body,
 .mr-5 {
   margin-right: 5px;
 }
-
 .m-10 {
   margin: 10px;
 }
-
 .mtb-20 {
   margin: 20px 0;
 }

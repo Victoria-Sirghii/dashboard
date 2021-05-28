@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
 import { useCallback } from "react";
 import { useMutation } from "react-query";
+import { AxiosResponse } from "axios";
 import { axios } from "api";
 import { useHistory } from "react-router-dom";
 import { User } from "types/interfaces";
-
 import {
   Button,
   Card,
@@ -15,22 +15,29 @@ import {
   useForm,
   Upload,
 } from "ebs-design";
+import { useUser } from "context";
+import { useLocalStorage } from "hooks";
 
 export const RegisterForm: React.FC = () => {
   const [form] = useForm();
   let history = useHistory();
+  const { refetch } = useUser();
+  const [, setStorage] = useLocalStorage();
 
-  const mutation = useMutation<unknown, unknown, Partial<User>>(
+  const mutation = useMutation<AxiosResponse<User>, unknown, Partial<User>>(
     (bodyData) => axios.post("/users", bodyData),
+
     {
-      onSuccess: () => {
+      onSuccess: (res) => {
         history.push("/dashboard");
+        setStorage("userId", res.data.id);
+        refetch();
       },
     }
   );
 
   const handleSubmit = useCallback(
-    (data: any) => {
+    (data: User) => {
       mutation.mutate(data);
       form.resetFields();
     },
@@ -80,7 +87,7 @@ export const RegisterForm: React.FC = () => {
               />
             </Form.Field>
             <Form.Field
-              name="Password"
+              name="password"
               label="Password"
               rules={[{ required: true }]}
             >
@@ -93,7 +100,7 @@ export const RegisterForm: React.FC = () => {
             >
               <Input size="large" type="password" placeholder="Password" />
             </Form.Field>
-            <Upload action="http://localhost:3004/images">
+            <Upload>
               <Button>Upload a picture with you</Button>
             </Upload>
             <Button size="medium" type="primary" className="mtb-20" submit>

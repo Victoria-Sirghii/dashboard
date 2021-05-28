@@ -13,17 +13,19 @@ import {
 } from "ebs-design";
 import { useLocalStorage } from "hooks";
 import { useUser } from "context";
+import { User } from "types/interfaces";
 
-export interface User {
+interface LogUser {
   email: string;
   password: string;
 }
 
 export const LoginForm: React.FC = () => {
   const [showAlert, setShowAlert] = useState(false);
+
+  const [, setStorage] = useLocalStorage();
   const [form] = useForm();
   let history = useHistory();
-  const [, setStorage] = useLocalStorage();
   const { refetch } = useUser();
 
   const { data = [] } = useQuery("users", async () => {
@@ -32,22 +34,21 @@ export const LoginForm: React.FC = () => {
   });
 
   const handleSubmit = useCallback(
-    (user: any) => {
-      for (let i = 0; i < data.length; i++) {
-        if (
-          data[i].email === user.email ||
-          data[i].password === user.password
-        ) {
-          setStorage("userId", data[i].id);
+    (user: LogUser) => {
+      data.find((item: User) => {
+        if (item.email === user.email && item.password === user.password) {
+          setStorage("userId", item.id);
           form.resetFields();
           history.push("/dashboard");
           refetch();
+          return item;
         } else {
           setShowAlert(true);
+          return item;
         }
-      }
+      });
     },
-    [form, setStorage]
+    [form, setStorage, data, history, refetch]
   );
 
   return (

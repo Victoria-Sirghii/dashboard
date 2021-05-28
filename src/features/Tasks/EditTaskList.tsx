@@ -1,8 +1,8 @@
-import { ListGroup, Checkbox } from "ebs-design";
-import cn from "classnames";
-import HighlightOffIcon from "@material-ui/icons/HighlightOff";
 import { useState } from "react";
+import { ListGroup, Checkbox } from "ebs-design";
+import HighlightOffIcon from "@material-ui/icons/HighlightOff";
 import EditIcon from "@material-ui/icons/Edit";
+import cn from "classnames";
 
 interface Props {
   tasksList: { task: string; id: number; done: boolean }[];
@@ -11,12 +11,20 @@ interface Props {
   ) => void;
 }
 
-export const EditTaskList: React.FC<Props> = ({ tasksList, setTasksList }) => {
-  const [checkTasks, setCheckTasks] = useState<any>({});
-  const [inputsShow, setInputsShow] = useState<any>({});
-  const [inputValue, setInputValue] = useState<string>("");
+interface CheckProp {
+  [key: number]: {
+    done: boolean;
+  };
+}
 
-  console.log(inputsShow);
+interface InputType {
+  [key: number]: boolean;
+}
+
+export const EditTaskList: React.FC<Props> = ({ tasksList, setTasksList }) => {
+  const [checkTasks, setCheckTasks] = useState<CheckProp>({});
+  const [inputsShow, setInputsShow] = useState<InputType>({});
+  const [inputValue, setInputValue] = useState<string>("");
 
   const removeTask = (id: number) => {
     const newList = tasksList.filter((item) => item.id !== id);
@@ -24,7 +32,7 @@ export const EditTaskList: React.FC<Props> = ({ tasksList, setTasksList }) => {
   };
 
   const showInput = (index: number) => {
-    setInputsShow((prevState: any) => ({
+    setInputsShow((prevState) => ({
       ...prevState,
       [index]: true,
     }));
@@ -47,7 +55,7 @@ export const EditTaskList: React.FC<Props> = ({ tasksList, setTasksList }) => {
           return item;
         })
       );
-      setInputsShow((prevState: any) => ({
+      setInputsShow((prevState) => ({
         ...prevState,
         [index]: false,
       }));
@@ -69,7 +77,7 @@ export const EditTaskList: React.FC<Props> = ({ tasksList, setTasksList }) => {
                 <Checkbox
                   checked={checkTasks?.[index]?.done || item.done}
                   onChange={(value) => {
-                    setCheckTasks((prevState: any) => ({
+                    setCheckTasks((prevState) => ({
                       ...prevState,
                       [index]: {
                         ...prevState?.[index],

@@ -47,7 +47,8 @@
       "age": 4,
       "birthday": "13-05-2021",
       "phone": "376",
-      "id": 14
+      "id": 14,
+      "sex": "m"
     },
     {
       "firstName": "Anna",
@@ -62,99 +63,105 @@
   ],
   "tasks": [
     {
-      "date": "5/25/2021",
+      "date": "5/28/2021",
       "tasks": [
         {
-          "task": "Ai facut?lll",
-          "id": 1621970876592,
-          "done": true
-        },
-        {
-          "task": "de ce",
-          "id": 1622037511511,
-          "done": true
-        }
-      ],
-      "comments": "asas",
-      "deadline": "23-05-2021",
-      "priority": "warning",
-      "user": "Irinel Ciolacu",
-      "id": 13
-    },
-    {
-      "date": "5/26/2021",
-      "comments": "sss",
-      "deadline": "27-05-2021",
-      "priority": "info",
-      "user": "Ana Ciobanu",
-      "tasks": [
-        {
-          "task": "mancare",
-          "id": 1622023927575,
-          "done": true
-        },
-        {
-          "task": "curat",
-          "id": 1622024182213,
-          "done": true
-        }
-      ],
-      "id": 14
-    },
-    {
-      "date": "5/26/2021",
-      "tasks": [
-        {
-          "task": "sdsdjjj",
-          "id": 1622037067315,
+          "task": "invata react",
+          "id": 1622210273496,
           "done": false
         }
       ],
-      "comments": "ffffffffffffffff",
-      "deadline": "27-05-2021",
-      "priority": "danger",
-      "user": "Mihai Dodon",
-      "id": 15
+      "comments": "trebuiei",
+      "deadline": "03-06-2021",
+      "priority": "medium",
+      "user": "Ana Dincaa",
+      "id": 17
+    },
+    {
+      "date": "5/28/2021",
+      "tasks": [
+        {
+          "task": "sdsd",
+          "id": 1622211525305,
+          "done": false
+        }
+      ],
+      "comments": "sdsds",
+      "deadline": "25-05-2021",
+      "priority": "medium",
+      "user": "Maria Registru",
+      "id": 18
+    },
+    {
+      "date": "5/28/2021",
+      "tasks": [
+        {
+          "task": "invata react",
+          "id": 1622211885738,
+          "done": false
+        }
+      ],
+      "comments": "e un must",
+      "deadline": "05-06-2021",
+      "priority": "high",
+      "user": "Mihai Jack",
+      "id": 19
+    },
+    {
+      "date": "5/28/2021",
+      "tasks": [
+        {
+          "task": "inavat typescript",
+          "id": 1622212159361,
+          "done": false
+        }
+      ],
+      "priority": "low",
+      "id": 20,
+      "comments": "dadada",
+      "deadline": "05-06-2021",
+      "user": "Ana Dincaa"
     }
   ],
   "users": [
     {
-      "id": 1,
-      "firstName": "Ana",
-      "lastName": "Ciolacu",
-      "birthday": "07-05-2021",
-      "email": "irina.ciolacu@gmail.com",
-      "password": "haha",
-      "confirmation": "haha",
-      "avatar": "https://pbs.twimg.com/media/D8dDZukXUAAXLdY.jpg"
-    },
-    {
-      "firstName": "Mihai",
-      "lastName": "Dinca",
+      "firstName": "Ana-Maria",
+      "lastName": "Dincaa",
       "birthday": "15-05-2021",
-      "email": "mihaidinca@gmail.com",
-      "Password": "asas",
+      "email": "anadinca@gmail.com",
+      "password": "asas",
       "confirmation": "asasasa",
       "avatar": "https://pbs.twimg.com/media/D8dDZukXUAAXLdY.jpg",
       "id": 2
     },
     {
-      "firstName": "Mihaela",
-      "lastName": "Scripnic",
-      "birthday": "05-05-2021",
-      "email": "asas@gmai.com",
-      "Password": "asasa",
-      "confirmation": "asas",
+      "firstName": "Maria",
+      "lastName": "Registru",
+      "birthday": "19-05-2021",
+      "email": "maria.reg@gmail.com",
+      "password": "haha",
+      "confirmation": "haha",
       "id": 3
+    },
+    {
+      "firstName": "Mihai",
+      "lastName": "Jack",
+      "birthday": "25-05-2021",
+      "email": "mihai.jack@gmail.com",
+      "password": "haha",
+      "confirmation": "haha",
+      "id": 4
+    },
+    {
+      "firstName": "Irina",
+      "lastName": "Careva",
+      "birthday": "19-05-2021",
+      "email": "irina@gmail.com",
+      "password": "haha",
+      "confirmation": "haha",
+      "id": 5
     }
   ],
   "comments": [],
-  "profile": {
-    "firstName": "Mihai",
-    "lastName": "Dinca",
-    "birthday": "23-05-2021",
-    "email": "mihai.dinca@gmai.com",
-    "Password": "aaaaaaaaaaaaaaa",
-    "confirmation": "aaaaaaaaaaa"
-  }
+  "profile": {}
 }

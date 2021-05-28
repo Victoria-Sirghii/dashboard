@@ -21,7 +21,6 @@ export const Users: React.FC = () => {
   const [totalPages, setTotalPages] = useState<number[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editUser, setEditUser] = useState<Partial<User> | null>(null);
-
   const [filter, setFilter] = useState<FilterType>();
   const [checked, setChecked] = useState(false);
   const [checkeds, setCheckeds] = useState<Checks>({});
@@ -235,7 +234,7 @@ export const Users: React.FC = () => {
             isModalOpen={isModalOpen}
             closeModal={closeModal}
             editUser={editUser}
-            refetch={refetch}
+            refetchTable={refetch}
           />
         )}
         <div className="box-btns d-flex">

@@ -10,10 +10,16 @@ import { Task, Sort, Subtask } from "types/interfaces";
 import { Loading } from "features";
 
 type FilterType = keyof Task;
+type LabelStatus = "success" | "warning" | "danger" | "info";
 
 interface UpdatedData {
   id: number;
   tasks: Subtask[];
+}
+interface CheckedStatus {
+  [key: number]: {
+    [key: number]: { done: boolean };
+  };
 }
 
 export const Tasks: React.FC = () => {
@@ -21,7 +27,7 @@ export const Tasks: React.FC = () => {
   const [totalPages, setTotalPages] = useState<number[]>([]);
   const [filter, setFilter] = useState<FilterType>();
   const [filterData, setFilterData] = useState([]);
-  const [checkTasks, setCheckTasks] = useState<any>({});
+  const [checkTasks, setCheckTasks] = useState<CheckedStatus>({});
 
   const [page, setPage] = useState<number>(1);
 
@@ -64,6 +70,12 @@ export const Tasks: React.FC = () => {
     }
   );
 
+  const taskStatuses: { [key: string]: LabelStatus } = {
+    low: "info",
+    medium: "warning",
+    high: "danger",
+  };
+
   const columns = [
     {
       title: "Start Date",
@@ -83,7 +95,7 @@ export const Tasks: React.FC = () => {
               className="mr-5"
               checked={checkTasks?.[rowIdx]?.[taskIndex]?.done || item.done}
               onChange={(value) => {
-                setCheckTasks((prevState: any) => ({
+                setCheckTasks((prevState) => ({
                   ...prevState,
                   [rowIdx]: {
                     ...prevState[rowIdx],
@@ -100,29 +112,6 @@ export const Tasks: React.FC = () => {
                     i.id === item.id ? { ...item, done: value } : i
                   ),
                 });
-
-                // item.done = value;
-                // const updateData = filterData.map(
-                //   (itemData: any, iIdx: number) => {
-                //     if (idx === iIdx) {
-                //       return {
-                //         ...itemData,
-                //         tasks: itemData.tasks.map((task: any) => {
-                //           if (item.id === task.id) {
-                //             return {
-                //               ...task,
-                //               done: value,
-                //             };
-                //           }
-                //           return task;
-                //         }),
-                //       };
-                //     }
-                //     return itemData;
-                //   }
-                // );
-
-                // setFilterData(updateData);
               }}
             />
             {item.task}
@@ -145,12 +134,8 @@ export const Tasks: React.FC = () => {
       render: (tasks: Task) => {
         return (
           <Label
-            status={tasks.priority as any}
-            text={
-              ((tasks.priority as any) === "info" && "low") ||
-              ((tasks.priority as any) === "warning" && "medium") ||
-              ((tasks.priority as any) === "danger" && "high")
-            }
+            status={taskStatuses[tasks.priority]}
+            text={tasks.priority}
             type="fill"
           />
         );
@@ -198,7 +183,7 @@ export const Tasks: React.FC = () => {
         );
       }
     }
-  }, [filter]);
+  }, [filter, data]);
 
   const sortOptions: Sort[] =
     columns

@@ -1,5 +1,3 @@
-import { axios } from "api";
-import { useQuery } from "react-query";
 import {
   Sidebar,
   Header,
@@ -10,7 +8,6 @@ import {
   FooterContent,
   HeaderContent,
 } from "features";
-import { User } from "types/interfaces";
 
 export const DashboardContent: React.FC = () => {
   return (

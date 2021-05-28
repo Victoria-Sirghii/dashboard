@@ -13,22 +13,22 @@ export const SingleUser: React.FC = () => {
 
   const { data, isLoading } = useQuery(["users", id], async () => {
     const { data } = await axios.get(`users/${id}`);
-    return data.data;
+    return data;
   });
 
   if (isLoading) {
     return <Loading className="loading-center" />;
   }
 
-  const { email, first_name, last_name, avatar } = data;
+  const { email, firstName, lastName, avatar } = data;
 
   return (
     <div className="content-container">
       <Card className="mn-auto p-20 width-400">
         <div className="d-flex flex-column align-center">
-          <img src={avatar} alt={last_name} className="avatar" />
+          <img src={avatar} alt={lastName} className="avatar" />
           <p className="user-name info">
-            {first_name} {last_name}
+            {firstName} {lastName}
           </p>
           <p>{email}</p>
         </div>

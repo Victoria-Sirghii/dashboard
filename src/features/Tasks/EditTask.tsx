@@ -13,7 +13,7 @@ import {
   Select,
   Input,
 } from "ebs-design";
-import { Task, Post } from "types/interfaces";
+import { Task, User } from "types/interfaces";
 import { Loading, EditTaskList } from "features";
 import React, { useEffect, useState } from "react";
 
@@ -23,7 +23,7 @@ type IdParams = {
 
 export const EditTask: React.FC = () => {
   const [search, setSearch] = useState<string>("");
-  const [filterData, setFilterData] = useState([]);
+  const [filterData, setFilterData] = useState<User[]>([]);
   const [tasksList, setTasksList] = useState<
     {
       task: string;
@@ -37,9 +37,9 @@ export const EditTask: React.FC = () => {
   let history = useHistory();
 
   const users = useQuery(
-    "posts",
+    "users",
     async () => {
-      const { data } = await axios.get("/posts");
+      const { data } = await axios.get("/users");
 
       return data;
     },
@@ -65,7 +65,7 @@ export const EditTask: React.FC = () => {
     return data;
   });
 
-  const updateUser = useMutation<unknown, unknown, Partial<Post>>(
+  const updateUser = useMutation<unknown, unknown, Partial<Task>>(
     (bodyData) => axios.patch(`/tasks/${id}`, bodyData),
     {
       onSuccess: () => {
@@ -83,14 +83,14 @@ export const EditTask: React.FC = () => {
     if (search.length > 0) {
       setFilterData(
         users.data.filter(
-          (post: Post) =>
-            post.firstName.includes(search) || post.lastName.includes(search)
+          (user: User) =>
+            user.firstName?.includes(search) || user.lastName?.includes(search)
         )
       );
     } else {
       setFilterData(users.data);
     }
-  }, [search]);
+  }, [search, users.data]);
 
   const addTask = () => {
     setTasksList((prevState) => [
@@ -157,7 +157,7 @@ export const EditTask: React.FC = () => {
               <Select.Search onSearch={(value) => setSearch(value)} />
 
               <Select.Options>
-                {filterData.map((user: Post) => (
+                {filterData.map((user: User) => (
                   <Select.Options.Item
                     key={user.id}
                     value={user.firstName + " " + user.lastName}

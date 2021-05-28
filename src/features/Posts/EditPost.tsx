@@ -24,7 +24,7 @@ export const EditPost: React.FC = () => {
   let { id } = useParams<IdParams>();
   let history = useHistory();
 
-  const { data = [], isLoading } = useQuery("post", async () => {
+  const { isLoading } = useQuery("post", async () => {
     const { data } = await axios.get(`posts/${id}`);
 
     const { age, bio, birthday, firstName, sex, phone, lastName } = data;

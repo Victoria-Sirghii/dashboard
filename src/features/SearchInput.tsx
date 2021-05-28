@@ -7,6 +7,6 @@ export interface Search {
 }
 
 export const SearchInput: React.FC<Search> = ({ children, className }) => {
-  const target = usePortal("#portal", className);
+  const target = usePortal("#portal-header", className);
   return ReactDOM.createPortal(children, target);
 };

@@ -23,6 +23,7 @@ type FilterType = keyof Post;
 export const Posts: React.FC = () => {
   const queryClient = useQueryClient();
   const history = useHistory();
+
   const [filter, setFilter] = useState<FilterType>();
   const [checked, setChecked] = useState(false);
   const [checkeds, setCheckeds] = useState<Checks>({});
@@ -125,7 +126,6 @@ export const Posts: React.FC = () => {
           onClick={() => {
             setOpen(true);
             setUserDelete(posts.id);
-            // mutation.mutate(posts.id);
           }}
         />
       ),
@@ -144,7 +144,7 @@ export const Posts: React.FC = () => {
         );
       }
     }
-  }, [filter]);
+  }, [filter, data]);
 
   useEffect(() => {
     if (searchItem.length > 0) {

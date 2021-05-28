@@ -9,16 +9,16 @@ import {
 } from "ebs-design";
 import EditIcon from "@material-ui/icons/Edit";
 import { useEffect, useState } from "react";
+import { useMutation } from "react-query";
+import { useHistory, Link } from "react-router-dom";
 import { useUser } from "context";
 import { User } from "types/interfaces";
-import { useMutation } from "react-query";
 import { axios } from "api";
-import { useHistory } from "react-router-dom";
 
 export const Profile: React.FC = () => {
   const [form] = useForm();
-  const [userAvatar, setUserAvatar] = useState("");
-  const { data, id, refetch } = useUser();
+  const [userAvatar, setUserAvatar] = useState<string | undefined>();
+  const { data, userId, refetch } = useUser();
   let history = useHistory();
 
   useEffect(() => {
@@ -30,10 +30,10 @@ export const Profile: React.FC = () => {
       email: data.email,
       password: data.password,
     });
-  });
+  }, [data]);
 
   const updateUser = useMutation<unknown, unknown, Partial<User>>(
-    (bodyData) => axios.patch(`/users/${id}`, bodyData),
+    (bodyData) => axios.patch(`/users/${userId}`, bodyData),
     {
       onSuccess: () => {
         history.push("/dashboard/users/?page=1");
@@ -86,14 +86,16 @@ export const Profile: React.FC = () => {
           <Form.Field name="password" label="Password">
             <Input size="medium" type="password" className="mb-20" />
           </Form.Field>
-          <Button
-            size="medium"
-            type="primary"
-            className="d-flex mn-auto width-150"
-            submit
-          >
-            Update Profile
-          </Button>
+          <div className="d-flex fl-center align-center">
+            <Button size="medium" type="primary" className="width-150" submit>
+              Update Profile
+            </Button>
+            <Link to="/dashboard/users">
+              <Button size="medium" type="ghost" className="pointer m-10">
+                Cancel
+              </Button>
+            </Link>
+          </div>
         </Form>
       </Card>
     </Container>
