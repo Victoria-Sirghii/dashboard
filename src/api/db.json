@@ -107,7 +107,7 @@
         {
           "task": "sdsdjjj",
           "id": 1622037067315,
-          "done": true
+          "done": false
         }
       ],
       "comments": "ffffffffffffffff",
@@ -120,7 +120,7 @@
   "users": [
     {
       "id": 1,
-      "firstName": "Irina",
+      "firstName": "Ana",
       "lastName": "Ciolacu",
       "birthday": "07-05-2021",
       "email": "irina.ciolacu@gmail.com",
@@ -132,11 +132,20 @@
       "firstName": "Mihai",
       "lastName": "Dinca",
       "birthday": "15-05-2021",
-      "email": "miihaidinca@gdfdf",
+      "email": "mihaidinca@gmail.com",
       "Password": "asas",
       "confirmation": "asasasa",
       "avatar": "https://pbs.twimg.com/media/D8dDZukXUAAXLdY.jpg",
       "id": 2
+    },
+    {
+      "firstName": "Mihaela",
+      "lastName": "Scripnic",
+      "birthday": "05-05-2021",
+      "email": "asas@gmai.com",
+      "Password": "asasa",
+      "confirmation": "asas",
+      "id": 3
     }
   ],
   "comments": [],

@@ -7,13 +7,13 @@ import { User } from "types/interfaces";
 import { useUser } from "context";
 
 export const Sidebar: React.FC = () => {
-  const { data }: any = useUser();
+  const { data } = useUser();
 
   return (
     <div>
       <h1 className="h1__title">SaaS Kit</h1>
       <div className="user-info d-flex">
-        <img src={data?.avatar} alt="random" className="user-image" />
+        <img src={data.avatar} alt="random" className="user-image" />
         <div>
           <p className="user-name">
             {data.firstName} {data.lastName}

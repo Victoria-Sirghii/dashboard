@@ -9,12 +9,14 @@ type Props = {
   isModalOpen: boolean;
   closeModal: () => void;
   editUser: User | null;
+  refetch: () => void;
 };
 
 export const UserFormModal: React.FC<Props> = ({
   isModalOpen,
   closeModal,
   editUser,
+  refetch,
 }) => {
   const [form] = useForm();
 
@@ -30,13 +32,18 @@ export const UserFormModal: React.FC<Props> = ({
   const mutation = useMutation<unknown, unknown, Partial<User | null>>(
     (bodyData) => axios.post("/users", bodyData),
     {
-      onSuccess: closeModal,
+      onSuccess: () => {
+        closeModal();
+      },
     }
   );
   const updateUser = useMutation<unknown, unknown, Partial<User | null>>(
-    (bodyData) => axios.patch(`/users/${bodyData?.id}`, bodyData),
+    (bodyData) => axios.patch(`/users/${editUser?.id}`, bodyData),
     {
-      onSuccess: closeModal,
+      onSuccess: () => {
+        closeModal();
+        refetch();
+      },
     }
   );
 

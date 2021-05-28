@@ -39,7 +39,11 @@ export const Users: React.FC = () => {
     setIsModalOpen(false);
   };
 
-  const { data = [], isLoading } = useQuery(
+  const {
+    data = [],
+    isLoading,
+    refetch,
+  } = useQuery(
     ["users", page],
     async () => {
       const { data } = await axios.get("users?page=" + page);
@@ -231,6 +235,7 @@ export const Users: React.FC = () => {
             isModalOpen={isModalOpen}
             closeModal={closeModal}
             editUser={editUser}
+            refetch={refetch}
           />
         )}
         <div className="box-btns d-flex">

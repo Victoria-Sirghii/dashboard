@@ -4,11 +4,11 @@ import { Card, Container, Row, Col } from "ebs-design";
 
 export const Dashboard: React.FC = () => {
   const { data: users } = useFetchQuery("users");
-  const { data: post, isLoading } = useFetchQuery("post");
+  const { data: post, isLoading } = useFetchQuery("posts");
 
   return (
     <>
-      {isLoading ? (
+      {/* {isLoading ? (
         <Loading className="loading-center" />
       ) : (
         <Container className="dashboard-container">
@@ -40,7 +40,7 @@ export const Dashboard: React.FC = () => {
             </Col>
           </Row>
         </Container>
-      )}
+      )} */}
     </>
   );
 };

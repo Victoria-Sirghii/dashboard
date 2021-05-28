@@ -1,7 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useQuery } from "react-query";
 import { Card } from "ebs-design";
-import CSS from "csstype";
 import { axios } from "api";
 import { Loading } from "features";
 

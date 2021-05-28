@@ -7,17 +7,19 @@ import {
   DatePicker,
   useForm,
 } from "ebs-design";
-
 import EditIcon from "@material-ui/icons/Edit";
 import { useEffect, useState } from "react";
-import { useQuery } from "react-query";
-import { axios } from "api";
 import { useUser } from "context";
+import { User } from "types/interfaces";
+import { useMutation } from "react-query";
+import { axios } from "api";
+import { useHistory } from "react-router-dom";
 
 export const Profile: React.FC = () => {
   const [form] = useForm();
   const [userAvatar, setUserAvatar] = useState("");
-  const { data } = useUser();
+  const { data, id, refetch } = useUser();
+  let history = useHistory();
 
   useEffect(() => {
     setUserAvatar(data.avatar);
@@ -28,13 +30,31 @@ export const Profile: React.FC = () => {
       email: data.email,
       password: data.password,
     });
-  }, [data]);
+  });
+
+  const updateUser = useMutation<unknown, unknown, Partial<User>>(
+    (bodyData) => axios.patch(`/users/${id}`, bodyData),
+    {
+      onSuccess: () => {
+        history.push("/dashboard/users/?page=1");
+        refetch();
+      },
+    }
+  );
+
+  const submitHandler = (user: User) => {
+    updateUser.mutate(user);
+  };
 
   return (
     <Container className="width-850 p-40">
       <Card className="p-80">
         <h2 className="h2__title-border mb-20">Public Profile</h2>
-        <Form className="width-400 mn-auto" form={form}>
+        <Form
+          className="width-400 mn-auto"
+          form={form}
+          onFinish={submitHandler}
+        >
           <div className="d-flex flex-column align-center">
             <h3 className="mb-20"> Profile picture</h3>
             <img

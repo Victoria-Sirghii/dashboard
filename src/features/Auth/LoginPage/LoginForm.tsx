@@ -1,9 +1,18 @@
 import { Link, useHistory } from "react-router-dom";
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import { useQuery } from "react-query";
 import axios from "api/axios";
-import { Button, Card, Input, Container, Form, useForm } from "ebs-design";
+import {
+  Button,
+  Card,
+  Input,
+  Container,
+  Form,
+  useForm,
+  Alert,
+} from "ebs-design";
 import { useLocalStorage } from "hooks";
+import { useUser } from "context";
 
 export interface User {
   email: string;
@@ -11,9 +20,11 @@ export interface User {
 }
 
 export const LoginForm: React.FC = () => {
+  const [showAlert, setShowAlert] = useState(false);
   const [form] = useForm();
   let history = useHistory();
   const [, setStorage] = useLocalStorage();
+  const { refetch } = useUser();
 
   const { data = [] } = useQuery("users", async () => {
     const { data } = await axios.get("users");
@@ -27,9 +38,12 @@ export const LoginForm: React.FC = () => {
           data[i].email === user.email ||
           data[i].password === user.password
         ) {
-          setStorage("userd", data[i].id);
+          setStorage("userId", data[i].id);
           form.resetFields();
           history.push("/dashboard");
+          refetch();
+        } else {
+          setShowAlert(true);
         }
       }
     },
@@ -63,6 +77,13 @@ export const LoginForm: React.FC = () => {
             <Button size="medium" type="primary" submit className="mtb-20">
               Login
             </Button>
+            {showAlert && (
+              <Alert
+                message="Your email or password are not correct"
+                type="error"
+                className="mn-auto p-10 mb-10 "
+              />
+            )}
             <p className="text-center">
               Not a member?
               <Link to="/register" className="link link--color-blue">

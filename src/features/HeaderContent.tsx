@@ -1,5 +1,4 @@
 import { Icon, Card } from "ebs-design";
-import { User } from "types/interfaces";
 import { Link } from "react-router-dom";
 import { useState, useRef } from "react";
 import { useClickAway } from "react-use";
@@ -13,6 +12,10 @@ export const HeaderContent: React.FC = () => {
   useClickAway(ref, () => {
     setOpenMenu(false);
   });
+
+  const clearStorage = () => {
+    localStorage.clear();
+  };
 
   return (
     <div ref={ref} className="header">
@@ -44,6 +47,9 @@ export const HeaderContent: React.FC = () => {
                 <ul>
                   <Link to="/dashboard/profile">
                     <li className="menu-option">My profile</li>
+                  </Link>
+                  <Link to="/" onClick={clearStorage}>
+                    <li className="menu-option">Log out</li>
                   </Link>
                 </ul>
               </Card>
